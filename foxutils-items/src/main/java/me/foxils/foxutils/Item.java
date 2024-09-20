@@ -3,65 +3,83 @@ package me.foxils.foxutils;
 import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class Item {
+
+    protected final Plugin plugin;
 
     private final ItemStack item;
     private final String name;
+    private final String itemKeyString;
     private final int customModelData;
 
     private final List<ItemAbility> abilityList;
     private FoxCraftingRecipe recipe;
     
-    private static final NamespacedKey itemConfirmationKey = new NamespacedKey(Items.getInstance(), "itemkey");
+    public static final NamespacedKey itemConfirmationKey = new NamespacedKey(Items.getInstance(), "fox_item");
     private final NamespacedKey itemKey;
 
     // Material (what the custom item looks like), Name (what the item is called/actually named as), itemKey (refrence to the item internally, for example in the ItemRegistry class), ItemsForRecipe (self-explanatory), shapedRecipe (self-explanatory)
-    public Item(Material material, int customModelData, String name, NamespacedKey itemKey, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+    public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+        this.plugin = plugin;
+
         this.item = new ItemStack(material);
         this.name = name;
         this.customModelData = customModelData;
 
-        this.itemKey = itemKey;
+        this.itemKeyString = ChatColor.stripColor(name).replace(" ", "_").toLowerCase();
+        this.itemKey = new NamespacedKey(plugin, itemKeyString);
 
         this.abilityList = abilityList;
         recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
     }
 
-    public Item(Material material, String name, NamespacedKey itemKey, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+    public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+        this.plugin = plugin;
+
         this.item = new ItemStack(material);
         this.name = name;
         this.customModelData = 0;
 
-        this.itemKey = itemKey;
+        this.itemKeyString = ChatColor.stripColor(name).replace(" ", "_").toLowerCase();
+        this.itemKey = new NamespacedKey(plugin, itemKeyString);
 
         this.abilityList = abilityList;
         recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
     }
 
-    public Item(Material material, int customModelData, String name, NamespacedKey itemKey, List<ItemAbility> abilityList) {
+    public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList) {
+        this.plugin = plugin;
+
         this.item = new ItemStack(material);
         this.name = name;
         this.customModelData = customModelData;
 
-        this.itemKey = itemKey;
+        this.itemKeyString = ChatColor.stripColor(name).replace(" ", "_").toLowerCase();
+        this.itemKey = new NamespacedKey(plugin, itemKeyString);
 
         this.abilityList = abilityList;
         this.recipe = null;
     }
 
-    public Item(Material material, String name, NamespacedKey itemKey, List<ItemAbility> abilityList) {
+    public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList) {
+        this.plugin = plugin;
+
         this.item = new ItemStack(material);
         this.name = name;
         this.customModelData = 0;
 
-        this.itemKey = itemKey;
+        this.itemKeyString = ChatColor.stripColor(name).replace(" ", "_").toLowerCase();
+        this.itemKey = new NamespacedKey(plugin, itemKeyString);
 
         this.abilityList = abilityList;
         this.recipe = null;

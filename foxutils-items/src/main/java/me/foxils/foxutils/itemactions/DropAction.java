@@ -15,9 +15,11 @@ public interface DropAction extends Listener {
         if (!(ItemRegistry.getItemFromItemStack(droppedItem) instanceof DropAction ItemUsed)) {
             return;
         }
-        // Above makes sure that the item used to mine the block implements this method, and fires the onBlockMine event for it
+        // Above makes sure that the item dropped is actually an item that should fire the drop ability
         event.setCancelled(true);
+        // Stops item from being dropped because why would you want that if your using it for an ability
         ItemUsed.dropItemAction(event, droppedItem);
+        // Fires the method that allows the item to detect the ability
     }
 
     void dropItemAction(PlayerDropItemEvent event, ItemStack itemUsed);

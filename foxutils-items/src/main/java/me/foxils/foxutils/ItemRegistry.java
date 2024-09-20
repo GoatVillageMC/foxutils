@@ -56,7 +56,7 @@ public final class ItemRegistry {
             return null;
         }
 
-        String itemKeyString = ItemUtils.getStringDataFromWeaponKey(new NamespacedKey(plugin, "itemkey"), item);
+        String itemKeyString = ItemUtils.getStringDataFromWeaponKey(Item.itemConfirmationKey, item);
 
         if (itemKeyString == null) {
             return null;
