@@ -1,0 +1,6 @@
+name: foxutils-data
+version: '1.0-SNAPSHOT'
+main: me.foxils.foxutils.Datas
+api-version: '1.21'
+load: STARTUP
+authors: [ Foxils @foxils. on Discord ]
