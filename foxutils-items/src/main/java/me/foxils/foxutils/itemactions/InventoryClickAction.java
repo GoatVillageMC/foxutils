@@ -1,13 +1,9 @@
 package me.foxils.foxutils.itemactions;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
-public interface InventoryClickAction extends Listener {
+public interface InventoryClickAction {
 
-    @EventHandler
-    default void on(InventoryClickEvent event) {
-        //handle it
-    }
+    void onInvetoryPull(InventoryClickEvent event, ItemStack itemStack);
 }

@@ -1,7 +1,12 @@
 package me.foxils.foxutils.utilities;
 
+import me.foxils.foxutils.Item;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -38,14 +43,11 @@ public final class ItemUtils {
     }
 
     public static ItemStack addItemLore(ItemStack item, List<String> lore) {
-        ItemMeta meta = item.getItemMeta();
+        ItemMeta itemMeta = item.getItemMeta();
+        assert itemMeta != null;
 
-        if (meta == null) {
-            return item;
-        }
-
-        meta.setLore(lore);
-        item.setItemMeta(meta);
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
 
         return item;
     }
@@ -98,12 +100,44 @@ public final class ItemUtils {
         return dataContainer.get(key, type);
     }
 
+    public static boolean isFoxItem(ItemStack itemStack) {
+        String getConfirmationResult = getStringDataFromWeaponKey(Item.itemConfirmationKey, itemStack);
+
+        return getConfirmationResult != null;
+    }
+
     public static String getStringDataFromWeaponKey(NamespacedKey key, ItemStack item) {
         return getDataOfType(PersistentDataType.STRING, key, item);
     }
 
     public static Integer getIntegerDataFromWeaponKey(NamespacedKey key, ItemStack item) {
         return getDataOfType(PersistentDataType.INTEGER, key, item);
+    }
+
+    public static boolean getCooldown(NamespacedKey key, ItemStack item, int cooldown, Player player, TextComponent successMessage) {
+        Double timeNow = (double) (System.currentTimeMillis() / 1000);
+        Double timeLastUsed = getDataOfType(PersistentDataType.DOUBLE, key, item);
+
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.75F);
+        // Should also implement the "Wait for cooldown, etc" but will wait until bar api is written because
+        // then I don't have to rewrite stuff.
+        // Actually nvm
+
+        if (timeLastUsed == null) {
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
+            storeDataOfType(PersistentDataType.DOUBLE, timeNow, key, item);
+            return false;
+        } else if ((timeNow - timeLastUsed) >= cooldown) {
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
+            storeDataOfType(PersistentDataType.DOUBLE, timeNow, key, item);
+            return false;
+        } else {
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.5F);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(org.bukkit.ChatColor.DARK_RED + "" + org.bukkit.ChatColor.BOLD + "Wait for cooldown"));
+            return true;
+        }
     }
 
     public static boolean getCooldown(NamespacedKey key, ItemStack item, int cooldown) {
@@ -120,7 +154,5 @@ public final class ItemUtils {
             return true;
         }
     }
-
-
 
 }

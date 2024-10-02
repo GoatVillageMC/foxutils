@@ -10,8 +10,13 @@ public class FoxCraftingRecipe {
     // Actual recipe as registered in bukkit
     private final CraftingRecipe convertedRecipe;
 
-    // Self explanatory
+    // Self-explanatory
     public FoxCraftingRecipe(List<ItemStack> items, NamespacedKey key, ItemStack item, boolean shapedRecipe) {
+        if (items == null || items.isEmpty()) {
+            convertedRecipe = null;
+            return;
+        }
+
         if (shapedRecipe) {
             convertedRecipe = new ShapedRecipe(key, item);
             setShapedRecipe(items);

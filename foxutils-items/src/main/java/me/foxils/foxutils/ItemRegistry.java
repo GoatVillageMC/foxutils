@@ -1,13 +1,15 @@
 package me.foxils.foxutils;
 
+import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.inventory.Recipe;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
@@ -15,7 +17,6 @@ public final class ItemRegistry {
 
     //prettey simple you can probably get the jist of it
 
-    private static final Plugin plugin = Items.getInstance();
     private static final HashMap<NamespacedKey, Item> registeredItems = new HashMap<>();
 
     private ItemRegistry() {
@@ -23,20 +24,25 @@ public final class ItemRegistry {
     }
 
     public static void registerItem(Item item) {
-        plugin.getLogger().info("registered" + item.getName());
+        final NamespacedKey itemKey = item.getKey();
 
-        registeredItems.put(item.getKey(), item);
+        registeredItems.put(itemKey, item);
 
-        if (item instanceof Listener listenerItem) {
-            plugin.getServer().getPluginManager().registerEvents(listenerItem, plugin);
-        }
+        Bukkit.getLogger().info("Registered: " + itemKey.getKey());
 
         // should probably move to the FoxCraftingRecipe Class
         // made more sense here earlier
-        if (item.getRecipe() == null) {
+        final FoxCraftingRecipe itemRecipe = item.getRecipe();
+
+        if (itemRecipe == null) {
             return;
         }
-        Bukkit.addRecipe(item.getRecipe().getConvertedRecipe());
+
+        final Recipe bukkitRecipe = itemRecipe.getConvertedRecipe();
+
+        if (bukkitRecipe == null) return;
+
+        Bukkit.addRecipe(bukkitRecipe);
     }
 
     public static Item getItemFromKey(NamespacedKey key) {
@@ -73,5 +79,13 @@ public final class ItemRegistry {
         }
 
         return registeredItems.get(itemKey);
+    }
+
+    public static Collection<Item> getRegisteredGems() {
+        ArrayList<Item> items = new ArrayList<>();
+
+        registeredItems.values().forEach(items::add);
+
+        return items;
     }
 }
