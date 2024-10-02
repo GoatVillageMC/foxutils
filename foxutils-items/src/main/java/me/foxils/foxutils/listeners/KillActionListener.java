@@ -10,6 +10,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KillActionListener implements Listener {
 
@@ -27,15 +31,18 @@ public class KillActionListener implements Listener {
 
         PlayerInventory killerInventory = playerKiller.getInventory();
 
-        for (ItemStack itemUsed : killerInventory.getContents()) {
+        final List<ItemStack> itemsUsedToKill = new ArrayList<>();
+
+        itemsUsedToKill.add(killerInventory.getItemInMainHand());
+        itemsUsedToKill.add(killerInventory.getItemInOffHand());
+
+        itemsUsedToKill.forEach(itemUsed -> {
             if (itemUsed == null) return;
             if (itemUsed.getType().equals(Material.AIR)) return;
 
-            if (!(ItemRegistry.getItemFromItemStack(itemUsed) instanceof KillAction killActionItem)) {
-                continue;
-            }
+            if (!(ItemRegistry.getItemFromItemStack(itemUsed) instanceof KillAction killActionItem)) return;
 
             killActionItem.killAction(event, itemUsed);
-        }
+        });
     }
 }
