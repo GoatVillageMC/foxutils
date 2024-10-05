@@ -11,7 +11,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -97,7 +96,6 @@ public class Item implements InventoryClickAction, DropAction {
     @Override
     public void onInvetoryPull(InventoryClickEvent event, ItemStack itemStack) {
         if (event.getClickedInventory() == null) return;
-        System.out.println(event.getSlotType() == InventoryType.SlotType.RESULT);
         if (event.getSlotType() == InventoryType.SlotType.RESULT) return;
         if (event.getView().getTopInventory().getType() != InventoryType.CRAFTING) {
             event.setCancelled(true);

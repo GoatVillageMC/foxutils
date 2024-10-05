@@ -39,7 +39,7 @@ public final class Items extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ClickActionsListener(), this);
         getServer().getPluginManager().registerEvents(new DoubleJumpListener(), this);
         getServer().getPluginManager().registerEvents(new DropActionListener(), this);
-        getServer().getPluginManager().registerEvents(new InventoryClickActionListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickActionListener(this), this);
         getServer().getPluginManager().registerEvents(new KillActionListener(), this);
         getServer().getPluginManager().registerEvents(new MineActionListener(), this);
         getServer().getPluginManager().registerEvents(new TakeDamageActionListener(), this);

@@ -16,12 +16,10 @@ public class AttackActionListener implements Listener {
             return;
         }
 
-        for (ItemStack itemUsed : attacker.getInventory().getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(itemUsed) instanceof AttackAction attackActionItem)) {
-                continue;
-            }
+        ItemStack itemUsedToAttack = attacker.getInventory().getItemInMainHand();
 
-            attackActionItem.attackAction(event, itemUsed);
-        }
+        if (!(ItemRegistry.getItemFromItemStack(itemUsedToAttack) instanceof AttackAction attackActionItem)) return;
+
+        attackActionItem.attackAction(event, itemUsedToAttack);
     }
 }

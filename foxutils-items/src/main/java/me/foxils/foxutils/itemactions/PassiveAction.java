@@ -2,6 +2,7 @@ package me.foxils.foxutils.itemactions;
 
 import me.foxils.foxutils.ItemRegistry;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,9 +14,9 @@ public interface PassiveAction {
         for (Player player : Bukkit.getOnlinePlayers()) {
 
             for (ItemStack item : player.getInventory().getContents()) {
-                if (!(ItemRegistry.getItemFromItemStack(item) instanceof PassiveAction itemWithPassive)) {
-                    continue;
-                }
+                if (item == null || item.getType().equals(Material.AIR) || !item.hasItemMeta()) continue;
+
+                if (!(ItemRegistry.getItemFromItemStack(item) instanceof PassiveAction itemWithPassive)) continue;
 
                 itemWithPassive.passiveAction(player, item);
             }
