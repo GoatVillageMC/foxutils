@@ -32,31 +32,33 @@ public final class ClickActionsListener implements Listener {
             case LEFT_CLICK_AIR -> {
                 if (shifting) {
                     clickableItem.shiftLeftClickAir(event, itemInteracted);
-                    return;
+                    break;
                 }
                 clickableItem.leftClickAir(event, itemInteracted);
             }
             case LEFT_CLICK_BLOCK -> {
                 if (shifting) {
                     clickableItem.shiftLeftClickBlock(event, itemInteracted);
-                    return;
+                    break;
                 }
                 clickableItem.leftClickBlock(event, itemInteracted);
             }
             case RIGHT_CLICK_AIR -> {
                 if (shifting) {
                     clickableItem.shiftRightClickAir(event, itemInteracted);
-                    return;
+                    break;
                 }
                 clickableItem.rightClickAir(event, itemInteracted);
             }
             case RIGHT_CLICK_BLOCK -> {
                 if (shifting) {
                     clickableItem.shiftRightClickBlock(event, itemInteracted);
-                    return;
+                    break;
                 }
                 clickableItem.rightClickBlock(event, itemInteracted);
             }
         }
+
+        event.setCancelled(true);
     }
 }
