@@ -12,6 +12,7 @@ public enum ActionType {
     ATTACK("On-Attack"),
     MINE("On-Mine"),
     DROP("On-Drop"),
+    SWAP_HANDS("Swap Off-Hand"),
     CRAFT("On-Craft"),
     SHIFTDROP("Sneaking + On-Drop"),
     DOUBLEJUMP("Double Jump"),
