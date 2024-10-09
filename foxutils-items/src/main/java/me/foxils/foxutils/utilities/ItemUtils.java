@@ -6,7 +6,9 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -30,6 +32,16 @@ public final class ItemUtils {
         item.setItemMeta(itemMeta);
 
         return item;
+    }
+
+    public static void addEnchantGlint(ItemStack item) {
+        item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
+
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
     }
 
     public static ItemStack setCustomModelData(ItemStack item, int customModelData) {

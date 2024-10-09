@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/trest/pom.xml" />
         <option value="$PROJECT_DIR$/foxutils-items/pom.xml" />
         <option value="$PROJECT_DIR$/foxutils-data/pom.xml" />
+        <option value="$PROJECT_DIR$/foxutils-hud/pom.xml" />
       </list>
     </option>
   </component>

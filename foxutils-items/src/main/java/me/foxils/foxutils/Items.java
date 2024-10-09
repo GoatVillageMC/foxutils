@@ -1,5 +1,7 @@
 package me.foxils.foxutils;
 
+import me.foxils.foxutils.commands.Get;
+import me.foxils.foxutils.commands.GetItems;
 import me.foxils.foxutils.itemactions.HoldingItemAction;
 import me.foxils.foxutils.itemactions.PassiveAction;
 import me.foxils.foxutils.listeners.*;
@@ -9,15 +11,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public final class Items extends JavaPlugin {
 
     public static final List<Integer> taskIDs = new ArrayList<>();
-
     @Override
     public void onEnable() {
         scheduleTasks();
         registerEvents();
+        registerCommands();
     }
 
     @Override
@@ -31,6 +34,11 @@ public final class Items extends JavaPlugin {
                 Bukkit.getScheduler().scheduleSyncRepeatingTask(this, HoldingItemAction::holdActionCall, HoldingItemAction.holdActionInterval, HoldingItemAction.holdActionInterval)));
     }
 
+    private void registerCommands() {
+        Objects.requireNonNull(Bukkit.getPluginCommand("get")).setExecutor(new Get(this));
+        Objects.requireNonNull(Bukkit.getPluginCommand("getitems")).setExecutor(new GetItems());
+    }
+
     private void registerEvents() {
         // Bulk of this is done in the ItemRegistry.registerItem() method for items that implement interfaces that extend listeners
 
@@ -42,6 +50,7 @@ public final class Items extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryClickActionListener(this), this);
         getServer().getPluginManager().registerEvents(new KillActionListener(), this);
         getServer().getPluginManager().registerEvents(new MineActionListener(), this);
+        getServer().getPluginManager().registerEvents(new ShootActionListener(), this);
         getServer().getPluginManager().registerEvents(new SwapHandsActionListener(), this);
         getServer().getPluginManager().registerEvents(new TakeDamageActionListener(), this);
     }

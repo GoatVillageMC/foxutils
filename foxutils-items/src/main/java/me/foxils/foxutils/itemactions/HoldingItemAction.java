@@ -10,7 +10,7 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.Arrays;
 import java.util.List;
 
-public interface HoldingItemAction {
+public interface HoldingItemAction extends ActionInterface {
 
     int holdActionInterval = 5;
 

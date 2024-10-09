@@ -10,6 +10,8 @@ public enum ActionType {
     FULL_SET_BONUS("Full Set Bonus"),
     KILL("On-Kill"),
     ATTACK("On-Attack"),
+    SHOT("On-Shoot"),
+    LAUNCH("On-Launch"),
     MINE("On-Mine"),
     DROP("On-Drop"),
     SWAP_HANDS("Swap Off-Hand"),

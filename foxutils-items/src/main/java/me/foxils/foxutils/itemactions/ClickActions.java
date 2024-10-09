@@ -4,7 +4,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("unused")
-public interface ClickActions {
+public interface ClickActions extends ActionInterface {
 
     default void leftClickAir(PlayerInteractEvent event, ItemStack itemInteracted) {}
     default void shiftLeftClickAir(PlayerInteractEvent event, ItemStack itemInteracted) {}

@@ -1,5 +1,6 @@
 package me.foxils.foxutils.utilities;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 
@@ -32,6 +33,8 @@ public class FoxCraftingRecipe {
         ShapelessRecipe recipe = (ShapelessRecipe) convertedRecipe;
 
         for (ItemStack item : items) {
+            if (item == null || item.getType() == Material.AIR) continue;
+
             recipe.addIngredient(new RecipeChoice.MaterialChoice(item.getType()));
         }
     }
@@ -46,6 +49,8 @@ public class FoxCraftingRecipe {
 
         for (int i = 1; i < 10; i++) {
             ItemStack item = items.get(i-1);
+
+            if (item == null || item.getType() == Material.AIR) continue;
 
             recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.ExactChoice(item));
         }

@@ -58,7 +58,5 @@ public final class ClickActionsListener implements Listener {
                 clickableItem.rightClickBlock(event, itemInteracted);
             }
         }
-
-        event.setCancelled(true);
     }
 }

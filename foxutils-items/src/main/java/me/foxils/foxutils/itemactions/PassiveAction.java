@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public interface PassiveAction {
+public interface PassiveAction extends ActionInterface {
 
     int passiveTaskInterval = 5;
 

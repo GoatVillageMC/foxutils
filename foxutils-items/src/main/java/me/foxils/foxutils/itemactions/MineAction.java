@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 // (could use a better class name)
 
 // This is the main thing I want your opinion on
-public interface MineAction {
+public interface MineAction extends ActionInterface {
 
     void blockMineAction(BlockBreakEvent event, ItemStack itemUsed, ItemStack customItem);
 }
