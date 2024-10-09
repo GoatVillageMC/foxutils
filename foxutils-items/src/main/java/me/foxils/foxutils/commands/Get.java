@@ -25,19 +25,28 @@ public class Get implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
-        if (strings.length != 2 && !(commandSender instanceof Player)) {
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String commandName, String[] args) {
+        if (args.length == 0) {
+            commandSender.sendMessage("No arguments provided");
+            return true;
+        }
+        
+        if (args.length < 2 && !(commandSender instanceof Player)) {
             commandSender.sendMessage("No player provided to give item");
             return true;
         }
 
-        Player givePlayer;
+        final Player givePlayer;
 
-        if (strings.length == 1) {
+        if (args.length == 1) {
             givePlayer = (Player) commandSender;
         } else {
-            givePlayer = commandSender.getServer().getPlayer(strings[1]);
-            assert givePlayer != null;
+            givePlayer = commandSender.getServer().getPlayer(args[1]);
+        }
+
+        if (givePlayer == null) {
+            commandSender.sendMessage(args[1] + ChatColor.RED + " is not a valid player-name.");
+            return true;
         }
 
         PlayerInventory playerInventory = givePlayer.getInventory();
@@ -59,52 +68,51 @@ public class Get implements CommandExecutor {
             return true;
         }
 
-        pluginsThatDependOnItemsAPI.forEach(pluginThatDependOnItemsAPI -> {
-            if (pluginThatDependOnItemsAPI.isEnabled()) return;
+        final List<Plugin> pluginsThatRegisterItems = new ArrayList<>();
 
-            pluginsThatDependOnItemsAPI.remove(pluginThatDependOnItemsAPI);
+        pluginsThatDependOnItemsAPI.forEach(pluginThatDependOnItemsAPI -> {
+            if (!pluginThatDependOnItemsAPI.isEnabled()) return;
+
+            pluginsThatRegisterItems.add(pluginThatDependOnItemsAPI);
         });
 
-        final List<Plugin> pluginsThatRegisterItems = new ArrayList<>(pluginsThatDependOnItemsAPI);
-
         if (pluginsThatRegisterItems.isEmpty()) {
-            commandSender.sendMessage("" + ChatColor.RED + ChatColor.BOLD + "There are no plugins installed that successfully register items using foxutils, make sure they have initialized properly.");
+            commandSender.sendMessage("" + ChatColor.RED + ChatColor.BOLD + "There are no plugins installed that successfully register items using foxutils, make sure all plugins have initialized properly.");
             return true;
         }
 
         final List<Item> itemToCreateList = new ArrayList<>();
 
+        final List<Plugin> pluginsThatHaveItemOfKey = new ArrayList<>();
+
         for (Plugin pluginThatRegistersItem : pluginsThatRegisterItems) {
-            final NamespacedKey itemKey = new NamespacedKey(pluginThatRegistersItem, strings[0]);
+            final NamespacedKey itemKey = new NamespacedKey(pluginThatRegistersItem, args[0]);
 
             final Item itemFromKey = ItemRegistry.getItemFromKey(itemKey);
 
             if (itemFromKey == null) {
-                pluginsThatRegisterItems.remove(pluginThatRegistersItem);
                 continue;
             }
 
             itemToCreateList.add(itemFromKey);
+            pluginsThatHaveItemOfKey.add(pluginThatRegistersItem);
         }
 
         if (itemToCreateList.isEmpty()) {
-            commandSender.sendMessage(strings[0] + ChatColor.RED + "is not a valid item-key.");
+            commandSender.sendMessage(args[0] + ChatColor.RED + " is not a valid item-key.");
             return true;
         }
 
-        final List<Plugin> pluginsThatHaveItemOfKey = List.copyOf(pluginsThatRegisterItems);
-
         if (itemToCreateList.size() > 1) {
-            commandSender.sendMessage(strings[0] + ChatColor.DARK_AQUA + "is a valid item-key in multiple plugins: ");
+            commandSender.sendMessage(args[0] + ChatColor.DARK_AQUA + " is a valid item-key in multiple plugins: ");
             pluginsThatHaveItemOfKey.forEach(pluginThatHasItemOfKey -> commandSender.sendMessage(" - " + pluginThatHasItemOfKey.getName()));
             return true;
         }
 
-        int amountToGive = 1;
+        final int amountToGive = Integer.getInteger(args[2], 1);
 
-        if (strings.length == 3) {
-            amountToGive = Integer.parseInt(strings[2]);
-        }
+        commandSender.sendMessage(ChatColor.DARK_GREEN + "Successfully gave " + ChatColor.RESET + amountToGive + " " + args[0] + ChatColor.DARK_GREEN + " to player: " + ChatColor.RESET + givePlayer.getName());
+        //commandSender.sendMessage(args[0] + ChatColor.DARK_GREEN + " item is from: " + ChatColor.RESET + pluginsThatHaveItemOfKey.getFirst().getName() + ChatColor.DARK_GREEN + " plugin");
 
         playerInventory.addItem(itemToCreateList.getFirst().createItem(amountToGive));
 
