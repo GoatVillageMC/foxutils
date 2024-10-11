@@ -109,7 +109,11 @@ public class Get implements CommandExecutor {
             return true;
         }
 
-        final int amountToGive = Integer.getInteger(args[2], 1);
+        int amountToGive = 1;
+
+        if (args.length >= 2) {
+            amountToGive = Integer.getInteger(args[2], 1);
+        }
 
         commandSender.sendMessage(ChatColor.DARK_GREEN + "Successfully gave " + ChatColor.RESET + amountToGive + " " + args[0] + ChatColor.DARK_GREEN + " to player: " + ChatColor.RESET + givePlayer.getName());
         //commandSender.sendMessage(args[0] + ChatColor.DARK_GREEN + " item is from: " + ChatColor.RESET + pluginsThatHaveItemOfKey.getFirst().getName() + ChatColor.DARK_GREEN + " plugin");
