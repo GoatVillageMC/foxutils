@@ -10,6 +10,7 @@
         <module name="foxutils-data" />
         <module name="me.foxils.foxutils" />
         <module name="foxutils-hud" />
+        <module name="foxutils-config" />
       </profile>
     </annotationProcessing>
   </component>

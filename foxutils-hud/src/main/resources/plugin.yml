@@ -3,3 +3,6 @@ version: '${project.version}'
 main: me.foxils.foxutils.FoxutilsHud
 api-version: '1.21'
 authors: [Foxils @foxils. on Discord]
+
+depend:
+  - foxutils-config

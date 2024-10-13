@@ -1,46 +1,42 @@
 package me.foxils.foxutils;
 
+import me.foxils.foxutils.utilities.HudConfig;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.bukkit.NamespacedKey;
+import org.bukkit.plugin.Plugin;
 
 @SuppressWarnings("unused")
 public class HudElement {
 
-    // Y offset for all the characters needs to
-    // pre-defined in the texture pack's ascent/height values
+    private final HudConfig hudConfig;
+    private final NamespacedKey hudKey;
 
-    private final String xOffsetCharacter;
+    protected final Plugin plugin;
 
-    private final String textureUnicodeChracter;
+    public HudElement(HudConfig hudConfig, Plugin plugin) {
+        this.hudConfig = hudConfig;
+        this.plugin = plugin;
 
-    private final BaseComponent hudComponent;
+        this.hudKey = new NamespacedKey(plugin, hudConfig.getName());
+    }
 
-    private static final String ZERO_X_OFFSET_HEX = "0xD0000";
-    private static final int ZERO_X_OFFSET_INT = Integer.parseInt(ZERO_X_OFFSET_HEX.replaceFirst("0x", ""), 16);
-
-    public HudElement(int xOffsetPixels, int textureUnicodeDecimal) {
-        xOffsetCharacter = Character.toString(ZERO_X_OFFSET_INT +  xOffsetPixels);
-        textureUnicodeChracter = Character.toString(textureUnicodeDecimal);
-
-        hudComponent = new ComponentBuilder()
-                .append(xOffsetCharacter)
-                .append(textureUnicodeChracter).color(ChatColor.of("#4e5c24"))
+    public BaseComponent buildHudBaseComponent() {
+        return new ComponentBuilder()
+                .append(hudConfig.getXOffsetAsUnicodeCharacter())
+                .append(hudConfig.getTextureAsUnicodeCharacter()).color(ChatColor.of("#4e5c24"))
                 // Texture pack I plan to include contains the NoShadow shader
                 // More info at https://github.com/PuckiSilver/NoShadow
-                // TL:DR #4e5c24 makes the text's background shading disappear
+                // TL:DR #4e5c24 makes the text's background shadow disappear
                 .build();
     }
 
-    public BaseComponent getHudComponent() {
-        return hudComponent;
+    public HudConfig getConfig() {
+        return hudConfig;
     }
 
-    public String getTextureUnicodeChracter() {
-        return textureUnicodeChracter;
-    }
-
-    public String getxOffsetCharacter() {
-        return xOffsetCharacter;
+    public NamespacedKey getKey() {
+        return hudKey;
     }
 }

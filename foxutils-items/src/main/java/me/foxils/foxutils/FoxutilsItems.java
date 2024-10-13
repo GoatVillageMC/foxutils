@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public final class Items extends JavaPlugin {
+public final class FoxutilsItems extends JavaPlugin {
 
     public static final List<Integer> taskIDs = new ArrayList<>();
     @Override

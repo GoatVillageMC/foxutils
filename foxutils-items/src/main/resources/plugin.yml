@@ -1,6 +1,6 @@
 name: foxutils-items
 version: '${project.version}'
-main: me.foxils.foxutils.Items
+main: me.foxils.foxutils.FoxutilsItems
 api-version: '1.21'
 authors: [ Foxils Discord:@notFoxils ]
 

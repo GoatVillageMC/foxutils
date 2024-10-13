@@ -1,6 +1,6 @@
 name: foxutils-data
 version: '$(project.version)'
-main: me.foxils.foxutils.Datas
+main: me.foxils.foxutils.FoxutilsData
 api-version: '1.21'
 load: STARTUP
 authors: [ Foxils @foxils. on Discord ]

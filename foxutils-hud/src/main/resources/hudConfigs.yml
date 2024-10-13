@@ -1,0 +1,9 @@
+
+hud-configs:
+  five-hud:
+    x-offset: 0
+    texture-unicode-character: "\uE000"
+    # Other custom data can be stored here for usage later for implementing plugins
+    alternative-texture-unicode-characters: {
+                                              "bleh"
+    }

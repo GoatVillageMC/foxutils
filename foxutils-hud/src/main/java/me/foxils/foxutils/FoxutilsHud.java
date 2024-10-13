@@ -7,7 +7,7 @@ public final class FoxutilsHud extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-
+        HudRegistry.registerPluginHuds(this);
     }
 
     @Override
