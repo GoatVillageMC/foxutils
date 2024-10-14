@@ -10,21 +10,24 @@ public class FoxCraftingRecipe {
 
     // Actual recipe as registered in bukkit
     private final CraftingRecipe convertedRecipe;
+    private final NamespacedKey recipeKey;
 
     // Self-explanatory
     public FoxCraftingRecipe(List<ItemStack> items, NamespacedKey key, ItemStack item, boolean shapedRecipe) {
+        this.recipeKey = key;
+
         if (items == null || items.isEmpty()) {
-            convertedRecipe = null;
+            this.convertedRecipe = null;
             return;
         }
 
         if (shapedRecipe) {
-            convertedRecipe = new ShapedRecipe(key, item);
+            this.convertedRecipe = new ShapedRecipe(key, item);
             setShapedRecipe(items);
             return;
         }
 
-        convertedRecipe = new ShapelessRecipe(key, item);
+        this.convertedRecipe = new ShapelessRecipe(key, item);
         setShapelessRecipe(items);
     }
 
@@ -61,4 +64,7 @@ public class FoxCraftingRecipe {
         return convertedRecipe;
     }
 
+    public NamespacedKey getRecipeKey() {
+        return recipeKey;
+    }
 }

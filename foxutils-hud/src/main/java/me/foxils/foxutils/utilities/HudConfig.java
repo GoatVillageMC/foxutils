@@ -26,6 +26,10 @@ public class HudConfig {
         setTextureFromUnicodeCharacter(hudConfigSection.getString("texture-unicode-character"));
     }
 
+    public Section getConfigSection() {
+        return this.hudConfigSection;
+    }
+
     public String getName() {
         return hudConfigSection.getNameAsString();
     }

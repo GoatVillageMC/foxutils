@@ -1,7 +1,7 @@
 package me.foxils.foxutils.listeners;
 
 import de.unpixelt.armorchange.ArmorPlugin;
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.itemactions.DoubleJumpAction;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

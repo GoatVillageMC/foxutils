@@ -1,7 +1,7 @@
 package me.foxils.foxutils.itemactions;
 
 import me.foxils.foxutils.Item;
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

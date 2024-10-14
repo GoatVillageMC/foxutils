@@ -1,5 +1,6 @@
-package me.foxils.foxutils;
+package me.foxils.foxutils.registry;
 
+import me.foxils.foxutils.Item;
 import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.Bukkit;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.Recipe;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 public final class ItemRegistry {
@@ -74,18 +76,10 @@ public final class ItemRegistry {
             return null;
         }
 
-        if (!registeredItems.containsKey(itemKey)) {
-            return null;
-        }
-
         return registeredItems.get(itemKey);
     }
 
     public static Collection<Item> getRegisteredGems() {
-        ArrayList<Item> items = new ArrayList<>();
-
-        registeredItems.values().forEach(items::add);
-
-        return items;
+        return Set.copyOf(registeredItems.values());
     }
 }

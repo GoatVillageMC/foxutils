@@ -1,7 +1,7 @@
 package me.foxils.foxutils.commands;
 
 import me.foxils.foxutils.Item;
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;

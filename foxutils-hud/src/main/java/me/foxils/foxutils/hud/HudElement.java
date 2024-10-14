@@ -1,4 +1,4 @@
-package me.foxils.foxutils;
+package me.foxils.foxutils.hud;
 
 import me.foxils.foxutils.utilities.HudConfig;
 import net.md_5.bungee.api.ChatColor;
@@ -6,16 +6,18 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class HudElement {
 
-    private final HudConfig hudConfig;
     private final NamespacedKey hudKey;
+
+    protected final HudConfig hudConfig;
 
     protected final Plugin plugin;
 
-    public HudElement(HudConfig hudConfig, Plugin plugin) {
+    public HudElement(@NotNull HudConfig hudConfig, @NotNull Plugin plugin) {
         this.hudConfig = hudConfig;
         this.plugin = plugin;
 
@@ -39,4 +41,5 @@ public class HudElement {
     public NamespacedKey getKey() {
         return hudKey;
     }
+
 }

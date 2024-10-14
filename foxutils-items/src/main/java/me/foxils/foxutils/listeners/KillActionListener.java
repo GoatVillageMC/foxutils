@@ -1,6 +1,6 @@
 package me.foxils.foxutils.listeners;
 
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.itemactions.KillAction;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;

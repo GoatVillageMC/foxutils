@@ -1,7 +1,7 @@
 package me.foxils.foxutils.listeners;
 
 import me.foxils.foxutils.Item;
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.itemactions.TakeDamageAction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

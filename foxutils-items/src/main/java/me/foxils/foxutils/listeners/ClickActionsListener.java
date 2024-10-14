@@ -1,6 +1,6 @@
 package me.foxils.foxutils.listeners;
 
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.itemactions.ClickActions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

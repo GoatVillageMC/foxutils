@@ -7,3 +7,6 @@ hud-configs:
     alternative-texture-unicode-characters: {
                                               "bleh"
     }
+  player-hud:
+    x-offset: 0
+    texture-unicode-character: ""

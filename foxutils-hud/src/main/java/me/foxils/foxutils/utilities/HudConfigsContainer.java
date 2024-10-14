@@ -11,11 +11,12 @@ public class HudConfigsContainer extends DocumentManager {
         super(plugin);
     }
 
-    public Section getConfigSectionOfHud(Object hudName) {
-        return getHudConfigsSection().getSection(hudName.toString());
-    }
-
     public Section getHudConfigsSection() {
         return document.getSection("hud-configs");
     }
+
+    public HudConfig getHudConfig(Object hudName) {
+        return new HudConfig(getHudConfigsSection().getSection(hudName.toString()), plugin);
+    }
+
 }

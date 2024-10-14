@@ -1,6 +1,6 @@
 package me.foxils.foxutils.listeners;
 
-import me.foxils.foxutils.ItemRegistry;
+import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.itemactions.InventoryClickAction;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;

@@ -6,3 +6,13 @@ authors: [Foxils @foxils. on Discord]
 
 depend:
   - foxutils-config
+
+commands:
+  hud-debug:
+    description: show debug hud
+    usage: /<command>
+    permission: op
+  gethuds:
+    description: Send message containing the names of all the registered huds.
+    usage: /<command>
+    permission: op
