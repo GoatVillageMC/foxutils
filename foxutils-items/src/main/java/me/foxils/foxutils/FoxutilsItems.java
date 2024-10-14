@@ -1,7 +1,7 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.commands.Get;
-import me.foxils.foxutils.commands.GetItems;
+import me.foxils.foxutils.commands.GetRegisteredItems;
+import me.foxils.foxutils.commands.ListRegisteredItems;
 import me.foxils.foxutils.itemactions.HoldingItemAction;
 import me.foxils.foxutils.itemactions.PassiveAction;
 import me.foxils.foxutils.listeners.*;
@@ -16,6 +16,7 @@ import java.util.Objects;
 public final class FoxutilsItems extends JavaPlugin {
 
     public static final List<Integer> taskIDs = new ArrayList<>();
+
     @Override
     public void onEnable() {
         scheduleTasks();
@@ -35,14 +36,11 @@ public final class FoxutilsItems extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(Bukkit.getPluginCommand("get")).setExecutor(new Get(this));
-        Objects.requireNonNull(Bukkit.getPluginCommand("getitems")).setExecutor(new GetItems());
+        Objects.requireNonNull(Bukkit.getPluginCommand("get")).setExecutor(new GetRegisteredItems(this));
+        Objects.requireNonNull(Bukkit.getPluginCommand("listitems")).setExecutor(new ListRegisteredItems());
     }
 
     private void registerEvents() {
-        // Bulk of this is done in the ItemRegistry.registerItem() method for items that implement interfaces that extend listeners
-
-        // Above was idiotic and ruined a lot of the weapons' interactions, now all will be fixed though, at least I learned
         getServer().getPluginManager().registerEvents(new AttackActionListener(), this);
         getServer().getPluginManager().registerEvents(new ClickActionsListener(), this);
         getServer().getPluginManager().registerEvents(new DoubleJumpListener(), this);

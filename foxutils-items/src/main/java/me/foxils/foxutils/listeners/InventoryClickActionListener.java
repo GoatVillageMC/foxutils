@@ -37,8 +37,7 @@ public class InventoryClickActionListener implements Listener {
                     ItemStack itemStackClickedOn = inventorySentTo.getItem(itemStackSlot);
                     ItemStack itemStackSwappedWith = playerInventory.getItem(hotbarItemSlot);
 
-                    if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem))
-                        return;
+                    if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem)) return;
 
                     playerInventory.setItem(hotbarItemSlot, itemStackClickedOn);
                     inventorySentTo.setItem(itemStackSlot, itemStackSwappedWith);
@@ -49,19 +48,18 @@ public class InventoryClickActionListener implements Listener {
             case SWAP_OFFHAND -> {
                 final int itemStackSlot = event.getSlot();
                 final Inventory inventorySentTo = event.getClickedInventory();
-                final PlayerInventory originInventory = whoClicked.getInventory();
+                final PlayerInventory playerInventory = whoClicked.getInventory();
 
                 if (inventorySentTo == null) return;
-                if (inventorySentTo == originInventory) return;
+                if (inventorySentTo == playerInventory) return;
 
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     final ItemStack itemStackClickedOn = inventorySentTo.getItem(itemStackSlot);
-                    final ItemStack itemStackSwappedWith = originInventory.getItemInOffHand();
+                    final ItemStack itemStackSwappedWith = playerInventory.getItemInOffHand();
 
-                    if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem))
-                        return;
+                    if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem)) return;
 
-                    originInventory.setItemInOffHand(itemStackClickedOn);
+                    playerInventory.setItemInOffHand(itemStackClickedOn);
                     inventorySentTo.setItem(itemStackSlot, itemStackSwappedWith);
 
                     inventoryClickActionItem.onInvetoryPull(event, itemStackClickedOn);
@@ -70,8 +68,7 @@ public class InventoryClickActionListener implements Listener {
             default -> {
                 ItemStack itemStackClickedOn = event.getCurrentItem();
 
-                if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem))
-                    return;
+                if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem)) return;
 
                 inventoryClickActionItem.onInvetoryPull(event, itemStackClickedOn);
             }

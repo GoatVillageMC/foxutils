@@ -1,6 +1,5 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.itemactions.DropAction;
 import me.foxils.foxutils.itemactions.InventoryClickAction;
 import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
@@ -10,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Item implements InventoryClickAction, DropAction {
+public class Item implements InventoryClickAction {
 
     protected final Plugin plugin;
 
@@ -97,14 +95,9 @@ public class Item implements InventoryClickAction, DropAction {
     public void onInvetoryPull(InventoryClickEvent event, ItemStack itemStack) {
         if (event.getClickedInventory() == null) return;
         if (event.getSlotType() == InventoryType.SlotType.RESULT) return;
-        if (event.getView().getTopInventory().getType() != InventoryType.CRAFTING) {
-            event.setCancelled(true);
-        }
-    }
+        if (event.getView().getTopInventory().getType() == InventoryType.CRAFTING) return;
 
-    @Override
-    public void dropItemAction(PlayerDropItemEvent event, ItemStack itemUsed) {
-
+        event.setCancelled(true);
     }
 
     public Material getItemMaterial() {

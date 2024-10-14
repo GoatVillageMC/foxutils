@@ -16,11 +16,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Get implements CommandExecutor {
+public class GetRegisteredItems implements CommandExecutor {
 
     private final Plugin plugin;
 
-    public Get(Plugin plugin) {
+    public GetRegisteredItems(Plugin plugin) {
         this.plugin = plugin;
     }
 

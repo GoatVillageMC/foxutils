@@ -21,14 +21,13 @@ public class DropActionListener implements Listener {
 
         ItemStack droppedItem = event.getItemDrop().getItemStack();
 
-        if (!(ItemRegistry.getItemFromItemStack(droppedItem) instanceof DropAction ItemUsed)) {
-            return;
-        }
-        // Above makes sure that the item dropped is actually an item that should fire the drop ability
+        // Makes sure that the item dropped is actually an item that should fire the drop ability
+        if (!(ItemRegistry.getItemFromItemStack(droppedItem) instanceof DropAction ItemUsed)) return;
+
+        // Stops item from being dropped by default because why would you want that if your using it for an ability
         event.setCancelled(true);
-        // Stops item from being dropped because why would you want that if your using it for an ability
-        ItemUsed.dropItemAction(event, droppedItem);
         // Fires the method that allows the item to detect the ability
+        ItemUsed.dropItemAction(event, droppedItem);
     }
 
 }

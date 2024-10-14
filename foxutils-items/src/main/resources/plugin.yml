@@ -2,14 +2,13 @@ name: foxutils-items
 version: '${project.version}'
 main: me.foxils.foxutils.FoxutilsItems
 api-version: '1.21'
-authors: [ Foxils Discord:@notFoxils ]
 
 commands:
   get:
-    description: get custom item with the item key
+    description: Get custom item using the item's key
     usage: /<command> <itemkey>
     permission: op
-  getitems:
+  listitems:
     description: Lists all currently registered items
     usage: /<command>
     permission: op
