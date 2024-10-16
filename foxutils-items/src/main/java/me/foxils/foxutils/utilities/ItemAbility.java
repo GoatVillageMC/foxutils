@@ -8,6 +8,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class ItemAbility {
 
+    // Move this to a properties file
+    // Basically a file that I specify that will never be changed and can hold constants
+    // instead of constructing a potentially infinite amount of these ItemAbility objects
+
     private final String name;
     private final List<String> description;
 

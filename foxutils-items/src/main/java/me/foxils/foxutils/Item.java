@@ -32,7 +32,7 @@ public class Item implements InventoryClickAction {
     public static final NamespacedKey itemConfirmationKey = new NamespacedKey("foxutils", "fox_item");
     private final NamespacedKey itemKey;
 
-    // Material (what the custom item looks like), Name (what the item is called/actually named as), itemKey (refrence to the item internally, for example in the ItemRegistry class), ItemsForRecipe (self-explanatory), shapedRecipe (self-explanatory)
+                                    // Move V to enums so that its easier to read
     protected Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
 

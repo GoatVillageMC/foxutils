@@ -9,10 +9,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public final class ItemRegistry {
@@ -79,7 +76,7 @@ public final class ItemRegistry {
         return registeredItems.get(itemKey);
     }
 
-    public static Collection<Item> getRegisteredGems() {
-        return Set.copyOf(registeredItems.values());
+    public static HashSet<Item> getRegisteredGems() {
+        return new HashSet<>(registeredItems.values());
     }
 }
