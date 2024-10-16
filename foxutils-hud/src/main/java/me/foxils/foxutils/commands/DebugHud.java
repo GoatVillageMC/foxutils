@@ -27,7 +27,7 @@ public class DebugHud implements CommandExecutor {
 
         PlayerHud playerHud = PlayerHudRegistry.getPlayerHudFromPlayer(player, plugin);
 
-        final HudElement fiveHud = HudRegistry.getHudElementFromKey(new NamespacedKey(plugin, "five-hud"));
+        final HudElement fiveHud = new HudElement(HudRegistry.getHudConfigFromKey(new NamespacedKey(plugin, "five-hud")), plugin);
 
         if (playerHud.getActiveHudList().contains(fiveHud)) {
             playerHud.removeActiveHud(fiveHud);

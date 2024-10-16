@@ -8,7 +8,7 @@ depend:
   - foxutils-config
 
 commands:
-  hud-debug:
+  debughud:
     description: show debug hud
     usage: /<command>
     permission: op

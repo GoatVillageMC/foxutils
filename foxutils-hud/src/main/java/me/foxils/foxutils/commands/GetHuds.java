@@ -10,7 +10,7 @@ public class GetHuds implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        HudRegistry.getRegisteredHuds().forEach(hudElement -> commandSender.sendMessage(hudElement.getKey().toString()));
+        HudRegistry.getRegisteredHudConfigs().forEach(hudConfig -> commandSender.sendMessage(hudConfig.getKey().toString()));
         return true;
     }
 }

@@ -13,30 +13,29 @@ import java.util.Set;
 @SuppressWarnings("unused")
 public final class HudRegistry {
 
-    private static final Map<NamespacedKey, HudElement> keyToHudElementMap = new HashMap<>();
+    private static final Map<NamespacedKey, HudConfig> KEY_HUD_CONFIG_MAP = new HashMap<>();
 
     public static HudConfigsContainer registerPluginHuds(Plugin plugin) {
         HudConfigsContainer hudConfigsContainer = new HudConfigsContainer(plugin);
 
         hudConfigsContainer.getHudConfigsSection().getKeys().forEach((hudName) -> {
             final HudConfig hudConfig = hudConfigsContainer.getHudConfig(hudName);
-            final HudElement hudElement = new HudElement(hudConfig, plugin);
 
-            registerHud(hudElement, hudElement.getKey());
+            registerHudConfig(hudConfig, hudConfig.getKey());
         });
 
         return hudConfigsContainer;
     }
 
-    private static void registerHud(HudElement hudElement, NamespacedKey hudKey) {
-        keyToHudElementMap.put(hudKey, hudElement);
+    private static void registerHudConfig(HudConfig hudConfig, NamespacedKey hudKey) {
+        KEY_HUD_CONFIG_MAP.put(hudKey, hudConfig);
     }
 
-    public static HudElement getHudElementFromKey(NamespacedKey hudKey) {
-        return keyToHudElementMap.get(hudKey);
+    public static HudConfig getHudConfigFromKey(NamespacedKey hudKey) {
+        return KEY_HUD_CONFIG_MAP.get(hudKey);
     }
 
-    public static Set<HudElement> getRegisteredHuds() {
-        return Set.copyOf(keyToHudElementMap.values());
+    public static Set<HudConfig> getRegisteredHudConfigs() {
+        return Set.copyOf(KEY_HUD_CONFIG_MAP.values());
     }
 }

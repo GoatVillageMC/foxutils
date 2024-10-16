@@ -1,45 +1,30 @@
 package me.foxils.foxutils.utilities;
 
 import dev.dejvokep.boostedyaml.block.implementation.Section;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 
-import java.util.logging.Logger;
-
 @SuppressWarnings("unused")
-public class HudConfig {
-
-    protected final Section hudConfigSection;
-    protected final Plugin plugin;
-    protected final Logger pluginLogger;
+public class HudConfig extends SectionManager {
 
     private String xOffsetUnicodeCharacter;
-    private String textureUnicodeChracter;
+    private String textureUnicodeCharacter;
 
     private static final int ZERO_X_OFFSET_UNICODE_DECIMAL = 0xD0000;
 
     public HudConfig(Section hudConfigSection, Plugin plugin) {
-        this.hudConfigSection = hudConfigSection;
-        this.plugin = plugin;
-        this.pluginLogger = plugin.getLogger();
+        super(hudConfigSection, plugin);
 
         setXOffsetFromNumPixels(hudConfigSection.getInt("x-offset"));
         setTextureFromUnicodeCharacter(hudConfigSection.getString("texture-unicode-character"));
     }
 
-    public Section getConfigSection() {
-        return this.hudConfigSection;
-    }
-
-    public String getName() {
-        return hudConfigSection.getNameAsString();
-    }
-
     public void setTextureFromUnicodeCharacter(String textureUnicodeCharacter) {
         if (textureUnicodeCharacter == null) {
-            pluginLogger.severe("Could not find texture-unicode-character for " + getName());
+            this.pluginLogger.severe("Warning: " + this.getName() + ", Could not find texture-unicode-character.");
         }
 
-        this.textureUnicodeChracter = textureUnicodeCharacter;
+        this.textureUnicodeCharacter = textureUnicodeCharacter;
     }
 
     public void setTextureFromDecimal(int textureUnicodeDecimal) {
@@ -48,7 +33,7 @@ public class HudConfig {
 
     public void setXOffsetFromUnicodeCharacter(String xOffsetCharacter) {
         if (xOffsetCharacter == null) {
-            pluginLogger.severe("Could not find texture-unicode-character for " + getName());
+            this.pluginLogger.severe("Warning: " + this.getName() + ", Could not find xOffset character.");
         }
 
         this.xOffsetUnicodeCharacter = xOffsetCharacter;
@@ -56,7 +41,7 @@ public class HudConfig {
 
     public void setXOffsetFromNumPixels(int xOffsetPixels) {
         if (xOffsetPixels > 8192 || xOffsetPixels < -8192) {
-            pluginLogger.warning(getName() + " Warning: xOffsets should be no more than 8192 and no less than -8192");
+            this.pluginLogger.warning("Warning: " + this.getName() + ", xOffsets should be no more than 8192 and no less than -8192.");
         }
 
         setXOffsetFromUnicodeCharacter(Character.toString(ZERO_X_OFFSET_UNICODE_DECIMAL + xOffsetPixels));
@@ -84,19 +69,18 @@ public class HudConfig {
     }
 
     public int getXOffsetAsInt() {
-        return getUnicodeDecimalOf(xOffsetUnicodeCharacter) - ZERO_X_OFFSET_UNICODE_DECIMAL;
+        return getUnicodeDecimalOf(this.xOffsetUnicodeCharacter) - ZERO_X_OFFSET_UNICODE_DECIMAL;
     }
 
     public int getTextureAsUnicodeDecimal() {
-        return getUnicodeDecimalOf(textureUnicodeChracter);
+        return getUnicodeDecimalOf(this.textureUnicodeCharacter);
     }
-
     public String getXOffsetAsUnicodeCharacter() {
-        return xOffsetUnicodeCharacter;
+        return this.xOffsetUnicodeCharacter;
     }
 
     public String getTextureAsUnicodeCharacter() {
-        return textureUnicodeChracter;
+        return this.textureUnicodeCharacter;
     }
 
 }

@@ -7,7 +7,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +21,13 @@ public class PlayerHud extends HudElement {
 
     private static final NamespacedKey PLAYER_HUD_KEY = new NamespacedKey("foxutils-hud", "player-hud");
 
-    public PlayerHud(@NotNull UUID playerUUID, @NotNull Plugin plugin) {
-        super(HudRegistry.getHudElementFromKey(PLAYER_HUD_KEY).getConfig(), plugin);
+    public PlayerHud(UUID playerUUID, Plugin plugin) {
+        super(HudRegistry.getHudConfigFromKey(PLAYER_HUD_KEY), plugin);
         this.playerUUID = playerUUID;
         this.plugin = plugin;
     }
 
-    public PlayerHud(@NotNull Player player, @NotNull Plugin plugin) {
+    public PlayerHud(Player player, Plugin plugin) {
         this(player.getUniqueId(), plugin);
     }
 
@@ -40,11 +39,11 @@ public class PlayerHud extends HudElement {
         return List.copyOf(activeHudList);
     }
 
-    public void addActiveHud(@NotNull HudElement hudElement) {
+    public void addActiveHud(HudElement hudElement) {
         activeHudList.add(hudElement);
     }
 
-    public void removeActiveHud(@NotNull HudElement hudElement) {
+    public void removeActiveHud(HudElement hudElement) {
         if (!activeHudList.contains(hudElement)) return;
 
         activeHudList.remove(hudElement);

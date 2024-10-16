@@ -27,7 +27,7 @@ public final class FoxutilsHud extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(getCommand("hud-debug")).setExecutor(new DebugHud(this));
+        Objects.requireNonNull(getCommand("debughud")).setExecutor(new DebugHud(this));
         Objects.requireNonNull(getCommand("gethuds")).setExecutor(new GetHuds());
     }
 

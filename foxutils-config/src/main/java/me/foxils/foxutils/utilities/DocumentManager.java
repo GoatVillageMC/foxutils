@@ -29,16 +29,16 @@ public abstract class DocumentManager {
         Class<? extends DocumentManager> clazz = getClass();
 
         if (!clazz.isAnnotationPresent(YamlDocumentName.class)) {
-            pluginLogger.severe(clazz.getName() + " class does not specify document name with @DocumentName annotation");
+            this.pluginLogger.severe(clazz.getName() + " class does not specify document name with @DocumentName annotation");
             return null;
         }
 
         String documentName = clazz.getAnnotation(YamlDocumentName.class).documentName();
 
-        File documentFile = new File(plugin.getDataFolder(), documentName);
+        File documentFile = new File(this.plugin.getDataFolder(), documentName);
 
         if (!documentFile.exists()) {
-            plugin.saveResource(documentName, false);
+            this.plugin.saveResource(documentName, false);
         }
 
         try {
