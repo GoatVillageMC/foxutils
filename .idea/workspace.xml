@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="foxutils-hud revival, still considering restructure.">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-config/src/main/java/me/foxils/foxutils/FoxutilsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-config/src/main/resources/plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-hud/foxutils-hud.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-config/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-config/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/HudElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/HudElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/listeners/PlayerJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/listeners/PlayerJoinListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/PlayerHudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/PlayerHudRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/test">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="test" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="AnnotationType" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;notFoxils&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/notFoxils/foxutils.git&quot;,
+    &quot;accountId&quot;: &quot;554fa771-47fd-463a-bcd1-8c4b9774e480&quot;
+  }
+}</component>
+  <component name="MavenRunner">
+    <option name="jreName" value="21" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2mDPbwv0XpGYVQBd8ZpSbCyUsvR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle./home/gael/IdeaProject/foxutils/test [:createMcpToSrg :createMcpToSrg :createMcpToSrg].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle./home/gael/IdeaProject/foxutils/test [wrapper genIntellijRuns].executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.ALL Run + Compile.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.Start + Compile.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Compile.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.me.foxils.foxutils [package].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JDK&quot;: &quot;temurin-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gael/IdeaProject/foxutils/foxutils-config/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;jdk.preference.JDK&quot;: [
+      &quot;21=/home/gael/.jdks/temurin-21.0.4&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/foxutils-config/src/main/resources" />
+      <recent name="$PROJECT_DIR$/foxutils-config" />
+      <recent name="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands" />
+      <recent name="$PROJECT_DIR$/foxutils-hud" />
+      <recent name="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/utilities" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/trest/src/main/resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="me.foxils" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.ALL Run + Compile">
+    <configuration name="ALL Run + Compile" type="JarApplication">
+      <option name="JAR_PATH" value="$USER_HOME$/Servers/ServerJars/paper-1.21.1.jar" />
+      <option name="PROGRAM_PARAMETERS" value="--nogui" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Servers/foxutils" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-config/pom.xml" goal="clean verify package" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-hud/pom.xml" goal="clean verify package" />
+      </method>
+    </configuration>
+    <configuration name="Start + Compile" type="JarApplication">
+      <option name="JAR_PATH" value="$USER_HOME$/Servers/ServerJars/paper-1.21.1.jar" />
+      <option name="PROGRAM_PARAMETERS" value="--nogui" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Servers/SomethingDifferentRewrite" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-items/pom.xml" goal="clean verify package" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Compile" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="verify" />
+                <option value="package" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/foxutils-items" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JAR Application.ALL Run + Compile" />
+      <item itemvalue="JAR Application.Start + Compile" />
+      <item itemvalue="Maven.Compile" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="" />
+      <created>1726608248767</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726608248767</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial Commit&#10;&#10;Moved everything under a parent project with modules (initial intention for the project)&#10;moved item lore from per-project level implementation to api level">
+      <option name="closed" value="true" />
+      <created>1726785093331</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726785093331</updated>
+    </task>
+    <task id="LOCAL-00002" summary="dependency injection for Items, moved item abilities to api level">
+      <option name="closed" value="true" />
+      <created>1726827069592</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726827069592</updated>
+    </task>
+    <task id="LOCAL-00003" summary="removed static singleton in Item class, &quot;debugged&quot; a whole heap of shit, added kill ActionType and ItemAction, made items non-droppable by default and non-inventory manageable when in a non-player inventory">
+      <option name="closed" value="true" />
+      <created>1727907023988</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727907023988</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Changed KillAction logic.">
+      <option name="closed" value="true" />
+      <created>1727909902892</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909902892</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changed AttackAction logic">
+      <option name="closed" value="true" />
+      <created>1728138244597</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728138244597</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update">
+      <option name="closed" value="true" />
+      <created>1728146557103</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728146557103</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Cancel events processed by ClickActionsListener.&#10;&#10;Version increment 1.12.10 -&gt; 1.12.11">
+      <option name="closed" value="true" />
+      <created>1728335296530</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728335296530</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added SwapHandsAction and Listener.&#10;&#10;Version change 1.12.11 -&gt; 1.13.0">
+      <option name="closed" value="true" />
+      <created>1728338656767</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728338656767</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Updated ActionType enum to include SWAP_HANDS value.">
+      <option name="closed" value="true" />
+      <created>1728338761953</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728338761953</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added Shoot, ActionType, Listener, and Action.&#10;Added Get command to give a players items through commands.&#10;Added GetItems command to list all items that are registered and their respective item-keys.&#10;&#10;Other small changes.&#10;&#10;Version Change 1.13.0 -&gt; 1.16.0">
+      <option name="closed" value="true" />
+      <created>1728432240432</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1728432240432</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Completed Get class/command.&#10;&#10;Version Change 1.16.0 -&gt; 1.16.2">
+      <option name="closed" value="true" />
+      <created>1728434843605</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1728434843605</updated>
+    </task>
+    <task id="LOCAL-00012" summary="foxutils-hud initial commit">
+      <option name="closed" value="true" />
+      <created>1728612025017</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728612025017</updated>
+    </task>
+    <task id="LOCAL-00013" summary="foxutils-config initial commit&#10;&#10;foxutils-hud general improvement and restructuring commit">
+      <option name="closed" value="true" />
+      <created>1728792274385</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728792274385</updated>
+    </task>
+    <task id="LOCAL-00014" summary="stupid, why did i do this, it dosent work, its literally inherently flawed :sob:">
+      <option name="closed" value="true" />
+      <created>1728864021930</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1728864021930</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Some minor improvements before I ask for a code review">
+      <option name="closed" value="true" />
+      <created>1728915060811</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728915060811</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Some minor improvements before I ask for a code review">
+      <option name="closed" value="true" />
+      <created>1729111556359</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1729111556359</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit&#10;&#10;Moved everything under a parent project with modules (initial intention for the project)&#10;moved item lore from per-project level implementation to api level" />
+    <MESSAGE value="dependency injection for Items, moved item abilities to api level" />
+    <MESSAGE value="removed static singleton in Item class, &quot;debugged&quot; a whole heap of shit, added kill ActionType and ItemAction, made items non-droppable by default and non-inventory manageable when in a non-player inventory" />
+    <MESSAGE value="Changed KillAction logic." />
+    <MESSAGE value="Changed AttackAction logic" />
+    <MESSAGE value="update" />
+    <MESSAGE value="Cancel events processed by ClickActionsListener.&#10;&#10;Version increment 1.12.10 -&gt; 1.12.11" />
+    <MESSAGE value="Added SwapHandsAction and Listener.&#10;&#10;Version change 1.12.11 -&gt; 1.13.0" />
+    <MESSAGE value="Updated ActionType enum to include SWAP_HANDS value." />
+    <MESSAGE value="Added Shoot, ActionType, Listener, and Action.&#10;Added Get command to give a players items through commands.&#10;Added GetItems command to list all items that are registered and their respective item-keys.&#10;&#10;Other small changes.&#10;&#10;Version Change 1.13.0 -&gt; 1.16.0" />
+    <MESSAGE value="Completed Get class/command.&#10;&#10;Version Change 1.16.0 -&gt; 1.16.2" />
+    <MESSAGE value="foxutils-hud initial commit" />
+    <MESSAGE value="foxutils-config initial commit&#10;&#10;foxutils-hud general improvement and restructuring commit" />
+    <MESSAGE value="stupid, why did i do this, it dosent work, its literally inherently flawed :sob:" />
+    <MESSAGE value="Some minor improvements before I ask for a code review" />
+    <MESSAGE value="foxutils-hud revival, still considering restructure." />
+    <option name="LAST_COMMIT_MESSAGE" value="foxutils-hud revival, still considering restructure." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

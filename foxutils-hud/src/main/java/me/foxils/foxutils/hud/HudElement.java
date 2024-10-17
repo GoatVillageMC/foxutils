@@ -5,22 +5,14 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.NamespacedKey;
-import org.bukkit.plugin.Plugin;
 
 @SuppressWarnings("unused")
 public class HudElement {
 
-    private final NamespacedKey hudKey;
-
     protected final HudConfig hudConfig;
 
-    protected final Plugin plugin;
-
-    public HudElement(HudConfig hudConfig, Plugin plugin) {
+    public HudElement(HudConfig hudConfig) {
         this.hudConfig = hudConfig;
-        this.plugin = plugin;
-
-        this.hudKey = new NamespacedKey(plugin, hudConfig.getName());
     }
 
     public BaseComponent buildHudBaseComponent() {
@@ -38,7 +30,7 @@ public class HudElement {
     }
 
     public NamespacedKey getKey() {
-        return hudKey;
+        return hudConfig.getKey();
     }
 
 }

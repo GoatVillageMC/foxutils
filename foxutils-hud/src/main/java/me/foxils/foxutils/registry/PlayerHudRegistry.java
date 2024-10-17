@@ -2,7 +2,6 @@ package me.foxils.foxutils.registry;
 
 import me.foxils.foxutils.hud.PlayerHud;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,7 @@ public class PlayerHudRegistry {
     private static final Map<UUID, PlayerHud> playerHudMap = new HashMap<>();
 
     public static void registerPlayerHud(PlayerHud playerHud) {
-        playerHudMap.put(playerHud.getPlayerUUID(), playerHud);
+        playerHudMap.putIfAbsent(playerHud.getPlayerUUID(), playerHud);
     }
 
     public static void unregisterPlayerHudFromPlayerUUID(UUID playerUUID) {
@@ -29,15 +28,11 @@ public class PlayerHudRegistry {
         unregisterPlayerHudFromPlayerUUID(playerHud.getPlayerUUID());
     }
 
-    public static PlayerHud getPlayerHudFromPlayerUUID(UUID uuid, Plugin plugin) {
-        if (!playerHudMap.containsKey(uuid)) {
-            registerPlayerHud(new PlayerHud(uuid, plugin));
-        }
-
+    public static PlayerHud getPlayerHudFromPlayerUUID(UUID uuid) {
         return playerHudMap.get(uuid);
     }
 
-    public static PlayerHud getPlayerHudFromPlayer(Player player, Plugin plugin) {
-        return getPlayerHudFromPlayerUUID(player.getUniqueId(), plugin);
+    public static PlayerHud getPlayerHudFromPlayer(Player player) {
+        return getPlayerHudFromPlayerUUID(player.getUniqueId());
     }
 }

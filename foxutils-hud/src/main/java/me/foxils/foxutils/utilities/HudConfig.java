@@ -1,7 +1,6 @@
 package me.foxils.foxutils.utilities;
 
 import dev.dejvokep.boostedyaml.block.implementation.Section;
-import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 
 @SuppressWarnings("unused")

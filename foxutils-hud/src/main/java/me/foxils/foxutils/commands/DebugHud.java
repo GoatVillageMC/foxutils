@@ -10,27 +10,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 public class DebugHud implements CommandExecutor {
 
-    private final Plugin plugin;
-
-    public DebugHud(Plugin plugin) {
-        this.plugin = plugin;
-    }
+    private static final NamespacedKey DEBUG_HUD_KEY = new NamespacedKey("foxutils-hud", "five-hud");
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (!(commandSender instanceof Player player)) return true;
 
-        PlayerHud playerHud = PlayerHudRegistry.getPlayerHudFromPlayer(player, plugin);
+        PlayerHud playerHud = PlayerHudRegistry.getPlayerHudFromPlayer(player);
 
-        final HudElement fiveHud = new HudElement(HudRegistry.getHudConfigFromKey(new NamespacedKey(plugin, "five-hud")), plugin);
+        final HudElement fiveHud = new HudElement(HudRegistry.getHudConfigFromKey(DEBUG_HUD_KEY));
 
-        if (playerHud.getActiveHudList().contains(fiveHud)) {
-            playerHud.removeActiveHud(fiveHud);
+        if (playerHud.hasActiveHudFromKey(DEBUG_HUD_KEY)) {
+            playerHud.removeActiveHudFromKey(DEBUG_HUD_KEY);
             player.sendMessage(ChatColor.RED + "Deactivated Hud Debug Mode");
             return true;
         }

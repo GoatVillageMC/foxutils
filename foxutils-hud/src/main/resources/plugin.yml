@@ -9,10 +9,14 @@ depend:
 
 commands:
   debughud:
-    description: show debug hud
+    description: Enables the debug hud.
+    usage: /<command>
+    permission: op
+  enablehud:
+    description: Enables a hud element using its respective configuration key.
     usage: /<command>
     permission: op
   gethuds:
-    description: Send message containing the names of all the registered huds.
+    description: Sends a message containing the names and keys of all currently registered hud configurations.
     usage: /<command>
     permission: op

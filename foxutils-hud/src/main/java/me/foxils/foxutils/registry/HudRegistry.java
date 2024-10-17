@@ -1,6 +1,5 @@
 package me.foxils.foxutils.registry;
 
-import me.foxils.foxutils.hud.HudElement;
 import me.foxils.foxutils.utilities.HudConfig;
 import me.foxils.foxutils.utilities.HudConfigsContainer;
 import org.bukkit.NamespacedKey;
@@ -15,7 +14,7 @@ public final class HudRegistry {
 
     private static final Map<NamespacedKey, HudConfig> KEY_HUD_CONFIG_MAP = new HashMap<>();
 
-    public static HudConfigsContainer registerPluginHuds(Plugin plugin) {
+    public static HudConfigsContainer registerPluginHudConfigs(Plugin plugin) {
         HudConfigsContainer hudConfigsContainer = new HudConfigsContainer(plugin);
 
         hudConfigsContainer.getHudConfigsSection().getKeys().forEach((hudName) -> {

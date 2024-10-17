@@ -1,38 +1,53 @@
 package me.foxils.foxutils.hud;
 
 import me.foxils.foxutils.registry.HudRegistry;
-import me.foxils.foxutils.utilities.HudConfigsContainer;
-import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class PlayerHud extends HudElement {
 
     private final UUID playerUUID;
-    private final Plugin plugin;
 
     private final List<HudElement> activeHudList = new ArrayList<>();
 
     private static final NamespacedKey PLAYER_HUD_KEY = new NamespacedKey("foxutils-hud", "player-hud");
 
-    public PlayerHud(UUID playerUUID, Plugin plugin) {
-        super(HudRegistry.getHudConfigFromKey(PLAYER_HUD_KEY), plugin);
+    public PlayerHud(UUID playerUUID) {
+        super(HudRegistry.getHudConfigFromKey(PLAYER_HUD_KEY));
+
         this.playerUUID = playerUUID;
-        this.plugin = plugin;
     }
 
-    public PlayerHud(Player player, Plugin plugin) {
-        this(player.getUniqueId(), plugin);
+    public PlayerHud(Player player) {
+        this(player.getUniqueId());
     }
 
     public UUID getPlayerUUID() {
         return playerUUID;
+    }
+
+    public boolean hasActiveHuds() {
+        return activeHudList.isEmpty();
+    }
+
+    public boolean hasActiveHud(HudElement hudElement) {
+        return activeHudList.contains(hudElement);
+    }
+
+    public boolean hasActiveHudFromKey(NamespacedKey hudKey) {
+        for (HudElement hudElement : activeHudList) {
+            if (!hudElement.getKey().equals(hudKey)) continue;
+
+            return true;
+        }
+
+        return false;
     }
 
     public List<HudElement> getActiveHudList() {
@@ -43,9 +58,11 @@ public class PlayerHud extends HudElement {
         activeHudList.add(hudElement);
     }
 
-    public void removeActiveHud(HudElement hudElement) {
-        if (!activeHudList.contains(hudElement)) return;
+    public void removeActiveHudFromKey(NamespacedKey keyToRemove) {
+        activeHudList.removeIf(hudElement -> hudElement.getKey().equals(keyToRemove));
+    }
 
+    public void removeActiveHud(HudElement hudElement) {
         activeHudList.remove(hudElement);
     }
 
@@ -55,17 +72,5 @@ public class PlayerHud extends HudElement {
         activeHudList.forEach(hudElement -> hudComponent.addExtra(hudElement.buildHudBaseComponent()));
 
         return hudComponent;
-    }
-
-    public void sendHudToActionBar() {
-        Player bukkitPlayer = plugin.getServer().getPlayer(playerUUID);
-
-        if (bukkitPlayer == null || !bukkitPlayer.isOnline()) {
-            return;
-        }
-
-        Player.Spigot spigotPlayer = bukkitPlayer.spigot();
-
-        spigotPlayer.sendMessage(ChatMessageType.ACTION_BAR, buildHudComponent());
     }
 }
