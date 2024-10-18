@@ -16,9 +16,9 @@ public enum ActionType {
     DROP("On-Drop"),
     SWAP_HANDS("Swap Off-Hand"),
     CRAFT("On-Craft"),
-    SHIFTDROP("Sneaking + On-Drop"),
-    DOUBLEJUMP("Double Jump"),
-    SHIFTDOUBLEJUMP("Sneaking + Double Jump"),
+    SHIFT_DROP("Sneaking + On-Drop"),
+    DOUBLE_JUMP("Double Jump"),
+    SHIFT_DOUBLE_JUMP("Sneaking + Double Jump"),
     PASSIVE("Passive Ability:"),
     NONE("");
 

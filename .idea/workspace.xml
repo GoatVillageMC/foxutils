@@ -5,26 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="foxutils-hud revival, still considering restructure.">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/foxutils-config/src/main/java/me/foxils/foxutils/FoxutilsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/foxutils-config/src/main/resources/plugin.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/foxutils-hud/foxutils-hud.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-config/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-config/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/HudElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/HudElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/SelectItemListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/listeners/PlayerJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/listeners/PlayerJoinListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/PlayerHudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/PlayerHudRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/utilities/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/utilities/ActionType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -374,7 +360,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729111556359</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="foxutils-hud revival, still considering restructure.">
+      <option name="closed" value="true" />
+      <created>1729134599505</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1729134599505</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

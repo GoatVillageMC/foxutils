@@ -4,7 +4,9 @@ import me.foxils.foxutils.registry.HudRegistry;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -48,6 +50,17 @@ public class PlayerHud extends HudElement {
         }
 
         return false;
+    }
+
+    @Nullable
+    public HudElement getActiveHudFromKey(@NotNull NamespacedKey hudKey) {
+        for (HudElement hudElement : activeHudList) {
+            if (!hudElement.getKey().equals(hudKey)) continue;
+
+            return hudElement;
+        }
+
+        return null;
     }
 
     public List<HudElement> getActiveHudList() {

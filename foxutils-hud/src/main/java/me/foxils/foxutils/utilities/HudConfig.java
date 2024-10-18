@@ -50,6 +50,10 @@ public class HudConfig extends SectionManager {
         setXOffsetFromUnicodeCharacter(Character.toString(xOffsetDecimal));
     }
 
+    public Plugin getPlugin() {
+        return this.plugin;
+    }
+
     private static int getUnicodeDecimalOf(String unicodeCharacter) {
         int unicodeDecimal = 0;
 
