@@ -60,7 +60,7 @@ public final class FoxutilsHud extends JavaPlugin {
 
                 if (playerHud == null || playerHud.hasActiveHuds()) return;
 
-                spigotPlayer.sendMessage(ChatMessageType.ACTION_BAR, playerHud.buildHudComponent());
+                spigotPlayer.sendMessage(ChatMessageType.ACTION_BAR, playerHud.buildHudBaseComponent());
             }
         }
 

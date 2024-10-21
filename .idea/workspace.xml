@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="foxutils-hud revival, still considering restructure.">
-      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/SelectItemListener.java" afterDir="false" />
+    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method.">
+      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/itemactions/ItemSelectionActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/ItemSelectionActionListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-items/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/utilities/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/utilities/ActionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/FoxutilsItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/FoxutilsItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/itemactions/SwapHandsAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/itemactions/SwapOffhandAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/SwapHandsActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/SwapOffhandActionListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +49,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="AnnotationType" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -162,6 +166,7 @@
       <method v="2">
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-config/pom.xml" goal="clean verify package" />
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-hud/pom.xml" goal="clean verify package" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-items/pom.xml" goal="clean verify package" />
       </method>
     </configuration>
     <configuration name="Start + Compile" type="JarApplication">
@@ -368,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729134599505</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="misc">
+      <option name="closed" value="true" />
+      <created>1729222109454</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1729222109454</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -388,7 +401,9 @@
     <MESSAGE value="stupid, why did i do this, it dosent work, its literally inherently flawed :sob:" />
     <MESSAGE value="Some minor improvements before I ask for a code review" />
     <MESSAGE value="foxutils-hud revival, still considering restructure." />
-    <option name="LAST_COMMIT_MESSAGE" value="foxutils-hud revival, still considering restructure." />
+    <MESSAGE value="misc" />
+    <MESSAGE value="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method." />
+    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,6 +1,7 @@
 package me.foxils.foxutils.hud;
 
 import me.foxils.foxutils.registry.HudRegistry;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ public class PlayerHud extends HudElement {
 
     private final List<HudElement> activeHudList = new ArrayList<>();
 
+    // Enum
     private static final NamespacedKey PLAYER_HUD_KEY = new NamespacedKey("foxutils-hud", "player-hud");
 
     public PlayerHud(UUID playerUUID) {
@@ -28,6 +30,15 @@ public class PlayerHud extends HudElement {
 
     public PlayerHud(Player player) {
         this(player.getUniqueId());
+    }
+
+    @Override
+    public BaseComponent buildHudBaseComponent() {
+        TextComponent hudComponent = new TextComponent(super.buildHudBaseComponent());
+
+        activeHudList.forEach(hudElement -> hudComponent.addExtra(hudElement.buildHudBaseComponent()));
+
+        return hudComponent;
     }
 
     public UUID getPlayerUUID() {
@@ -77,13 +88,5 @@ public class PlayerHud extends HudElement {
 
     public void removeActiveHud(HudElement hudElement) {
         activeHudList.remove(hudElement);
-    }
-
-    public TextComponent buildHudComponent() {
-        TextComponent hudComponent = new TextComponent(super.buildHudBaseComponent());
-
-        activeHudList.forEach(hudElement -> hudComponent.addExtra(hudElement.buildHudBaseComponent()));
-
-        return hudComponent;
     }
 }
