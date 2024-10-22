@@ -76,7 +76,7 @@ public final class ItemRegistry {
         return registeredItems.get(itemKey);
     }
 
-    public static HashSet<Item> getRegisteredGems() {
+    public static HashSet<Item> getRegisteredItems() {
         return new HashSet<>(registeredItems.values());
     }
 }

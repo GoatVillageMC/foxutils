@@ -52,6 +52,7 @@ public class PlayerHud extends HudElement {
     public boolean hasHudActivated(HudElement hudElement) {
         return this.hasHudActivatedFromKey(hudElement.getKey());
     }
+
     public boolean hasHudActivatedFromEnum(HudEnum hudEnum) {
         return this.hasHudActivatedFromKey(hudEnum.getHudKey());
     }
