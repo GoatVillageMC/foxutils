@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Hud: No Version Upgrade&#10;&#10;Foxutils-Items: 1.17.2 -&gt; 1.17.3&#10;     Added default behavior for custom items to not be droppable.&#10;     Temporary &quot;/listitems&quot; command functionality&#10;     Removed remenant of &quot;Gem-Only&quot; code in ItemRegistry.getRegisteredItems()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-items/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/DropActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/DropActionListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/registry/ItemRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/registry/ItemRegistry.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +151,7 @@
       <recent name="me.foxils" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.ALL Run + Compile">
+  <component name="RunManager" selected="JAR Application.Start + Compile">
     <configuration name="ALL Run + Compile" type="JarApplication">
       <option name="JAR_PATH" value="$USER_HOME$/Servers/ServerJars/paper-1.21.1.jar" />
       <option name="PROGRAM_PARAMETERS" value="--nogui" />
@@ -171,7 +167,7 @@
     <configuration name="Start + Compile" type="JarApplication">
       <option name="JAR_PATH" value="$USER_HOME$/Servers/ServerJars/paper-1.21.1.jar" />
       <option name="PROGRAM_PARAMETERS" value="--nogui" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Servers/SomethingDifferentRewrite" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Servers/ScytheSMP" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" value="21" />
       <method v="2">
@@ -377,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729570197289</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Foxutils-Hud: No Version Upgrade&#10;&#10;Foxutils-Items: 1.17.2 -&gt; 1.17.3&#10;     Added default behavior for custom items to not be droppable.&#10;     Temporary &quot;/listitems&quot; command functionality&#10;     Removed remenant of &quot;Gem-Only&quot; code in ItemRegistry.getRegisteredItems()">
+      <option name="closed" value="true" />
+      <created>1729634838591</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1729634838591</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -400,7 +404,8 @@
     <MESSAGE value="misc" />
     <MESSAGE value="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method." />
     <MESSAGE value="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation" />
+    <MESSAGE value="Foxutils-Hud: No Version Upgrade&#10;&#10;Foxutils-Items: 1.17.2 -&gt; 1.17.3&#10;     Added default behavior for custom items to not be droppable.&#10;     Temporary &quot;/listitems&quot; command functionality&#10;     Removed remenant of &quot;Gem-Only&quot; code in ItemRegistry.getRegisteredItems()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Hud: No Version Upgrade&#10;&#10;Foxutils-Items: 1.17.2 -&gt; 1.17.3&#10;     Added default behavior for custom items to not be droppable.&#10;     Temporary &quot;/listitems&quot; command functionality&#10;     Removed remenant of &quot;Gem-Only&quot; code in ItemRegistry.getRegisteredItems()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

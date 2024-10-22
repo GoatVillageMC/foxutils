@@ -33,9 +33,7 @@ public final class ItemRegistry {
         // made more sense here earlier
         final FoxCraftingRecipe itemRecipe = item.getRecipe();
 
-        if (itemRecipe == null) {
-            return;
-        }
+        if (itemRecipe == null) return;
 
         final Recipe bukkitRecipe = itemRecipe.getConvertedRecipe();
 
