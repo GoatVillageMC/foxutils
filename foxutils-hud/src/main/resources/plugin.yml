@@ -16,7 +16,7 @@ commands:
     description: Enables a hud element using its respective configuration key.
     usage: /<command>
     permission: op
-  gethuds:
+  listhuds:
     description: Sends a message containing the names and keys of all currently registered hud configurations.
     usage: /<command>
     permission: op

@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method.">
-      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/itemactions/ItemSelectionActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/ItemSelectionActionListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudEnums.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/GetHuds.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/ListRegisteredHuds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/FoxutilsItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/FoxutilsItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/itemactions/SwapHandsAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/itemactions/SwapOffhandAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/SwapHandsActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/SwapOffhandActionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +50,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="Enum" />
         <option value="Class" />
         <option value="Interface" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -73,14 +73,14 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/notFoxils/foxutils.git&quot;,
-    &quot;accountId&quot;: &quot;554fa771-47fd-463a-bcd1-8c4b9774e480&quot;
+    &quot;accountId&quot;: &quot;256ead68-0983-491b-a029-8ced0e4729c1&quot;
   }
 }</component>
   <component name="MavenRunner">
     <option name="jreName" value="21" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -102,6 +102,7 @@
     &quot;JAR Application.Start + Compile.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Compile.executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-config [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-config [install].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-config [package].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-data [clean,verify,package].executor&quot;: &quot;Run&quot;,
@@ -109,6 +110,7 @@
     &quot;Maven.foxutils-data [install].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-data [package].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-hud [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-hud [install].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-hud [package].executor&quot;: &quot;Run&quot;,
     &quot;Maven.foxutils-hud [test].executor&quot;: &quot;Run&quot;,
@@ -177,17 +179,6 @@
       <option name="ALTERNATIVE_JRE_PATH" value="21" />
       <method v="2">
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/foxutils-items/pom.xml" goal="clean verify package" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Compile" type="MavenRunConfiguration" factoryName="Maven">

@@ -2,7 +2,7 @@ package me.foxils.foxutils;
 
 import me.foxils.foxutils.commands.DebugHud;
 import me.foxils.foxutils.commands.EnableHud;
-import me.foxils.foxutils.commands.GetHuds;
+import me.foxils.foxutils.commands.ListRegisteredHuds;
 import me.foxils.foxutils.hud.PlayerHud;
 import me.foxils.foxutils.listeners.PlayerJoinListener;
 import me.foxils.foxutils.registry.HudRegistry;
@@ -39,7 +39,7 @@ public final class FoxutilsHud extends JavaPlugin {
     private void registerCommands() {
         Objects.requireNonNull(getCommand("debughud")).setExecutor(new DebugHud());
         Objects.requireNonNull(getCommand("enablehud")).setExecutor(new EnableHud());
-        Objects.requireNonNull(getCommand("gethuds")).setExecutor(new GetHuds());
+        Objects.requireNonNull(getCommand("listhuds")).setExecutor(new ListRegisteredHuds());
     }
 
     private static class ScheduleSendHud extends BukkitRunnable {
@@ -58,7 +58,7 @@ public final class FoxutilsHud extends JavaPlugin {
 
                 PlayerHud playerHud = PlayerHudRegistry.getPlayerHudFromPlayer(player);
 
-                if (playerHud == null || playerHud.hasActiveHuds()) return;
+                if (playerHud == null || playerHud.hasActiveHud()) return;
 
                 spigotPlayer.sendMessage(ChatMessageType.ACTION_BAR, playerHud.buildHudBaseComponent());
             }

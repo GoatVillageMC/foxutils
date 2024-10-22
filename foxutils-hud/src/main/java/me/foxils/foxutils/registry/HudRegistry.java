@@ -2,9 +2,11 @@ package me.foxils.foxutils.registry;
 
 import me.foxils.foxutils.utilities.HudConfig;
 import me.foxils.foxutils.utilities.HudConfigsContainer;
+import me.foxils.foxutils.utilities.HudEnum;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,8 +20,7 @@ public final class HudRegistry {
         HudConfigsContainer hudConfigsContainer = new HudConfigsContainer(plugin);
 
         hudConfigsContainer.getHudConfigsSection().getKeys().forEach((hudName) -> {
-            final HudConfig hudConfig = hudConfigsContainer.getHudConfig(hudName);
-
+            HudConfig hudConfig = hudConfigsContainer.getHudConfig(hudName);
             registerHudConfig(hudConfig, hudConfig.getKey());
         });
 
@@ -30,8 +31,14 @@ public final class HudRegistry {
         KEY_HUD_CONFIG_MAP.put(hudKey, hudConfig);
     }
 
+    @Nullable
     public static HudConfig getHudConfigFromKey(NamespacedKey hudKey) {
         return KEY_HUD_CONFIG_MAP.get(hudKey);
+    }
+
+    @Nullable
+    public static HudConfig getHudConfigFromEnum(HudEnum hudEnum) {
+        return getHudConfigFromKey(hudEnum.getHudKey());
     }
 
     public static Set<HudConfig> getRegisteredHudConfigs() {

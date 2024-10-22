@@ -1,6 +1,8 @@
 package me.foxils.foxutils.hud;
 
 import me.foxils.foxutils.registry.HudRegistry;
+import me.foxils.foxutils.utilities.HudEnum;
+import me.foxils.foxutils.utilities.HudEnums;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
@@ -8,8 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
@@ -17,14 +18,12 @@ public class PlayerHud extends HudElement {
 
     private final UUID playerUUID;
 
-    private final List<HudElement> activeHudList = new ArrayList<>();
-
-    // Enum
-    private static final NamespacedKey PLAYER_HUD_KEY = new NamespacedKey("foxutils-hud", "player-hud");
+    private final HashSet<HudElement> activeHudSet;
 
     public PlayerHud(UUID playerUUID) {
-        super(HudRegistry.getHudConfigFromKey(PLAYER_HUD_KEY));
+        super(HudRegistry.getHudConfigFromEnum(HudEnums.PLAYER_HUD));
 
+        this.activeHudSet = new HashSet<>();
         this.playerUUID = playerUUID;
     }
 
@@ -32,29 +31,16 @@ public class PlayerHud extends HudElement {
         this(player.getUniqueId());
     }
 
-    @Override
-    public BaseComponent buildHudBaseComponent() {
-        TextComponent hudComponent = new TextComponent(super.buildHudBaseComponent());
-
-        activeHudList.forEach(hudElement -> hudComponent.addExtra(hudElement.buildHudBaseComponent()));
-
-        return hudComponent;
-    }
-
     public UUID getPlayerUUID() {
-        return playerUUID;
+        return this.playerUUID;
     }
 
-    public boolean hasActiveHuds() {
-        return activeHudList.isEmpty();
+    public boolean hasActiveHud() {
+        return this.activeHudSet.isEmpty();
     }
 
-    public boolean hasActiveHud(HudElement hudElement) {
-        return activeHudList.contains(hudElement);
-    }
-
-    public boolean hasActiveHudFromKey(NamespacedKey hudKey) {
-        for (HudElement hudElement : activeHudList) {
+    public boolean hasHudActivatedFromKey(NamespacedKey hudKey) {
+        for (HudElement hudElement : activeHudSet) {
             if (!hudElement.getKey().equals(hudKey)) continue;
 
             return true;
@@ -63,9 +49,27 @@ public class PlayerHud extends HudElement {
         return false;
     }
 
+    public boolean hasHudActivated(HudElement hudElement) {
+        return this.hasHudActivatedFromKey(hudElement.getKey());
+    }
+    public boolean hasHudActivatedFromEnum(HudEnum hudEnum) {
+        return this.hasHudActivatedFromKey(hudEnum.getHudKey());
+    }
+
+    @Override
+    public BaseComponent buildHudBaseComponent() {
+        TextComponent hudComponent = new TextComponent(super.buildHudBaseComponent());
+
+        for (HudElement activeHudElement : activeHudSet) {
+            hudComponent.addExtra(activeHudElement.buildHudBaseComponent());
+        }
+
+        return hudComponent;
+    }
+
     @Nullable
-    public HudElement getActiveHudFromKey(@NotNull NamespacedKey hudKey) {
-        for (HudElement hudElement : activeHudList) {
+    public HudElement getActivatedHudFromKey(@NotNull NamespacedKey hudKey) {
+        for (HudElement hudElement : activeHudSet) {
             if (!hudElement.getKey().equals(hudKey)) continue;
 
             return hudElement;
@@ -74,19 +78,29 @@ public class PlayerHud extends HudElement {
         return null;
     }
 
-    public List<HudElement> getActiveHudList() {
-        return List.copyOf(activeHudList);
+    @Nullable
+    public HudElement getActivatedHudFromEnum(HudEnum hudEnum) {
+        return this.getActivatedHudFromKey(hudEnum.getHudKey());
+    }
+
+    public HashSet<HudElement> getActiveHudSet() {
+        return new HashSet<>(this.activeHudSet);
     }
 
     public void addActiveHud(HudElement hudElement) {
-        activeHudList.add(hudElement);
+        this.activeHudSet.add(hudElement);
     }
 
     public void removeActiveHudFromKey(NamespacedKey keyToRemove) {
-        activeHudList.removeIf(hudElement -> hudElement.getKey().equals(keyToRemove));
+        this.activeHudSet.removeIf(activeHudElement -> activeHudElement.getKey().equals(keyToRemove));
     }
 
-    public void removeActiveHud(HudElement hudElement) {
-        activeHudList.remove(hudElement);
+    public void removeActiveHudFromEnum(HudEnum hudEnum) {
+        this.removeActiveHudFromKey(hudEnum.getHudKey());
     }
+
+    public void removeActiveHudElement(HudElement hudElement) {
+        this.removeActiveHudFromKey(hudElement.getKey());
+    }
+
 }

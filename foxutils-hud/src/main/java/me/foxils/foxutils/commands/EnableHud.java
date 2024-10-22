@@ -4,6 +4,7 @@ import me.foxils.foxutils.hud.HudElement;
 import me.foxils.foxutils.hud.PlayerHud;
 import me.foxils.foxutils.registry.HudRegistry;
 import me.foxils.foxutils.registry.PlayerHudRegistry;
+import me.foxils.foxutils.utilities.HudConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
@@ -27,16 +28,23 @@ public class EnableHud implements CommandExecutor {
             return true;
         }
 
-        final NamespacedKey namespacedKey = NamespacedKey.fromString(args[0]);
+        final NamespacedKey hudKey = NamespacedKey.fromString(args[0]);
 
-        if (playerHud.hasActiveHudFromKey(namespacedKey)) {
-            sender.sendMessage(ChatColor.RED + "Removing " + namespacedKey + " from player-hud instance.");
-            playerHud.removeActiveHudFromKey(namespacedKey);
+        final HudConfig hudConfig = HudRegistry.getHudConfigFromKey(hudKey);
+
+        if (hudConfig == null) {
+            sender.sendMessage(ChatColor.RED + "Invalid hud-key, please check currently registered hud-keys with the /listhuds command");
             return true;
         }
 
-        playerHud.addActiveHud(new HudElement(HudRegistry.getHudConfigFromKey(namespacedKey)));
-        sender.sendMessage(ChatColor.GREEN + "Adding " + namespacedKey + " to player-hud instance.");
+        if (playerHud.hasHudActivatedFromKey(hudKey)) {
+            sender.sendMessage(ChatColor.RED + "Removing " + hudKey + " from player-hud instance.");
+            playerHud.removeActiveHudFromKey(hudKey);
+            return true;
+        }
+
+        playerHud.addActiveHud(new HudElement(HudRegistry.getHudConfigFromKey(hudKey)));
+        sender.sendMessage(ChatColor.GREEN + "Adding " + hudKey + " to player-hud instance.");
         return true;
     }
 }
