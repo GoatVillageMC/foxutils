@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method.">
-      <change afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudEnums.java" afterDir="false" />
+    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/FoxutilsHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/GetHuds.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/ListRegisteredHuds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/DebugHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableDebugHud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/EnableRegisteredHudFromKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/ListRegisteredHuds.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/commands/ListRegisteredHuds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/hud/PlayerHud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/registry/HudConfigRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-hud/src/main/java/me/foxils/foxutils/utilities/HudConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729222109454</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation">
+      <option name="closed" value="true" />
+      <created>1729570197289</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1729570197289</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -394,7 +400,8 @@
     <MESSAGE value="foxutils-hud revival, still considering restructure." />
     <MESSAGE value="misc" />
     <MESSAGE value="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method." />
-    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Items: 1.16.2 -&gt; 1.17.1&#10;      Added ItemSelectionActions and Listener&#10;      Renamed SwapHandsAction to SwapOffhandAction&#10;Foxutils-Hud: No version upgrade&#10;      Override HudElement.buildHudBaseComponent() in PlayerHud instead of extra unique method." />
+    <MESSAGE value="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Hud: No Version Upgrade&#10;       Added HudEnum and accompanying methods globally as well as modular interface to help with external implementation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

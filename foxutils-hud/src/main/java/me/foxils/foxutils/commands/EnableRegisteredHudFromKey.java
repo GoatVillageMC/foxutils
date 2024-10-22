@@ -2,7 +2,7 @@ package me.foxils.foxutils.commands;
 
 import me.foxils.foxutils.hud.HudElement;
 import me.foxils.foxutils.hud.PlayerHud;
-import me.foxils.foxutils.registry.HudRegistry;
+import me.foxils.foxutils.registry.HudConfigRegistry;
 import me.foxils.foxutils.registry.PlayerHudRegistry;
 import me.foxils.foxutils.utilities.HudConfig;
 import org.bukkit.ChatColor;
@@ -13,11 +13,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class EnableHud implements CommandExecutor {
+public class EnableRegisteredHudFromKey implements CommandExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(ChatColor.DARK_RED + "Users of this command must be a player.");
+            sender.sendMessage(ChatColor.DARK_RED + "Users of this command must be players.");
             return true;
         }
 
@@ -30,7 +31,7 @@ public class EnableHud implements CommandExecutor {
 
         final NamespacedKey hudKey = NamespacedKey.fromString(args[0]);
 
-        final HudConfig hudConfig = HudRegistry.getHudConfigFromKey(hudKey);
+        final HudConfig hudConfig = HudConfigRegistry.getHudConfigFromKey(hudKey);
 
         if (hudConfig == null) {
             sender.sendMessage(ChatColor.RED + "Invalid hud-key, please check currently registered hud-keys with the /listhuds command");
@@ -43,7 +44,7 @@ public class EnableHud implements CommandExecutor {
             return true;
         }
 
-        playerHud.addActiveHud(new HudElement(HudRegistry.getHudConfigFromKey(hudKey)));
+        playerHud.addActiveHud(new HudElement(HudConfigRegistry.getHudConfigFromKey(hudKey)));
         sender.sendMessage(ChatColor.GREEN + "Adding " + hudKey + " to player-hud instance.");
         return true;
     }

@@ -1,12 +1,13 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.commands.DebugHud;
-import me.foxils.foxutils.commands.EnableHud;
+import me.foxils.foxutils.commands.EnableDebugHud;
+import me.foxils.foxutils.commands.EnableRegisteredHudFromKey;
 import me.foxils.foxutils.commands.ListRegisteredHuds;
 import me.foxils.foxutils.hud.PlayerHud;
 import me.foxils.foxutils.listeners.PlayerJoinListener;
-import me.foxils.foxutils.registry.HudRegistry;
+import me.foxils.foxutils.registry.HudConfigRegistry;
 import me.foxils.foxutils.registry.PlayerHudRegistry;
+import me.foxils.foxutils.utilities.HudConfigsContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -17,12 +18,20 @@ import java.util.Objects;
 
 public final class FoxutilsHud extends JavaPlugin {
 
+    @SuppressWarnings("unused")
+    private final HudConfigsContainer hudConfigsContainer;
+
     private ScheduleSendHud scheduleSendHud;
+
+    public FoxutilsHud() {
+        super();
+
+        this.hudConfigsContainer = new HudConfigsContainer(this);
+    }
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-        HudRegistry.registerPluginHudConfigs(this);
+        HudConfigRegistry.registerHudConfigsOfContainer(this.hudConfigsContainer);
 
         registerCommands();
         registerEvents();
@@ -37,8 +46,8 @@ public final class FoxutilsHud extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(getCommand("debughud")).setExecutor(new DebugHud());
-        Objects.requireNonNull(getCommand("enablehud")).setExecutor(new EnableHud());
+        Objects.requireNonNull(getCommand("debughud")).setExecutor(new EnableDebugHud());
+        Objects.requireNonNull(getCommand("enablehud")).setExecutor(new EnableRegisteredHudFromKey());
         Objects.requireNonNull(getCommand("listhuds")).setExecutor(new ListRegisteredHuds());
     }
 
@@ -58,7 +67,7 @@ public final class FoxutilsHud extends JavaPlugin {
 
                 PlayerHud playerHud = PlayerHudRegistry.getPlayerHudFromPlayer(player);
 
-                if (playerHud == null || playerHud.hasActiveHud()) return;
+                if (playerHud == null || !playerHud.hasActiveHud()) return;
 
                 spigotPlayer.sendMessage(ChatMessageType.ACTION_BAR, playerHud.buildHudBaseComponent());
             }

@@ -1,6 +1,6 @@
 package me.foxils.foxutils.hud;
 
-import me.foxils.foxutils.registry.HudRegistry;
+import me.foxils.foxutils.registry.HudConfigRegistry;
 import me.foxils.foxutils.utilities.HudEnum;
 import me.foxils.foxutils.utilities.HudEnums;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -21,7 +21,7 @@ public class PlayerHud extends HudElement {
     private final HashSet<HudElement> activeHudSet;
 
     public PlayerHud(UUID playerUUID) {
-        super(HudRegistry.getHudConfigFromEnum(HudEnums.PLAYER_HUD));
+        super(HudConfigRegistry.getHudConfigFromEnum(HudEnums.PLAYER_HUD));
 
         this.activeHudSet = new HashSet<>();
         this.playerUUID = playerUUID;
@@ -36,7 +36,7 @@ public class PlayerHud extends HudElement {
     }
 
     public boolean hasActiveHud() {
-        return this.activeHudSet.isEmpty();
+        return !this.activeHudSet.isEmpty();
     }
 
     public boolean hasHudActivatedFromKey(NamespacedKey hudKey) {

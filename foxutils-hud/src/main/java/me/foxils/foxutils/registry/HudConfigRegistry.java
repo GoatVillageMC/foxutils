@@ -4,7 +4,6 @@ import me.foxils.foxutils.utilities.HudConfig;
 import me.foxils.foxutils.utilities.HudConfigsContainer;
 import me.foxils.foxutils.utilities.HudEnum;
 import org.bukkit.NamespacedKey;
-import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -12,19 +11,16 @@ import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public final class HudRegistry {
+public final class HudConfigRegistry {
 
     private static final Map<NamespacedKey, HudConfig> KEY_HUD_CONFIG_MAP = new HashMap<>();
 
-    public static HudConfigsContainer registerPluginHudConfigs(Plugin plugin) {
-        HudConfigsContainer hudConfigsContainer = new HudConfigsContainer(plugin);
+    public static void registerHudConfigsOfContainer(HudConfigsContainer hudConfigsContainer) {
+        for (Object hudConfigKey : hudConfigsContainer.getHudConfigsSection().getKeys()) {
+            final HudConfig hudConfig = hudConfigsContainer.getHudConfig(hudConfigKey);
 
-        hudConfigsContainer.getHudConfigsSection().getKeys().forEach((hudName) -> {
-            HudConfig hudConfig = hudConfigsContainer.getHudConfig(hudName);
             registerHudConfig(hudConfig, hudConfig.getKey());
-        });
-
-        return hudConfigsContainer;
+        }
     }
 
     private static void registerHudConfig(HudConfig hudConfig, NamespacedKey hudKey) {

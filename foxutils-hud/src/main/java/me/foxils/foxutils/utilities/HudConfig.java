@@ -78,6 +78,7 @@ public class HudConfig extends SectionManager {
     public int getTextureAsUnicodeDecimal() {
         return getUnicodeDecimalOf(this.textureUnicodeCharacter);
     }
+
     public String getXOffsetAsUnicodeCharacter() {
         return this.xOffsetUnicodeCharacter;
     }
