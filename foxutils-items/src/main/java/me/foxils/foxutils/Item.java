@@ -1,14 +1,11 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.itemactions.InventoryClickAction;
 import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -16,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Item implements InventoryClickAction {
+public abstract class Item {
 
     protected final Plugin plugin;
 
@@ -33,7 +30,7 @@ public class Item implements InventoryClickAction {
     private final NamespacedKey itemKey;
 
                                     // Move V to enums so that its easier to read
-    protected Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+    public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
 
         this.item = new ItemStack(material);
@@ -46,15 +43,15 @@ public class Item implements InventoryClickAction {
         this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
     }
 
-    protected Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+    public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this(material, 0, name, plugin, abilityList, itemsForRecipe, shapedRecipe);
     }
 
-    protected Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList) {
+    public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList) {
         this(material, customModelData, name, plugin, abilityList, null, false);
     }
 
-    protected Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList) {
+    public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList) {
         this(material, 0, name, plugin, abilityList);
     }
 
@@ -89,15 +86,6 @@ public class Item implements InventoryClickAction {
         actualLore = lore;
 
         return lore;
-    }
-
-    @Override
-    public void onInvetoryPull(InventoryClickEvent event, ItemStack itemStack) {
-        if (event.getClickedInventory() == null) return;
-        if (event.getSlotType() == InventoryType.SlotType.RESULT) return;
-        if (event.getView().getTopInventory().getType() == InventoryType.CRAFTING) return;
-
-        event.setCancelled(true);
     }
 
     public Material getItemMaterial() {
