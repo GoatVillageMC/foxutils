@@ -26,10 +26,10 @@ public abstract class Item {
     private final List<ItemAbility> abilityList = new ArrayList<>();
     private FoxCraftingRecipe recipe;
 
-    public static final NamespacedKey itemConfirmationKey = new NamespacedKey("foxutils", "fox_item");
     private final NamespacedKey itemKey;
 
-                                    // Move V to enums so that its easier to read
+    public static final NamespacedKey itemConfirmationKey = NamespacedKey.fromString("foxutils:fox_item");
+
     public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
 
@@ -61,7 +61,7 @@ public abstract class Item {
         ItemUtils.nameItem(newItem, name);
         ItemUtils.addItemLore(newItem, createLore());
         ItemUtils.setCustomModelData(newItem, customModelData);
-        // Stores the actual item itemKey (name/internal refrence), at the items:itemkey location in NBT
+        // Stores the actual item itemKey (name/internal reference), at the foxutils:fox_item location in NBT
         ItemUtils.storeStringData(itemConfirmationKey, newItem, itemKey.toString());
 
         newItem.setAmount(amount);
