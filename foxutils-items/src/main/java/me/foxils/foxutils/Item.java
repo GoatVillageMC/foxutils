@@ -3,12 +3,15 @@ package me.foxils.foxutils;
 import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +24,14 @@ public abstract class Item {
     private final String name;
     private final int customModelData;
 
-    private List<String> actualLore = new ArrayList<>();
+    private final List<String> actualLore = new ArrayList<>();
 
     private final List<ItemAbility> abilityList = new ArrayList<>();
     private FoxCraftingRecipe recipe;
 
     private final NamespacedKey itemKey;
 
-    public static final NamespacedKey itemConfirmationKey = NamespacedKey.fromString("foxutils:fox_item");
+    public static final NamespacedKey itemConfirmationKey = NamespacedKey.fromString("foxutils:fox-item");
 
     public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
@@ -40,7 +43,16 @@ public abstract class Item {
         this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").toLowerCase());
 
         this.abilityList.addAll(abilityList);
-        this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
+
+            //TODO: Move to the FoxCraftingRecipe Class
+            final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
+
+            if (bukkitRecipe == null) return;
+
+            Bukkit.addRecipe(bukkitRecipe);
+        }, 1L);
     }
 
     public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
@@ -55,8 +67,9 @@ public abstract class Item {
         this(material, 0, name, plugin, abilityList);
     }
 
+    @OverridingMethodsMustInvokeSuper
     public ItemStack createItem(int amount) {
-        ItemStack newItem = item.clone();
+        final ItemStack newItem = item.clone();
 
         ItemUtils.nameItem(newItem, name);
         ItemUtils.addItemLore(newItem, createLore());
@@ -70,49 +83,48 @@ public abstract class Item {
     }
 
     public List<String> createLore() {
-        if (!actualLore.isEmpty()) {
-            return actualLore;
-        }
+        if (!actualLore.isEmpty()) return actualLore;
 
-        List<String> lore = new ArrayList<>();
+        final List<String> lore = new ArrayList<>();
 
         lore.add(" ");
 
         abilityList.forEach(itemAbility -> {
             lore.addAll(itemAbility.toLore());
+
             if (!abilityList.getLast().equals(itemAbility)) lore.add(" ");
         });
 
-        actualLore = lore;
+        actualLore.addAll(lore);
 
         return lore;
     }
 
-    public Material getItemMaterial() {
+    public final Material getItemMaterial() {
         return item.getType();
     }
 
-    public ItemStack getRawItem() {
+    public final ItemStack getRawItem() {
         return item;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public NamespacedKey getKey() {
+    public final NamespacedKey getKey() {
         return itemKey;
     }
 
-    public String getRawName() {
+    public final String getRawName() {
         return getKey().getKey();
     }
 
-    public FoxCraftingRecipe getRecipe() {
+    public final FoxCraftingRecipe getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(FoxCraftingRecipe recipe) {
+    public final void setRecipe(FoxCraftingRecipe recipe) {
         this.recipe = recipe;
     }
 }

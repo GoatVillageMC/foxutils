@@ -1,15 +1,14 @@
 package me.foxils.foxutils.registry;
 
 import me.foxils.foxutils.Item;
-import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 @SuppressWarnings("unused")
 public final class ItemRegistry {
@@ -28,18 +27,6 @@ public final class ItemRegistry {
         registeredItems.put(itemKey, item);
 
         Bukkit.getLogger().info("Registered: " + itemKey.getKey());
-
-        // should probably move to the FoxCraftingRecipe Class
-        // made more sense here earlier
-        final FoxCraftingRecipe itemRecipe = item.getRecipe();
-
-        if (itemRecipe == null) return;
-
-        final Recipe bukkitRecipe = itemRecipe.getConvertedRecipe();
-
-        if (bukkitRecipe == null) return;
-
-        Bukkit.addRecipe(bukkitRecipe);
     }
 
     public static Item getItemFromKey(NamespacedKey key) {
