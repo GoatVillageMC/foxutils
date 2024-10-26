@@ -36,7 +36,7 @@ public final class FoxutilsItems extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(Bukkit.getPluginCommand("get")).setExecutor(new GetRegisteredItems(this));
+        Objects.requireNonNull(Bukkit.getPluginCommand("getitem")).setExecutor(new GetRegisteredItems(this));
         Objects.requireNonNull(Bukkit.getPluginCommand("listitems")).setExecutor(new ListRegisteredItems());
     }
 

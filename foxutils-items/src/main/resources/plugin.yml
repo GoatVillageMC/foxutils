@@ -4,7 +4,7 @@ main: me.foxils.foxutils.FoxutilsItems
 api-version: '1.21'
 
 commands:
-  get:
+  getitem:
     description: Get custom item using the item's key
     usage: /<command> <itemkey>
     permission: op

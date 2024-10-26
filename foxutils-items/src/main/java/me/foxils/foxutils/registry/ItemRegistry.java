@@ -7,15 +7,14 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 public final class ItemRegistry {
 
-    //prettey simple you can probably get the jist of it
-
-    private static final HashMap<NamespacedKey, Item> registeredItems = new HashMap<>();
+    private static final Map<NamespacedKey, Item> registeredItems = new HashMap<>();
 
     private ItemRegistry() {
         throw new IllegalStateException("1D brain: instantiate ItemRegistry");
@@ -61,7 +60,7 @@ public final class ItemRegistry {
         return registeredItems.get(itemKey);
     }
 
-    public static HashSet<Item> getRegisteredItems() {
-        return new HashSet<>(registeredItems.values());
+    public static Collection<Item> getRegisteredItems() {
+        return registeredItems.values();
     }
 }
