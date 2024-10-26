@@ -1,6 +1,6 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.commands.GetRegisteredItems;
+import me.foxils.foxutils.commands.GetRegisteredItem;
 import me.foxils.foxutils.commands.ListRegisteredItems;
 import me.foxils.foxutils.itemactions.HoldingItemAction;
 import me.foxils.foxutils.itemactions.PassiveAction;
@@ -36,7 +36,7 @@ public final class FoxutilsItems extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(Bukkit.getPluginCommand("getitem")).setExecutor(new GetRegisteredItems(this));
+        Objects.requireNonNull(Bukkit.getPluginCommand("getitem")).setExecutor(new GetRegisteredItem(this));
         Objects.requireNonNull(Bukkit.getPluginCommand("listitems")).setExecutor(new ListRegisteredItems());
     }
 

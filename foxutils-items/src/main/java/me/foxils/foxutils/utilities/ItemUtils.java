@@ -3,6 +3,7 @@ package me.foxils.foxutils.utilities;
 import me.foxils.foxutils.Item;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -22,7 +23,7 @@ public final class ItemUtils {
 
     private ItemUtils() {}
 
-    public static ItemStack nameItem(ItemStack item, String name) {
+    public static void nameItem(ItemStack item, String name) {
         ItemMeta itemMeta = item.getItemMeta();
         assert itemMeta != null;
 
@@ -30,8 +31,6 @@ public final class ItemUtils {
 
         itemMeta.setItemName(translated);
         item.setItemMeta(itemMeta);
-
-        return item;
     }
 
     public static void addEnchantGlint(ItemStack item) {
@@ -44,24 +43,20 @@ public final class ItemUtils {
         item.setItemMeta(meta);
     }
 
-    public static ItemStack setCustomModelData(ItemStack item, int customModelData) {
+    public static void setCustomModelData(ItemStack item, int customModelData) {
         ItemMeta itemMeta = item.getItemMeta();
         assert itemMeta != null;
 
         itemMeta.setCustomModelData(customModelData);
         item.setItemMeta(itemMeta);
-
-        return item;
     }
 
-    public static ItemStack addItemLore(ItemStack item, List<String> lore) {
+    public static void addItemLore(ItemStack item, List<String> lore) {
         ItemMeta itemMeta = item.getItemMeta();
         assert itemMeta != null;
 
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
-
-        return item;
     }
 
     private static List<Object> getPersistentDataContainer(ItemStack item) {
@@ -82,7 +77,7 @@ public final class ItemUtils {
         );
     }
 
-    public static <Primitive, Complex> ItemStack storeDataOfType(PersistentDataType<Primitive, Complex> type, Complex data, NamespacedKey key, ItemStack item) {
+    public static <Primitive, Complex> void storeDataOfType(PersistentDataType<Primitive, Complex> type, Complex data, NamespacedKey key, ItemStack item) {
         List<Object> containerData = getPersistentDataContainer(item);
 
         PersistentDataContainer dataContainer = (PersistentDataContainer) containerData.getLast();
@@ -90,16 +85,14 @@ public final class ItemUtils {
         dataContainer.set(key, type, data);
 
         item.setItemMeta((ItemMeta) containerData.getFirst());
-
-        return item;
     }
 
-    public static ItemStack storeIntegerData(NamespacedKey key, ItemStack item, Integer integer) {
-        return storeDataOfType(PersistentDataType.INTEGER, integer, key, item);
+    public static void storeIntegerData(NamespacedKey key, ItemStack item, Integer integer) {
+        storeDataOfType(PersistentDataType.INTEGER, integer, key, item);
     }
 
-    public static ItemStack storeStringData(NamespacedKey key, ItemStack item, String string) {
-        return storeDataOfType(PersistentDataType.STRING, string, key, item);
+    public static void storeStringData(NamespacedKey key, ItemStack item, String string) {
+        storeDataOfType(PersistentDataType.STRING, string, key, item);
     }
 
     public static <Primitive, Complex> Complex getDataOfType(PersistentDataType<Primitive, Complex> type, NamespacedKey key, ItemStack item) {
@@ -126,7 +119,7 @@ public final class ItemUtils {
         return getDataOfType(PersistentDataType.INTEGER, key, item);
     }
 
-    public static boolean getCooldown(NamespacedKey key, ItemStack item, int cooldown, Player player, TextComponent successMessage) {
+    public static boolean getCooldown(NamespacedKey key, ItemStack item, int cooldown, Player player, BaseComponent successMessage) {
         Double timeNow = (double) (System.currentTimeMillis() / 1000);
         Double timeLastUsed = getDataOfType(PersistentDataType.DOUBLE, key, item);
 

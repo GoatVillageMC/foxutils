@@ -6,7 +6,7 @@ api-version: '1.21'
 commands:
   getitem:
     description: Get custom item using the item's key
-    usage: /<command> <itemkey>
+    usage: /<command> <player> <itemkey> <amount>
     permission: op
   listitems:
     description: Lists all currently registered items
