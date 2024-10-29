@@ -23,6 +23,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.3</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>dev.dejvokep.boostedyaml</pattern>
+                            <shadedPattern>me.foxils.foxutils.utilities</shadedPattern>
+                            <includes>
+                                <include>dev.dejvokep.boostedyaml.*</include>
+                            </includes>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -46,7 +57,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-                    <outputDirectory>../../../Servers/RezineSMP/plugins</outputDirectory>
+                    <outputDirectory>../../../Servers/foxutils/plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
