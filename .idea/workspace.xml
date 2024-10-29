@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Items: 1.17.3 -&gt; 1.17.4&#10;    Changed how lore works for items slightly.&#10;    Made some methods final inside Item class&#10;    Changed how Item-Recipe registry works, now done inside the item's constructor instead of the ItemRegistry.registerItem() method.">
-      <change afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/OperatorJoinListener.java" afterDir="false" />
+    <list default="true" id="3d4f3ba6-8638-4bee-8ff0-e018114fd7fb" name="Changes" comment="Foxutils-Items: 1.17.5 -&gt; 1.17.6&#10;     Fixed implementation of GetRegisteredItem (/getitem) command&#10;     Changed TextComponent to BaseComponent type for success message argument in ItemUtils.getCooldown()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/FoxutilsItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/FoxutilsItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/commands/ListRegisteredItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/registry/ItemRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/registry/ItemRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/TakeDamageActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/java/me/foxils/foxutils/listeners/TakeDamageActionListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/foxutils-items/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/foxutils-items/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +65,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/notFoxils/foxutils.git&quot;,
-    &quot;accountId&quot;: &quot;256ead68-0983-491b-a029-8ced0e4729c1&quot;
+    &quot;accountId&quot;: &quot;bfe55242-510b-4e49-b884-ae4e531d7d12&quot;
   }
 }</component>
   <component name="MavenRunner">
@@ -89,56 +85,56 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle./home/gael/IdeaProject/foxutils/test [:createMcpToSrg :createMcpToSrg :createMcpToSrg].executor": "Run",
-    "Gradle./home/gael/IdeaProject/foxutils/test [wrapper genIntellijRuns].executor": "Run",
-    "JAR Application.ALL Run + Compile.executor": "Run",
-    "JAR Application.Start + Compile.executor": "Run",
-    "Maven.Compile.executor": "Run",
-    "Maven.foxutils-config [clean,verify,package].executor": "Run",
-    "Maven.foxutils-config [clean].executor": "Run",
-    "Maven.foxutils-config [install].executor": "Run",
-    "Maven.foxutils-config [package].executor": "Run",
-    "Maven.foxutils-data [clean,verify,package].executor": "Run",
-    "Maven.foxutils-data [clean].executor": "Run",
-    "Maven.foxutils-data [install].executor": "Run",
-    "Maven.foxutils-data [package].executor": "Run",
-    "Maven.foxutils-hud [clean,verify,package].executor": "Run",
-    "Maven.foxutils-hud [clean].executor": "Run",
-    "Maven.foxutils-hud [install].executor": "Run",
-    "Maven.foxutils-hud [package].executor": "Run",
-    "Maven.foxutils-hud [test].executor": "Run",
-    "Maven.foxutils-hud [verify].executor": "Run",
-    "Maven.foxutils-items [clean,verify,package].executor": "Run",
-    "Maven.foxutils-items [clean].executor": "Run",
-    "Maven.foxutils-items [install].executor": "Run",
-    "Maven.foxutils-items [package].executor": "Run",
-    "Maven.foxutils-items [site].executor": "Run",
-    "Maven.foxutils-items [test].executor": "Run",
-    "Maven.foxutils-items [verify].executor": "Run",
-    "Maven.me.foxils.foxutils [package].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JDK": "temurin-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/gael/Servers/ServerJars/paper-1.21.1-119.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle./home/gael/IdeaProject/foxutils/test [:createMcpToSrg :createMcpToSrg :createMcpToSrg].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle./home/gael/IdeaProject/foxutils/test [wrapper genIntellijRuns].executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.ALL Run + Compile.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.Start + Compile.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Compile.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-config [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-data [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-hud [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [clean,verify,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.foxutils-items [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.me.foxils.foxutils [package].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JDK&quot;: &quot;temurin-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gael/Servers/ServerJars/paper-1.21.1.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   },
-  "keyToStringList": {
-    "jdk.preference.JDK": [
-      "21=/home/gael/.jdks/temurin-21.0.4"
+  &quot;keyToStringList&quot;: {
+    &quot;jdk.preference.JDK&quot;: [
+      &quot;21=/home/gael/.jdks/temurin-21.0.4&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/foxutils-config/src/main/resources" />
@@ -168,7 +164,7 @@
       </method>
     </configuration>
     <configuration name="Start + Compile" type="JarApplication">
-      <option name="JAR_PATH" value="$USER_HOME$/Servers/ServerJars/paper-1.21.1-119.jar" />
+      <option name="JAR_PATH" value="$USER_HOME$/Servers/ServerJars/paper-1.21.1.jar" />
       <option name="PROGRAM_PARAMETERS" value="--nogui" />
       <option name="WORKING_DIRECTORY" value="$USER_HOME$/Servers/RezineSMP" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -408,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729862698893</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Foxutils-Items: 1.17.5 -&gt; 1.17.6&#10;     Fixed implementation of GetRegisteredItem (/getitem) command&#10;     Changed TextComponent to BaseComponent type for success message argument in ItemUtils.getCooldown()">
+      <option name="closed" value="true" />
+      <created>1729967914156</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1729967914156</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -446,7 +450,8 @@
     <MESSAGE value="Foxutils-Items: No Version Upgrade&#10;     Removal of InventoryClickAction implementation inside base Item preventing non-player inventory interaction by default.&#10;     Item class now abstract.&#10;     Item class constructors now public." />
     <MESSAGE value="Foxutils-Items: No Version Upgrade&#10;    Moved a variable." />
     <MESSAGE value="Foxutils-Items: 1.17.3 -&gt; 1.17.4&#10;    Changed how lore works for items slightly.&#10;    Made some methods final inside Item class&#10;    Changed how Item-Recipe registry works, now done inside the item's constructor instead of the ItemRegistry.registerItem() method." />
-    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Items: 1.17.3 -&gt; 1.17.4&#10;    Changed how lore works for items slightly.&#10;    Made some methods final inside Item class&#10;    Changed how Item-Recipe registry works, now done inside the item's constructor instead of the ItemRegistry.registerItem() method." />
+    <MESSAGE value="Foxutils-Items: 1.17.5 -&gt; 1.17.6&#10;     Fixed implementation of GetRegisteredItem (/getitem) command&#10;     Changed TextComponent to BaseComponent type for success message argument in ItemUtils.getCooldown()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Foxutils-Items: 1.17.5 -&gt; 1.17.6&#10;     Fixed implementation of GetRegisteredItem (/getitem) command&#10;     Changed TextComponent to BaseComponent type for success message argument in ItemUtils.getCooldown()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -8,6 +8,7 @@ commands:
     description: Get custom item using the item's key
     usage: /<command> <player> <itemkey> <amount>
     permission: op
+    aliases: get
   listitems:
     description: Lists all currently registered items
     usage: /<command>
