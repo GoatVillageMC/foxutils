@@ -59,21 +59,28 @@ public final class ItemUtils {
     }
 
     @Nullable
-    private static PersistentDataContainer getPersistentDataContainer(@NotNull ItemStack itemStack) {
-        final ItemMeta itemMeta = itemStack.getItemMeta();
+    public static ItemMeta getItemMeta(ItemStack itemStack) {
+        if (itemStack == null) return null;
 
+        return itemStack.getItemMeta();
+    }
+
+    @Nullable
+    private static PersistentDataContainer getPersistentDataContainer(ItemMeta itemMeta) {
         if (itemMeta == null) return null;
 
         return itemMeta.getPersistentDataContainer();
     }
 
     public static <Primitive, Complex> boolean storeDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull Complex data, @NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
-        final PersistentDataContainer dataContainer = getPersistentDataContainer(itemStack);
+        final ItemMeta itemMeta = getItemMeta(itemStack);
+
+        final PersistentDataContainer dataContainer = getPersistentDataContainer(itemMeta);
 
         if (dataContainer == null) return false;
 
         dataContainer.set(key, type, data);
-        return true;
+        return itemStack.setItemMeta(itemMeta);
     }
 
     public static boolean storeBooleanData(@NotNull Boolean booleanData, @NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
@@ -90,7 +97,9 @@ public final class ItemUtils {
 
     @Nullable
     public static <Primitive, Complex> Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
-        final PersistentDataContainer dataContainer = getPersistentDataContainer(itemStack);
+        final ItemMeta itemMeta = getItemMeta(itemStack);
+
+        final PersistentDataContainer dataContainer = getPersistentDataContainer(itemMeta);
 
         if (dataContainer == null) return null;
 
