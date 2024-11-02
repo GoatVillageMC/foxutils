@@ -3,9 +3,9 @@ package me.foxils.foxutils.registry;
 import me.foxils.foxutils.Item;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,26 +33,14 @@ public final class ItemRegistry {
         return registeredItems.get(key);
     }
 
-    public static Item getItemFromItemStack(ItemStack item) {
-        if (item == null) {
-            return null;
-        }
-
-        if (item.getType() == Material.AIR) {
-            return null;
-        }
-
-        if (!item.hasItemMeta()) {
-            return null;
-        }
-
-        String itemKeyString = ItemUtils.getStringDataFromWeaponKey(Item.itemConfirmationKey, item);
+    public static Item getItemFromItemStack(@NotNull ItemStack item) {
+        final String itemKeyString = ItemUtils.getStringData(Item.itemConfirmationKey, item);
 
         if (itemKeyString == null) {
             return null;
         }
 
-        NamespacedKey itemKey = NamespacedKey.fromString(itemKeyString);
+        final NamespacedKey itemKey = NamespacedKey.fromString(itemKeyString);
 
         if (itemKey == null) {
             return null;

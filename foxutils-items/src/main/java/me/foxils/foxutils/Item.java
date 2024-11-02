@@ -31,7 +31,8 @@ public abstract class Item {
 
     private final NamespacedKey itemKey;
 
-    public static final NamespacedKey itemConfirmationKey = NamespacedKey.fromString("foxutils:fox-item");
+    @SuppressWarnings("all")
+    public static final NamespacedKey itemConfirmationKey = new NamespacedKey("foxutils", "fox_item");
 
     public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
@@ -47,7 +48,7 @@ public abstract class Item {
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
 
-            //TODO: Move to the FoxCraftingRecipe Class
+            //TODO: Move to the FoxCraftingRecipe Class somehow
             final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
 
             if (bukkitRecipe == null) return;
@@ -75,8 +76,11 @@ public abstract class Item {
         ItemUtils.nameItem(newItem, name);
         ItemUtils.addItemLore(newItem, createLore());
         ItemUtils.setCustomModelData(newItem, customModelData);
-        // Stores the actual item itemKey (name/internal reference), at the foxutils:fox_item location in NBT
-        ItemUtils.storeStringData(itemConfirmationKey, newItem, itemKey.toString());
+
+        // Stores the item class's itemKey (identifier key), at the foxutils:fox_item location in NBT
+        if (!ItemUtils.storeStringData(itemKey.toString(), itemConfirmationKey, newItem)) {
+            plugin.getLogger().severe("Could not add itemKey to item");
+        }
 
         newItem.setAmount(amount);
 
