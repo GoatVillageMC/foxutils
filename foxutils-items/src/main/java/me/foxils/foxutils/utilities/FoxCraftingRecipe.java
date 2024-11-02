@@ -59,7 +59,7 @@ public class FoxCraftingRecipe {
         }
     }
 
-    // Self explanatory
+    // Self-explanatory
     public Recipe getConvertedRecipe() {
         return convertedRecipe;
     }

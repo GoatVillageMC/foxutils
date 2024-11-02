@@ -43,6 +43,7 @@ public abstract class Item {
         this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").toLowerCase());
 
         this.abilityList.addAll(abilityList);
+
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
 

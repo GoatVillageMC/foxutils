@@ -12,21 +12,17 @@ public final class ClickActionsListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
 
         if (DropActionListener.dropInteractCooldown.containsKey(player) && System.currentTimeMillis() < DropActionListener.dropInteractCooldown.get(player)) return;
 
-        ItemStack itemInteracted = event.getItem();
+        final ItemStack itemInteracted = event.getItem();
 
-        if (itemInteracted == null) {
-            return;
-        }
+        if (itemInteracted == null) return;
 
-        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem)) {
-            return;
-        }
+        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem)) return;
 
-        boolean shifting = player.isSneaking();
+        final boolean shifting = player.isSneaking();
 
         switch (event.getAction()) {
             case LEFT_CLICK_AIR -> {

@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +62,6 @@ public final class ItemRegistry {
     }
 
     public static Collection<Item> getRegisteredItems() {
-        return registeredItems.values();
+        return new ArrayList<>(registeredItems.values());
     }
 }

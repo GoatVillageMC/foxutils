@@ -1,5 +1,5 @@
 name: foxutils-data
-version: '$(project.version)'
+version: '${project.version}'
 main: me.foxils.foxutils.FoxutilsData
 api-version: '1.21'
 load: STARTUP
