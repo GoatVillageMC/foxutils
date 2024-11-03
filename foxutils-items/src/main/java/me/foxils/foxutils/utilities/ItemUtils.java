@@ -134,7 +134,7 @@ public final class ItemUtils {
         if (timeLastUsed == null) {
             storeDataOfType(PersistentDataType.LONG, timeNow, key, itemStack);
             return false;
-        } else if ((timeNow - timeLastUsed) >= cooldownInSeconds) {
+        } else if ((timeNow - timeLastUsed) >= cooldownInSeconds * 1000) {
             storeDataOfType(PersistentDataType.LONG, timeNow, key, itemStack);
             return false;
         } else {
