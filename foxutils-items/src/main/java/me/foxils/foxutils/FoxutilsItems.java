@@ -48,7 +48,7 @@ public final class FoxutilsItems extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryClickActionListener(this), this);
         getServer().getPluginManager().registerEvents(new ItemSelectionActionListener(), this);
         getServer().getPluginManager().registerEvents(new KillActionListener(), this);
-        getServer().getPluginManager().registerEvents(new MineActionListener(), this);
+        getServer().getPluginManager().registerEvents(new MineBlockActionListener(), this);
         getServer().getPluginManager().registerEvents(new ShootActionListener(), this);
         getServer().getPluginManager().registerEvents(new SwapOffhandActionListener(), this);
         getServer().getPluginManager().registerEvents(new TakeDamageActionListener(), this);
