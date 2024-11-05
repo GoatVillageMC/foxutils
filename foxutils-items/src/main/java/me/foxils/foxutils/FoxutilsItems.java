@@ -22,6 +22,8 @@ public final class FoxutilsItems extends JavaPlugin {
         scheduleTasks();
         registerEvents();
         registerCommands();
+
+        this.getLogger().info("foxutils-items Started and initialized");
     }
 
     @Override
