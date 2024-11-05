@@ -22,7 +22,7 @@ public final class ItemUtils {
 
     private static final BaseComponent COOLDOWN_PRESENT_MESSAGE =
             new ComponentBuilder()
-                .append("Wait For Cooldown").color(ChatColor.RED)
+                .append("Wait For Cooldown").bold(true).color(ChatColor.RED)
                 .build();
 
     private ItemUtils() {}
@@ -160,8 +160,8 @@ public final class ItemUtils {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, unsuccessfulMessage);
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.5F);
         } else {
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
         }
 
         return cooldownActive;
