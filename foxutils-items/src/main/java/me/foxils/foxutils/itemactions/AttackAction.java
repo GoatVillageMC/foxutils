@@ -5,5 +5,5 @@ import org.bukkit.inventory.ItemStack;
 
 public interface AttackAction extends ActionInterface {
 
-    void attackAction(EntityDamageByEntityEvent event, ItemStack itemStack);
+    void attackAction(EntityDamageByEntityEvent entityDamageByEntityEvent, ItemStack itemStackUsedToAttack, ItemStack itemStackOfThisItem);
 }
