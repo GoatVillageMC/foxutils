@@ -4,7 +4,7 @@ import me.foxils.foxutils.Item;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -19,6 +19,11 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public final class ItemUtils {
+
+    private static final BaseComponent COOLDOWN_PRESENT_MESSAGE =
+            new ComponentBuilder()
+                .append("Wait For Cooldown").color(ChatColor.RED)
+                .build();
 
     private ItemUtils() {}
 
@@ -106,6 +111,13 @@ public final class ItemUtils {
         return dataContainer.get(key, type);
     }
 
+    @NotNull
+    public static <Primitive, Complex> Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Complex defaultReturnValue) {
+        final Complex getDataResult = getDataOfType(type, key, itemStack);
+
+        return getDataResult == null ? defaultReturnValue : getDataResult;
+    }
+
     @Nullable
     public static Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
         return getDataOfType(PersistentDataType.BOOLEAN, key, itemStack);
@@ -128,34 +140,35 @@ public final class ItemUtils {
     }
 
     public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds) {
-        final Long timeNow = System.currentTimeMillis();
-        final Long timeLastUsed = getDataOfType(PersistentDataType.LONG, key, itemStack);
+        final long timeNow = System.currentTimeMillis();
+        final long timeLastUsed = getDataOfType(PersistentDataType.LONG, key, itemStack, 0L);
 
-        if (timeLastUsed == null) {
-            storeDataOfType(PersistentDataType.LONG, timeNow, key, itemStack);
-            return false;
-        } else if ((timeNow - timeLastUsed) >= (cooldownInSeconds * 1000)) {
-            storeDataOfType(PersistentDataType.LONG, timeNow, key, itemStack);
-            return false;
-        } else {
+        if ((timeNow - timeLastUsed) < (cooldownInSeconds * 1000)) {
             return true;
+        } else {
+            storeDataOfType(PersistentDataType.LONG, timeNow, key, itemStack);
+            return false;
         }
     }
 
-    public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage) {
+    public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage, @NotNull BaseComponent unsuccessfulMessage) {
         final boolean cooldownActive = getCooldown(key, itemStack, cooldownInSeconds);
 
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.75F);
 
         if (cooldownActive) {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, unsuccessfulMessage);
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.5F);
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(org.bukkit.ChatColor.DARK_RED + "" + org.bukkit.ChatColor.BOLD + "Wait for cooldown"));
         } else {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
         }
 
         return cooldownActive;
+    }
+
+    public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage) {
+        return getCooldown(key, itemStack, cooldownInSeconds, player, successMessage, COOLDOWN_PRESENT_MESSAGE);
     }
 
 }
