@@ -6,5 +6,5 @@ import org.bukkit.inventory.ItemStack;
 
 public interface ShootAction extends ActionInterface {
 
-    void onShootProjectile(ProjectileLaunchEvent event, Projectile projectile, ItemStack itemUsedToLaunch);
+    void onShootProjectile(ProjectileLaunchEvent projectileLaunchEvent, Projectile projectileShot, ItemStack itemUsedToShootProjectile);
 }

@@ -10,7 +10,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public abstract class Item {
     @SuppressWarnings("all")
     public static final NamespacedKey itemConfirmationKey = new NamespacedKey("foxutils", "fox_item");
 
-    public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
+    public Item(@NotNull Material material, int customModelData, @NotNull String name, @NotNull Plugin plugin, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
 
         this.item = new ItemStack(material);
@@ -43,7 +45,9 @@ public abstract class Item {
 
         this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").toLowerCase());
 
-        this.abilityList.addAll(abilityList);
+        if (abilityList != null) {
+            this.abilityList.addAll(abilityList);
+        }
 
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
@@ -88,19 +92,21 @@ public abstract class Item {
     }
 
     public List<String> createLore() {
-        if (!actualLore.isEmpty()) return actualLore;
+        if (!this.actualLore.isEmpty()) return this.actualLore;
 
         final List<String> lore = new ArrayList<>();
 
         lore.add(" ");
 
-        abilityList.forEach(itemAbility -> {
+        this.abilityList.forEach(itemAbility -> {
             lore.addAll(itemAbility.toLore());
 
-            if (!abilityList.getLast().equals(itemAbility)) lore.add(" ");
+            if (!this.abilityList.getLast().equals(itemAbility)) {
+                lore.add(" ");
+            }
         });
 
-        actualLore.addAll(lore);
+        this.actualLore.addAll(lore);
 
         return lore;
     }

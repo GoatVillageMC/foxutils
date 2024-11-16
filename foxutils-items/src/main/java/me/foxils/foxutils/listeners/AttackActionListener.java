@@ -12,14 +12,12 @@ public class AttackActionListener implements Listener {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player attacker)) {
-            return;
-        }
+        if (!(event.getDamager() instanceof Player attacker)) return;
 
-        final ItemStack itemUsedToAttack = attacker.getInventory().getItemInMainHand();
+        final ItemStack itemUsedToAttack = attacker.getItemInUse();
 
         for (ItemStack itemStackInPlayerInventory : attacker.getInventory().getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(itemStackInPlayerInventory) instanceof AttackAction attackActionItem)) return;
+            if (!(ItemRegistry.getItemFromItemStack(itemStackInPlayerInventory) instanceof AttackAction attackActionItem)) continue;
 
             attackActionItem.attackAction(event, itemUsedToAttack, itemStackInPlayerInventory);
         }
