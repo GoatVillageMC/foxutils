@@ -3,7 +3,7 @@ package me.foxils.foxutils.registry;
 import me.foxils.foxutils.Item;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
+import net.goatvillage.willow.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

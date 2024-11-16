@@ -8,30 +8,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ShootActionListener implements Listener {
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        Projectile projectileLaunched = event.getEntity();
+        final Projectile projectileLaunched = event.getEntity();
 
         if (!(projectileLaunched.getShooter() instanceof Player playerShooter)) return;
 
-        PlayerInventory inventory = playerShooter.getInventory();
+        final ItemStack itemStackUsedToLaunch = playerShooter.getItemInHand();
 
-        List<ItemStack> itemStacksToCheck = Arrays.asList(
-                inventory.getItemInOffHand(),
-                inventory.getItemInMainHand()
-        );
+        if (!(ItemRegistry.getItemFromItemStack(itemStackUsedToLaunch) instanceof ShootAction shootActionItem)) return;
 
-        itemStacksToCheck.forEach(itemStack -> {
-            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof ShootAction shootActionItem)) return;
-
-            shootActionItem.onShootProjectile(event, projectileLaunched, itemStack);
-        });
+        shootActionItem.onShootProjectile(event, projectileLaunched, itemStackUsedToLaunch);
     }
 }

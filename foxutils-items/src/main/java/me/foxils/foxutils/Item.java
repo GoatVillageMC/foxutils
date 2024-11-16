@@ -1,16 +1,14 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+
+import net.goatvillage.willow.NamespacedKey;
 
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -29,7 +27,7 @@ public abstract class Item {
     private final List<String> actualLore = new ArrayList<>();
 
     private final List<ItemAbility> abilityList = new ArrayList<>();
-    private FoxCraftingRecipe recipe;
+    //private FoxCraftingRecipe recipe;
 
     private final NamespacedKey itemKey;
 
@@ -49,6 +47,7 @@ public abstract class Item {
             this.abilityList.addAll(abilityList);
         }
 
+        /* TODO: Implement our own recipe system inside willow
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
 
@@ -58,7 +57,7 @@ public abstract class Item {
             if (bukkitRecipe == null) return;
 
             Bukkit.addRecipe(bukkitRecipe);
-        }, 1L);
+        }, 1L);*/
     }
 
     public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
@@ -131,11 +130,12 @@ public abstract class Item {
         return getKey().getKey();
     }
 
+    /* TODO: Read main constructor
     public final FoxCraftingRecipe getRecipe() {
         return recipe;
     }
 
     public final void setRecipe(FoxCraftingRecipe recipe) {
         this.recipe = recipe;
-    }
+    }*/
 }

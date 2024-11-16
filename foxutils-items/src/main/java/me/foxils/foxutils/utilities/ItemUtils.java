@@ -2,18 +2,19 @@ package me.foxils.foxutils.utilities;
 
 import me.foxils.foxutils.Item;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import net.goatvillage.willow.persistence.PersistentDataContainer;
+import net.goatvillage.willow.persistence.PersistentDataType;
+import net.goatvillage.willow.NamespacedKey;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ import java.util.List;
 public final class ItemUtils {
 
     private static final BaseComponent COOLDOWN_PRESENT_MESSAGE =
-            new ComponentBuilder()
-                .append("Wait For Cooldown").bold(true).color(ChatColor.RED)
-                .build();
+            new ComponentBuilder("")
+                    .append("Wait For Cooldown").bold(true).color(ChatColor.RED)
+                    .create()[1];
 
     private ItemUtils() {}
 
@@ -32,7 +33,7 @@ public final class ItemUtils {
 
         if (itemMeta == null) return;
 
-        itemMeta.setItemName(ChatColor.translateAlternateColorCodes('&', org.bukkit.ChatColor.BOLD + name));
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', org.bukkit.ChatColor.BOLD + name));
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -41,7 +42,7 @@ public final class ItemUtils {
 
         if (itemMeta == null) return;
 
-        itemMeta.setEnchantmentGlintOverride(true);
+        itemMeta.addEnchant(Enchantment.LUCK, 1, true);
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -50,7 +51,8 @@ public final class ItemUtils {
 
         if (itemMeta == null) return;
 
-        itemMeta.setCustomModelData(customModelData);
+        /* TODO: how
+        itemMeta.setCustomModelData(customModelData);*/
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -154,14 +156,15 @@ public final class ItemUtils {
     public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage, @NotNull BaseComponent unsuccessfulMessage) {
         final boolean cooldownActive = getCooldown(key, itemStack, cooldownInSeconds);
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.75F);
+        player.playSound(player.getLocation(), Sound.NOTE_BASS_GUITAR, 1F, 0.75F);
 
         if (cooldownActive) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, unsuccessfulMessage);
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.5F);
+            player.playSound(player.getLocation(), Sound.NOTE_BASS_GUITAR, 1F, 0.5F);
+            // TODO: Implementationington in Willow :)
+            //player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(org.bukkit.ChatColor.DARK_RED + "" + org.bukkit.ChatColor.BOLD + "Wait for cooldown"));
         } else {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
+            player.playSound(player.getLocation(), Sound.NOTE_BASS_GUITAR, 1F, 1F);
+            //player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
         }
 
         return cooldownActive;

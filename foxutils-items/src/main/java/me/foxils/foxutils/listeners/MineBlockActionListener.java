@@ -22,7 +22,7 @@ public class MineBlockActionListener implements Listener {
                 continue;
             }
 
-            ItemInInventory.blockMineAction(event, player.getItemInUse(), item);
+            ItemInInventory.blockMineAction(event, player.getItemInHand(), item);
         }
     }
 }
