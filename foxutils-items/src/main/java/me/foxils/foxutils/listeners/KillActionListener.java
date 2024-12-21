@@ -20,13 +20,11 @@ public class KillActionListener implements Listener {
     public void onPlayerKill(PlayerDeathEvent event) {
         LivingEntity killerEntity = event.getEntity().getKiller();
 
-        if (!(killerEntity instanceof Player playerKiller)) {
+        if (!(killerEntity instanceof Player playerKiller))
             return;
-        }
 
-        if (event.getDamageSource().isIndirect()) {
+        if (event.getDamageSource().isIndirect())
             return;
-        }
 
         PlayerInventory killerInventory = playerKiller.getInventory();
 
@@ -36,10 +34,11 @@ public class KillActionListener implements Listener {
         itemsUsedToKill.add(killerInventory.getItemInOffHand());
 
         itemsUsedToKill.forEach(itemUsed -> {
-            if (itemUsed == null) return;
-            if (itemUsed.getType().equals(Material.AIR)) return;
+            if (itemUsed == null || itemUsed.getType() == Material.AIR)
+                return;
 
-            if (!(ItemRegistry.getItemFromItemStack(itemUsed) instanceof KillAction killActionItem)) return;
+            if (!(ItemRegistry.getItemFromItemStack(itemUsed) instanceof KillAction killActionItem))
+                return;
 
             killActionItem.killAction(event, itemUsed);
         });

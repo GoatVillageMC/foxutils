@@ -12,6 +12,8 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class DoubleJumpListener implements Listener {
+
+    // TODO: Rewrite this whole thing cause its trash and requires a dependency and thats cringe
     
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent playerJoinEvent) {
@@ -24,20 +26,17 @@ public class DoubleJumpListener implements Listener {
     public void onDoubleJump(PlayerToggleFlightEvent toggleFlightEvent) {
         Player player = toggleFlightEvent.getPlayer();
 
-        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) {
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
             return;
-        }
 
         toggleFlightEvent.setCancelled(true);
 
-        if(!(toggleFlightEvent.isFlying())) {
+        if (!(toggleFlightEvent.isFlying()))
             return;
-        }
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(item) instanceof DoubleJumpAction itemWithDoubleJumpAction)) {
+            if (!(ItemRegistry.getItemFromItemStack(item) instanceof DoubleJumpAction itemWithDoubleJumpAction))
                 continue;
-            }
 
             itemWithDoubleJumpAction.doubleJumpAction(toggleFlightEvent, item);
         }

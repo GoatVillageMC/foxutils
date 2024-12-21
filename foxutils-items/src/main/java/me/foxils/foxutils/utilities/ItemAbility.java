@@ -38,7 +38,7 @@ public class ItemAbility {
     public List<String> toLore() {
         List<String> lore = new ArrayList<>();
 
-        if (actionType.equals(ActionType.PASSIVE)) {
+        if (actionType == ActionType.PASSIVE) {
             lore.add(ChatColor.DARK_AQUA + actionType.getText());
         } else {
             lore.add(ChatColor.GOLD + "Ability: " + name + ChatColor.RED + ChatColor.BOLD +  " [" + ChatColor.YELLOW + ChatColor.BOLD + actionType.getText() + ChatColor.RED + ChatColor.BOLD + "]");
@@ -46,7 +46,8 @@ public class ItemAbility {
 
         description.forEach(line -> lore.add(ChatColor.GRAY + " " + line));
 
-        if (cooldownTime > 0) lore.add(" " + ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + cooldownTime + "s.");
+        if (cooldownTime > 0)
+            lore.add(" " + ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + cooldownTime + "s.");
 
         return lore;
     }

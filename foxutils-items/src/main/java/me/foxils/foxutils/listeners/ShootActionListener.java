@@ -10,7 +10,6 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ShootActionListener implements Listener {
@@ -19,17 +18,19 @@ public class ShootActionListener implements Listener {
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
         Projectile projectileLaunched = event.getEntity();
 
-        if (!(projectileLaunched.getShooter() instanceof Player playerShooter)) return;
+        if (!(projectileLaunched.getShooter() instanceof Player playerShooter))
+            return;
 
         PlayerInventory inventory = playerShooter.getInventory();
 
-        List<ItemStack> itemStacksToCheck = Arrays.asList(
+        List<ItemStack> itemStacksToCheck = List.of(
                 inventory.getItemInOffHand(),
                 inventory.getItemInMainHand()
         );
 
         itemStacksToCheck.forEach(itemStack -> {
-            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof ShootAction shootActionItem)) return;
+            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof ShootAction shootActionItem))
+                return;
 
             shootActionItem.onShootProjectile(event, projectileLaunched, itemStack);
         });

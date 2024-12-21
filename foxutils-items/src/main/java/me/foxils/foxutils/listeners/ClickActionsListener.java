@@ -14,13 +14,16 @@ public final class ClickActionsListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
 
-        if (DropActionListener.dropInteractCooldown.containsKey(player) && System.currentTimeMillis() < DropActionListener.dropInteractCooldown.get(player)) return;
+        if (DropActionListener.dropInteractCooldown.containsKey(player) && System.currentTimeMillis() < DropActionListener.dropInteractCooldown.get(player))
+            return;
 
         final ItemStack itemInteracted = event.getItem();
 
-        if (itemInteracted == null) return;
+        if (itemInteracted == null)
+            return;
 
-        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem)) return;
+        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem))
+            return;
 
         final boolean shifting = player.isSneaking();
 
@@ -30,6 +33,7 @@ public final class ClickActionsListener implements Listener {
                     clickableItem.shiftLeftClickAir(event, itemInteracted);
                     break;
                 }
+
                 clickableItem.leftClickAir(event, itemInteracted);
             }
             case LEFT_CLICK_BLOCK -> {
@@ -37,6 +41,7 @@ public final class ClickActionsListener implements Listener {
                     clickableItem.shiftLeftClickBlock(event, itemInteracted);
                     break;
                 }
+
                 clickableItem.leftClickBlock(event, itemInteracted);
             }
             case RIGHT_CLICK_AIR -> {
@@ -44,6 +49,7 @@ public final class ClickActionsListener implements Listener {
                     clickableItem.shiftRightClickAir(event, itemInteracted);
                     break;
                 }
+
                 clickableItem.rightClickAir(event, itemInteracted);
             }
             case RIGHT_CLICK_BLOCK -> {
@@ -51,6 +57,7 @@ public final class ClickActionsListener implements Listener {
                     clickableItem.shiftRightClickBlock(event, itemInteracted);
                     break;
                 }
+
                 clickableItem.rightClickBlock(event, itemInteracted);
             }
         }

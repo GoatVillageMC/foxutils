@@ -11,9 +11,12 @@ public class SwapOffhandActionListener implements Listener {
 
     @EventHandler
     public void onPlayerSwapHands(PlayerSwapHandItemsEvent event) {
-        ItemStack itemStackSwapped = event.getOffHandItem();
+        // TODO: Testing to see how PlayerSwapHandItemsEvent#getOffHandItem and PlayerSwapHandItemsEvent#getMainHandItem works so I can potentially fire on both items
 
-        if (!(ItemRegistry.getItemFromItemStack(itemStackSwapped) instanceof SwapOffhandAction swapHandsItem)) return;
+        final ItemStack itemStackSwapped = event.getOffHandItem();
+
+        if (!(ItemRegistry.getItemFromItemStack(itemStackSwapped) instanceof SwapOffhandAction swapHandsItem))
+            return;
 
         swapHandsItem.onSwapOffhand(event, itemStackSwapped);
 

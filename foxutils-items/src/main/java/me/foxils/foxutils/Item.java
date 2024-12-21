@@ -45,9 +45,8 @@ public abstract class Item {
 
         this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").toLowerCase());
 
-        if (abilityList != null) {
+        if (abilityList != null)
             this.abilityList.addAll(abilityList);
-        }
 
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
@@ -55,7 +54,8 @@ public abstract class Item {
             //TODO: Move to the FoxCraftingRecipe Class somehow
             final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
 
-            if (bukkitRecipe == null) return;
+            if (bukkitRecipe == null)
+                return;
 
             Bukkit.addRecipe(bukkitRecipe);
         }, 1L);
@@ -82,9 +82,8 @@ public abstract class Item {
         ItemUtils.setCustomModelData(newItem, customModelData);
 
         // Stores the item class's itemKey (identifier key), at the foxutils:fox_item location in NBT
-        if (!ItemUtils.storeStringData(itemKey.toString(), itemConfirmationKey, newItem)) {
+        if (!ItemUtils.storeStringData(itemKey.toString(), itemConfirmationKey, newItem))
             plugin.getLogger().severe("Could not add itemKey to item");
-        }
 
         newItem.setAmount(amount);
 
@@ -92,19 +91,19 @@ public abstract class Item {
     }
 
     public List<String> createLore() {
-        if (!this.actualLore.isEmpty()) return this.actualLore;
+        if (!this.actualLore.isEmpty())
+            return this.actualLore;
 
         final List<String> lore = new ArrayList<>();
 
         lore.add(" ");
 
-        this.abilityList.forEach(itemAbility -> {
+        for (ItemAbility itemAbility : abilityList) {
             lore.addAll(itemAbility.toLore());
 
-            if (!this.abilityList.getLast().equals(itemAbility)) {
+            if (!this.abilityList.getLast().equals(itemAbility))
                 lore.add(" ");
-            }
-        });
+        }
 
         this.actualLore.addAll(lore);
 

@@ -30,7 +30,8 @@ public final class ItemUtils {
     public static void nameItem(ItemStack itemStack, String name) {
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        if (itemMeta == null) return;
+        if (itemMeta == null)
+            return;
 
         itemMeta.setItemName(ChatColor.translateAlternateColorCodes('&', org.bukkit.ChatColor.BOLD + name));
         itemStack.setItemMeta(itemMeta);
@@ -39,7 +40,8 @@ public final class ItemUtils {
     public static void addEnchantGlint(ItemStack itemStack) {
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        if (itemMeta == null) return;
+        if (itemMeta == null)
+            return;
 
         itemMeta.setEnchantmentGlintOverride(true);
         itemStack.setItemMeta(itemMeta);
@@ -48,7 +50,8 @@ public final class ItemUtils {
     public static void setCustomModelData(ItemStack itemStack, int customModelData) {
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        if (itemMeta == null) return;
+        if (itemMeta == null)
+            return;
 
         itemMeta.setCustomModelData(customModelData);
         itemStack.setItemMeta(itemMeta);
@@ -57,7 +60,8 @@ public final class ItemUtils {
     public static void addItemLore(ItemStack itemStack, List<String> lore) {
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        if (itemMeta == null) return;
+        if (itemMeta == null)
+            return;
 
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
@@ -65,14 +69,16 @@ public final class ItemUtils {
 
     @Nullable
     public static ItemMeta getItemMeta(ItemStack itemStack) {
-        if (itemStack == null) return null;
+        if (itemStack == null)
+            return null;
 
         return itemStack.getItemMeta();
     }
 
     @Nullable
     private static PersistentDataContainer getPersistentDataContainer(ItemMeta itemMeta) {
-        if (itemMeta == null) return null;
+        if (itemMeta == null)
+            return null;
 
         return itemMeta.getPersistentDataContainer();
     }
@@ -82,7 +88,8 @@ public final class ItemUtils {
 
         final PersistentDataContainer dataContainer = getPersistentDataContainer(itemMeta);
 
-        if (dataContainer == null) return false;
+        if (dataContainer == null)
+            return false;
 
         dataContainer.set(key, type, data);
         return itemStack.setItemMeta(itemMeta);
@@ -106,7 +113,8 @@ public final class ItemUtils {
 
         final PersistentDataContainer dataContainer = getPersistentDataContainer(itemMeta);
 
-        if (dataContainer == null) return null;
+        if (dataContainer == null)
+            return null;
 
         return dataContainer.get(key, type);
     }

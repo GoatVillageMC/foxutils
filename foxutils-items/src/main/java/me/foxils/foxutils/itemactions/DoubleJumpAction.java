@@ -7,5 +7,4 @@ import org.bukkit.inventory.ItemStack;
 public interface DoubleJumpAction extends Listener, ActionInterface {
 
     void doubleJumpAction(PlayerToggleFlightEvent event, ItemStack item);
-
 }

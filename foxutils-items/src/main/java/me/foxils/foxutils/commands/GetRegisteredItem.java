@@ -76,9 +76,8 @@ public class GetRegisteredItem implements CommandExecutor {
 
             final Item itemFromKey = ItemRegistry.getItemFromKey(itemKey);
 
-            if (itemFromKey == null) {
+            if (itemFromKey == null)
                 throw new CommandException();
-            }
 
             itemToCreate = itemFromKey;
         } catch (Exception ignored) {
@@ -89,7 +88,8 @@ public class GetRegisteredItem implements CommandExecutor {
                 final List<String> pluginDependencyNames = descriptionFile.getDepend();
                 final List<String> pluginSoftDependencyNames = descriptionFile.getDepend();
 
-                if (!(pluginDependencyNames.contains(plugin.getName()) || pluginSoftDependencyNames.contains(plugin.getName()))) continue;
+                if (!(pluginDependencyNames.contains(plugin.getName()) || pluginSoftDependencyNames.contains(plugin.getName())))
+                    continue;
 
                 pluginsThatDependOnItemsAPI.add(loadedPlugin);
             }
@@ -102,7 +102,8 @@ public class GetRegisteredItem implements CommandExecutor {
             final List<Plugin> pluginsThatRegisterItems = new ArrayList<>();
 
             pluginsThatDependOnItemsAPI.forEach(pluginThatDependOnItemsAPI -> {
-                if (!pluginThatDependOnItemsAPI.isEnabled()) return;
+                if (!pluginThatDependOnItemsAPI.isEnabled())
+                    return;
 
                 pluginsThatRegisterItems.add(pluginThatDependOnItemsAPI);
             });
@@ -121,9 +122,8 @@ public class GetRegisteredItem implements CommandExecutor {
 
                 final Item itemFromKey = ItemRegistry.getItemFromKey(itemKey);
 
-                if (itemFromKey == null) {
+                if (itemFromKey == null)
                     continue;
-                }
 
                 itemToCreateList.add(itemFromKey);
                 pluginsThatHaveItemOfKey.add(pluginThatRegistersItem);

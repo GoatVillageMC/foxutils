@@ -14,14 +14,16 @@ public class TakeDamageActionListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
+        if (!(event.getEntity() instanceof Player player))
+            return;
 
         PlayerInventory inventory = player.getInventory();
 
         for (ItemStack item : inventory.getContents()) {
             Item customItem = ItemRegistry.getItemFromItemStack(item);
 
-            if (!(customItem instanceof TakeDamageAction damageActionItem)) continue;
+            if (!(customItem instanceof TakeDamageAction damageActionItem))
+                continue;
 
             damageActionItem.onTakeDamage(event, item);
         }

@@ -6,13 +6,13 @@ import org.bukkit.inventory.*;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class FoxCraftingRecipe {
 
     // Actual recipe as registered in bukkit
     private final CraftingRecipe convertedRecipe;
     private final NamespacedKey recipeKey;
 
-    // Self-explanatory
     public FoxCraftingRecipe(List<ItemStack> items, NamespacedKey key, ItemStack item, boolean shapedRecipe) {
         this.recipeKey = key;
 
@@ -36,7 +36,8 @@ public class FoxCraftingRecipe {
         ShapelessRecipe recipe = (ShapelessRecipe) convertedRecipe;
 
         for (ItemStack item : items) {
-            if (item == null || item.getType() == Material.AIR) continue;
+            if (item == null || item.getType() == Material.AIR)
+                continue;
 
             recipe.addIngredient(new RecipeChoice.MaterialChoice(item.getType()));
         }
@@ -53,13 +54,13 @@ public class FoxCraftingRecipe {
         for (int i = 1; i < 10; i++) {
             ItemStack item = items.get(i-1);
 
-            if (item == null || item.getType() == Material.AIR) continue;
+            if (item == null || item.getType() == Material.AIR)
+                continue;
 
             recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.ExactChoice(item));
         }
     }
 
-    // Self-explanatory
     public Recipe getConvertedRecipe() {
         return convertedRecipe;
     }

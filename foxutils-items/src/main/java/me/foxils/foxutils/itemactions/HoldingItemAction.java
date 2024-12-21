@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import java.util.Arrays;
 import java.util.List;
 
 public interface HoldingItemAction extends ActionInterface {
@@ -19,7 +18,7 @@ public interface HoldingItemAction extends ActionInterface {
 
             PlayerInventory inventory = player.getInventory();
 
-            List<ItemStack> itemsHeld = Arrays.asList(
+            List<ItemStack> itemsHeld = List.of(
                     inventory.getItemInMainHand(),
                     inventory.getItemInOffHand());
 

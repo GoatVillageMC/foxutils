@@ -13,7 +13,8 @@ public interface PassiveAction extends ActionInterface {
         for (Player player : Bukkit.getOnlinePlayers()) {
 
             for (ItemStack item : player.getInventory().getContents()) {
-                if (!(ItemRegistry.getItemFromItemStack(item) instanceof PassiveAction itemWithPassive)) continue;
+                if (!(ItemRegistry.getItemFromItemStack(item) instanceof PassiveAction itemWithPassive))
+                    continue;
 
                 itemWithPassive.passiveAction(player, item);
             }

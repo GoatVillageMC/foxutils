@@ -1,6 +1,6 @@
 package me.foxils.foxutils.listeners;
 
-import me.foxils.foxutils.itemactions.ItemSelectionActions;
+import me.foxils.foxutils.itemactions.HotbarSelectionActions;
 import me.foxils.foxutils.registry.ItemRegistry;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,12 +20,10 @@ public class ItemSelectionActionListener implements Listener {
         final ItemStack itemStackSwappedTo = playerInventory.getItem(event.getNewSlot());
         final ItemStack itemStackSwappedFrom = playerInventory.getItem(event.getPreviousSlot());
 
-        if (ItemRegistry.getItemFromItemStack(itemStackSwappedTo) instanceof ItemSelectionActions selectionActionItem) {
-            selectionActionItem.onSelectItem(event, itemStackSwappedTo);
-        }
+        if (itemStackSwappedTo != null && ItemRegistry.getItemFromItemStack(itemStackSwappedTo) instanceof HotbarSelectionActions selectionActionItem)
+            selectionActionItem.onHotbarSelectItem(event, itemStackSwappedTo);
 
-        if (ItemRegistry.getItemFromItemStack(itemStackSwappedFrom) instanceof ItemSelectionActions selectionActionItem) {
-            selectionActionItem.onUnselectItem(event, itemStackSwappedFrom);
-        }
+        if (itemStackSwappedFrom != null && ItemRegistry.getItemFromItemStack(itemStackSwappedFrom) instanceof HotbarSelectionActions selectionActionItem)
+            selectionActionItem.onHotbarUnselectItem(event, itemStackSwappedFrom);
     }
 }
