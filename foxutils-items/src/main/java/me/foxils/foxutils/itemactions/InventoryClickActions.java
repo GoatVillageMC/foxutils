@@ -12,12 +12,12 @@ public interface InventoryClickActions extends ActionInterface {
      * @param inventoryClickEvent The InventoryClickEvent that called this method.
      * @param thisItemStack Item of this class that was clicked on during any InventoryClickEvent.
      */
-    void onInvetoryClick(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackInCursor);
+    default void onInvetoryClick(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackInCursor) {}
 
     /**
      *
      * @param inventoryClickEvent The InventoryClickEvent that called this method.
      * @param thisItemStack Item of this class that was in the player's cursor during any InventoryClickEvent
      */
-    void onInvetoryInteract(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackClickedOn);
+    default void onInvetoryInteract(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackClickedOn) {}
 }
