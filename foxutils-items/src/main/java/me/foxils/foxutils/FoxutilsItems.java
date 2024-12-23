@@ -29,7 +29,7 @@ public final class FoxutilsItems extends JavaPlugin {
         registerEvents();
         registerCommands();
 
-        ItemRegistry.registerItem(new ThyTestItem(Material.STICK, 43290423, "Thy Test Item", this,
+        ItemRegistry.registerItem(new ThyTestItem(Material.TRIDENT, 43290423, "Thy Test Item", this,
                 List.of(
                         new ItemAbility("Test Shit",
                                 List.of("They see me testin'",

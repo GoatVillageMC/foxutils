@@ -6,7 +6,6 @@ import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -53,17 +52,6 @@ public final class ProjectileHitActionListener implements Listener {
 
         if (!(hitterProjectile.getShooter() instanceof Player player))
             return;
-
-        if (hitterProjectile instanceof Trident trident) {
-            @SuppressWarnings("UnstableApiUsage")
-            final ItemStack tridentItemStack = trident.getItem();
-
-            if (!(ItemRegistry.getItemFromItemStack(tridentItemStack) instanceof ProjectileHitAction projectileHitActionItem))
-                return;
-
-            projectileHitActionItem.onProjectileHit(projectileHitEvent, tridentItemStack, trident);
-            return;
-        }
 
         final UUID projectileRelatedItemUid = ItemUtils.getRelatedItemUid(hitterProjectile);
 
