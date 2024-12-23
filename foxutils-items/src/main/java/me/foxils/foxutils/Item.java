@@ -3,8 +3,8 @@ package me.foxils.foxutils;
 import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
 public abstract class Item {
@@ -34,7 +35,8 @@ public abstract class Item {
     private final NamespacedKey itemKey;
 
     @SuppressWarnings("all")
-    public static final NamespacedKey itemConfirmationKey = new NamespacedKey("foxutils", "fox_item");
+    public static final NamespacedKey ITEM_TYPE_STORAGE = new NamespacedKey("foxutils", "fox_item");
+    public static final NamespacedKey ITEM_UID_STORAGE = new NamespacedKey("foxutils", "item_uid_storage");
 
     public Item(@NotNull Material material, int customModelData, @NotNull String name, @NotNull Plugin plugin, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
@@ -43,7 +45,7 @@ public abstract class Item {
         this.name = name;
         this.customModelData = customModelData;
 
-        this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").toLowerCase());
+        this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").replace("'", "").toLowerCase());
 
         if (abilityList != null)
             this.abilityList.addAll(abilityList);
@@ -77,12 +79,22 @@ public abstract class Item {
     public ItemStack createItem(int amount) {
         final ItemStack newItem = item.clone();
 
-        ItemUtils.nameItem(newItem, name);
+        if (!ItemUtils.addUid(newItem)) {
+            final Logger pluginLogger = plugin.getLogger();
+
+            pluginLogger.severe(ChatColor.RED + "CRITICAL ITEM CREATION ERROR");
+            pluginLogger.severe(ChatColor.RED + "CRITICAL ITEM CREATION ERROR");
+            pluginLogger.severe(ChatColor.RED + "CRITICAL ITEM CREATION ERROR");
+            pluginLogger.severe(ChatColor.RED + "CRITICAL ITEM CREATION ERROR");
+
+            pluginLogger.severe(ChatColor.RED + "Unable to add UID to ItemStack of " + this.getClass() + " Item-Class");
+        }
+        ItemUtils.addCustomName(newItem, name);
         ItemUtils.addItemLore(newItem, createLore());
-        ItemUtils.setCustomModelData(newItem, customModelData);
+        ItemUtils.addCustomModelData(newItem, customModelData);
 
         // Stores the item class's itemKey (identifier key), at the foxutils:fox_item location in NBT
-        if (!ItemUtils.storeStringData(itemKey.toString(), itemConfirmationKey, newItem))
+        if (!ItemUtils.storeStringData(itemKey.toString(), ITEM_TYPE_STORAGE, newItem))
             plugin.getLogger().severe("Could not add itemKey to item");
 
         newItem.setAmount(amount);

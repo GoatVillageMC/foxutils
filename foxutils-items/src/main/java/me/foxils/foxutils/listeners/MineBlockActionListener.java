@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 public class MineBlockActionListener implements Listener {
 
@@ -15,13 +14,11 @@ public class MineBlockActionListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         final Player player = event.getPlayer();
 
-        final PlayerInventory inventory = player.getInventory();
-
-        for (ItemStack item : inventory.getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(item) instanceof MineAction ItemInInventory))
+        for (ItemStack itemStack : player.getInventory().getContents()) {
+            if (itemStack == null || !(ItemRegistry.getItemFromItemStack(itemStack) instanceof MineAction ItemInInventory))
                 continue;
 
-            ItemInInventory.blockMineAction(event, player.getItemInUse(), item);
+            ItemInInventory.blockMineAction(event, player.getItemInUse(), itemStack);
         }
     }
 }

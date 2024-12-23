@@ -19,7 +19,7 @@ public class DropActionListener implements Listener {
     public void onItemDrop(PlayerDropItemEvent event) {
         dropInteractCooldown.put(event.getPlayer(), System.currentTimeMillis() + 15);
 
-        ItemStack droppedItem = event.getItemDrop().getItemStack();
+        final ItemStack droppedItem = event.getItemDrop().getItemStack();
 
         if (ItemRegistry.getItemFromItemStack(droppedItem) == null)
             return;

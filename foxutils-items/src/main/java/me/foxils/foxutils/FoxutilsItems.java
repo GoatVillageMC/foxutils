@@ -4,8 +4,14 @@ import me.foxils.foxutils.commands.GetRegisteredItem;
 import me.foxils.foxutils.commands.ListRegisteredItems;
 import me.foxils.foxutils.itemactions.HoldingItemAction;
 import me.foxils.foxutils.itemactions.PassiveAction;
+import me.foxils.foxutils.items.ThyTestItem;
 import me.foxils.foxutils.listeners.*;
+import me.foxils.foxutils.registry.ItemRegistry;
+import me.foxils.foxutils.utilities.ActionType;
+import me.foxils.foxutils.utilities.ItemAbility;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -22,6 +28,14 @@ public final class FoxutilsItems extends JavaPlugin {
         scheduleTasks();
         registerEvents();
         registerCommands();
+
+        ItemRegistry.registerItem(new ThyTestItem(Material.STICK, 43290423, "Thy Test Item", this,
+                List.of(
+                        new ItemAbility("Test Shit",
+                                List.of("They see me testin'",
+                                        ChatColor.ITALIC + "They hatin'"
+                                ), ActionType.NONE)
+                )));
 
         this.getLogger().info("foxutils-items Started and initialized");
     }
@@ -45,6 +59,7 @@ public final class FoxutilsItems extends JavaPlugin {
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new AttackActionListener(), this);
         getServer().getPluginManager().registerEvents(new ClickActionsListener(), this);
+        getServer().getPluginManager().registerEvents(new CraftItemActionListener(), this);
         getServer().getPluginManager().registerEvents(new DoubleJumpListener(), this);
         getServer().getPluginManager().registerEvents(new DropActionListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryClickActionListener(), this);

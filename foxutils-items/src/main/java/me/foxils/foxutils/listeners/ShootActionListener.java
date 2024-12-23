@@ -16,23 +16,23 @@ public class ShootActionListener implements Listener {
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        Projectile projectileLaunched = event.getEntity();
+        final Projectile projectileLaunched = event.getEntity();
 
         if (!(projectileLaunched.getShooter() instanceof Player playerShooter))
             return;
 
-        PlayerInventory inventory = playerShooter.getInventory();
+        final PlayerInventory inventory = playerShooter.getInventory();
 
-        List<ItemStack> itemStacksToCheck = List.of(
+        final List<ItemStack> itemStacksToCheck = List.of(
                 inventory.getItemInOffHand(),
                 inventory.getItemInMainHand()
         );
 
-        itemStacksToCheck.forEach(itemStack -> {
-            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof ShootAction shootActionItem))
-                return;
+        for (ItemStack itemStack : itemStacksToCheck) {
+            if (itemStack == null || !(ItemRegistry.getItemFromItemStack(itemStack) instanceof ShootAction shootActionItem))
+                continue;
 
             shootActionItem.onShootProjectile(event, projectileLaunched, itemStack);
-        });
+        }
     }
 }

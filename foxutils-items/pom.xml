@@ -6,7 +6,7 @@
 
     <groupId>me.foxils</groupId>
     <artifactId>foxutils-items</artifactId>
-    <version>1.18.2-SNAPSHOT</version>
+    <version>1.20.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>me.foxils.foxutils-items</name>
@@ -46,7 +46,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-                    <outputDirectory>../../../Servers/ScytheSMP/plugins</outputDirectory>
+                    <outputDirectory>../../../Servers/foxutils/plugins</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>

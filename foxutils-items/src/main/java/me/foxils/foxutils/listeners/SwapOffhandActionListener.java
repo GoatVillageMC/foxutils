@@ -15,7 +15,7 @@ public class SwapOffhandActionListener implements Listener {
 
         final ItemStack itemStackSwapped = event.getOffHandItem();
 
-        if (!(ItemRegistry.getItemFromItemStack(itemStackSwapped) instanceof SwapOffhandAction swapHandsItem))
+        if (itemStackSwapped == null || !(ItemRegistry.getItemFromItemStack(itemStackSwapped) instanceof SwapOffhandAction swapHandsItem))
             return;
 
         swapHandsItem.onSwapOffhand(event, itemStackSwapped);

@@ -53,7 +53,7 @@ public final class ItemRegistry {
     }
 
     public static Item getItemFromItemStack(@NotNull ItemStack item) {
-        final String itemKeyString = ItemUtils.getStringData(Item.itemConfirmationKey, item);
+        final String itemKeyString = ItemUtils.getStringData(Item.ITEM_TYPE_STORAGE, item);
 
         if (itemKeyString == null)
             return null;

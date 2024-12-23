@@ -17,11 +17,11 @@ public class AttackActionListener implements Listener {
 
         final ItemStack itemUsedToAttack = attacker.getItemInUse();
 
-        for (ItemStack itemStackInPlayerInventory : attacker.getInventory().getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(itemStackInPlayerInventory) instanceof AttackAction attackActionItem))
+        for (ItemStack itemStack : attacker.getInventory().getContents()) {
+            if (itemStack == null || !(ItemRegistry.getItemFromItemStack(itemStack) instanceof AttackAction attackActionItem))
                 continue;
 
-            attackActionItem.attackAction(event, itemUsedToAttack, itemStackInPlayerInventory);
+            attackActionItem.attackAction(event, itemUsedToAttack, itemStack);
         }
     }
 }

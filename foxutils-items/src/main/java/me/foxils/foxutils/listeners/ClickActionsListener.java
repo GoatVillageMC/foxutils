@@ -19,10 +19,7 @@ public final class ClickActionsListener implements Listener {
 
         final ItemStack itemInteracted = event.getItem();
 
-        if (itemInteracted == null)
-            return;
-
-        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem))
+        if (itemInteracted == null || !(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem))
             return;
 
         final boolean shifting = player.isSneaking();

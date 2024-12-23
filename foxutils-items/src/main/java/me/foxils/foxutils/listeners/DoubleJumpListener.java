@@ -35,7 +35,7 @@ public class DoubleJumpListener implements Listener {
             return;
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(item) instanceof DoubleJumpAction itemWithDoubleJumpAction))
+            if (item == null || !(ItemRegistry.getItemFromItemStack(item) instanceof DoubleJumpAction itemWithDoubleJumpAction))
                 continue;
 
             itemWithDoubleJumpAction.doubleJumpAction(toggleFlightEvent, item);

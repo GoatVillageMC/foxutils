@@ -1,6 +1,5 @@
 package me.foxils.foxutils.itemactions;
 
-import me.foxils.foxutils.Item;
 import me.foxils.foxutils.registry.ItemRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -23,11 +22,8 @@ public interface HoldingItemAction extends ActionInterface {
                     inventory.getItemInOffHand());
 
             for (ItemStack item : itemsHeld) {
-                Item customItemHeld = ItemRegistry.getItemFromItemStack(item);
-
-                if (!(customItemHeld instanceof HoldingItemAction itemWithHoldAction)) {
-                    return;
-                }
+                if (item == null || !(ItemRegistry.getItemFromItemStack(item) instanceof HoldingItemAction itemWithHoldAction))
+                    continue;
 
                 itemWithHoldAction.holdAction(player, item);
             }
