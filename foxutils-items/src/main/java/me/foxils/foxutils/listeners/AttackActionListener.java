@@ -10,6 +10,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class AttackActionListener implements Listener {
 
+    // TODO: This sucks, period. Needs a rewrite immediately
+
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player attacker))
