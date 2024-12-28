@@ -1,7 +1,7 @@
 package me.foxils.foxutils.utilities;
 
 import dev.dejvokep.boostedyaml.block.implementation.Section;
-import org.bukkit.NamespacedKey;
+import net.goatvillage.willow.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Logger;
