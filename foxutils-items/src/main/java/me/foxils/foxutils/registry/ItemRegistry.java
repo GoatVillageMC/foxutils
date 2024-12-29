@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings("unused")
@@ -29,7 +30,6 @@ public final class ItemRegistry {
 
     public static void unregisterItem(NamespacedKey itemKey) {
         REGISTERED_ITEMS.remove(itemKey);
-
         Bukkit.removeRecipe(itemKey);
 
         Bukkit.getLogger().info("Unregistered: " + itemKey.getKey());
@@ -40,20 +40,25 @@ public final class ItemRegistry {
     }
 
     public static void unregisterPluginItems(Plugin plugin) {
+        final String pluginNamespace = plugin.getName().toLowerCase(Locale.ROOT);
+
         for (NamespacedKey itemKey : new HashSet<>(REGISTERED_ITEMS.keySet())) {
-            if (!itemKey.getNamespace().equals(plugin.getName().toLowerCase(Locale.ROOT)))
+            if (!itemKey.getNamespace().equals(pluginNamespace))
                 continue;
 
             unregisterItem(itemKey);
         }
     }
 
-    public static Item getItemFromKey(NamespacedKey key) {
+    public static @Nullable Item getItemFromKey(NamespacedKey key) {
         return REGISTERED_ITEMS.get(key);
     }
 
-    public static Item getItemFromItemStack(@NotNull ItemStack item) {
-        final String itemKeyString = ItemUtils.getStringData(Item.ITEM_TYPE_STORAGE, item);
+    public static @Nullable Item getItemFromItemStack(ItemStack itemStack) {
+        if (itemStack == null)
+            return null;
+
+        final String itemKeyString = ItemUtils.getStringData(Item.ITEM_TYPE_STORAGE, itemStack);
 
         if (itemKeyString == null)
             return null;
@@ -66,7 +71,7 @@ public final class ItemRegistry {
         return REGISTERED_ITEMS.get(itemKey);
     }
 
-    public static Collection<Item> getRegisteredItems() {
+    public static @NotNull Collection<Item> getRegisteredItems() {
         return new ArrayList<>(REGISTERED_ITEMS.values());
     }
 }
