@@ -1,10 +1,10 @@
 package me.foxils.foxutils.utilities;
 
-import me.foxils.foxutils.Item;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnstableApiUsage"})
 public final class ItemUtils {
 
     private static final BaseComponent COOLDOWN_PRESENT_MESSAGE =
@@ -28,7 +28,10 @@ public final class ItemUtils {
                 .append("Wait For Cooldown").bold(true).color(ChatColor.RED)
                 .build();
 
-    private static final NamespacedKey RELATED_ITEMSTACK_UID_STORAGE = new NamespacedKey("foxutils", "related_itemstack_uid_storage");
+    private static final NamespacedKey ITEMSTACK_ITEMKEY_STORAGE = new NamespacedKey("foxutils", "fox_item");
+    private static final NamespacedKey ITEMSTACK_UID_STORAGE = new NamespacedKey("foxutils", "item_uid_storage");
+
+    private static final NamespacedKey DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE = new NamespacedKey("foxutils", "related_itemstack_uids_storage");
 
     private ItemUtils() {}
 
@@ -97,72 +100,106 @@ public final class ItemUtils {
         return storeDataOfType(PersistentDataType.STRING, stringData, key, itemStack);
     }
 
-    @Nullable
-    public static <Primitive, Complex> Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+    public static boolean addItemKey(@NotNull NamespacedKey itemKey, @NotNull ItemStack itemStack) {
+        return storeStringData(itemKey.toString(), ITEMSTACK_ITEMKEY_STORAGE, itemStack);
+    }
+
+    public static boolean addUid(@NotNull ItemStack itemStack) {
+        return storeStringData(UUID.randomUUID().toString(), ITEMSTACK_UID_STORAGE, itemStack);
+    }
+
+    public static boolean addRelatedItemStackUid(@NotNull PersistentDataHolder persistentDataHolder, @NotNull UUID itemStackUid) {
+        try {
+            persistentDataHolder.getPersistentDataContainer().set(DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE, PersistentDataType.STRING, itemStackUid.toString());
+        } catch (Exception e) {
+            Bukkit.getLogger().severe(e.toString());
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean addRelatedItemStackUid(@NotNull PersistentDataHolder persistentDataHolder, @NotNull ItemStack holderRelatedItemStack) {
+        final UUID itemUid = getUid(holderRelatedItemStack);
+
+        if (itemUid == null)
+            return false;
+
+        return addRelatedItemStackUid(persistentDataHolder, itemUid);
+    }
+
+    public static <Primitive, Complex> @Nullable Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
         if (itemStack.getType() == Material.AIR)
             return null;
 
         final ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
 
-        final PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
-
-        return dataContainer.get(key, type);
+        return itemMeta.getPersistentDataContainer().get(key, type);
     }
 
-    @NotNull
-    public static <Primitive, Complex> Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Complex defaultReturnValue) {
+    public static <Primitive, Complex> @NotNull Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type, @NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Complex defaultReturnValue) {
         final Complex getDataResult = getDataOfType(type, key, itemStack);
 
         return (getDataResult == null) ? defaultReturnValue : getDataResult;
     }
 
-    @Nullable
-    public static Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+    public static @Nullable Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
         return getDataOfType(PersistentDataType.BOOLEAN, key, itemStack);
     }
 
-    @Nullable
-    public static Integer getIntegerData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+    public static @Nullable Integer getIntegerData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
         return getDataOfType(PersistentDataType.INTEGER, key, itemStack);
     }
 
-    @Nullable
-    public static String getStringData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+    public static @Nullable String getStringData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
         return getDataOfType(PersistentDataType.STRING, key, itemStack);
     }
 
-    @NotNull
-    public static Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Boolean defaultReturnValue) {
+    public static @NotNull Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Boolean defaultReturnValue) {
         return getDataOfType(PersistentDataType.BOOLEAN, key, itemStack, defaultReturnValue);
     }
 
-    @NotNull
-    public static Integer getIntegerData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Integer defaultReturnValue) {
+    public static @NotNull Integer getIntegerData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Integer defaultReturnValue) {
         return getDataOfType(PersistentDataType.INTEGER, key, itemStack, defaultReturnValue);
     }
 
-    @NotNull
-    public static String getStringData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull String defaultReturnValue) {
+    public static @NotNull String getStringData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull String defaultReturnValue) {
         return getDataOfType(PersistentDataType.STRING, key, itemStack, defaultReturnValue);
     }
 
-    public static boolean isFoxItem(@NotNull ItemStack itemStack) {
-        final String itemKey = getStringData(Item.ITEM_TYPE_STORAGE, itemStack);
+    public static @Nullable NamespacedKey getFoxItemKey(@NotNull ItemStack itemStack) {
+        final String itemKey = getStringData(ITEMSTACK_ITEMKEY_STORAGE, itemStack);
 
-        return itemKey != null;
+        if (itemKey == null)
+            return null;
+
+        return NamespacedKey.fromString(itemKey);
+    }
+
+    public static @Nullable UUID getUid(@NotNull ItemStack itemStack) {
+        final String itemUid = getStringData(ITEMSTACK_UID_STORAGE, itemStack);
+
+        return (itemUid == null) ? null : UUID.fromString(itemUid);
+    }
+
+    public static @Nullable UUID getRelatedItemUid(@NotNull PersistentDataHolder persistentDataHolder) {
+        final String uidInStorage = persistentDataHolder.getPersistentDataContainer().get(DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE, PersistentDataType.STRING);
+
+        return (uidInStorage == null) ? null : UUID.fromString(uidInStorage);
     }
 
     public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds) {
-        final long timeNow = System.currentTimeMillis();
-        final long timeLastUsed = getDataOfType(PersistentDataType.LONG, key, itemStack, 0L);
+        final long timestampOfNowInNanoseconds = System.nanoTime();
 
-        if ((timeNow - timeLastUsed) < (cooldownInSeconds * 1000)) {
-            return true;
-        } else {
-            storeDataOfType(PersistentDataType.LONG, timeNow, key, itemStack);
+        //   (timestampOfNowInNanoseconds - timestampOfLastCooldownInNanoseconds) > (cooldownInSeconds * 1000000000)
+        //   timeSinceLastCooldownInNanoseconds > cooldownInNanoseconds
+        if ((timestampOfNowInNanoseconds - getDataOfType(PersistentDataType.LONG, key, itemStack, 0L)) > (cooldownInSeconds * 1000000000)) {
+            storeDataOfType(PersistentDataType.LONG, timestampOfNowInNanoseconds, key, itemStack);
             return false;
         }
+
+        return true;
     }
 
     public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage, @NotNull BaseComponent unsuccessfulMessage) {
@@ -184,32 +221,4 @@ public final class ItemUtils {
     public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage) {
         return getCooldown(key, itemStack, cooldownInSeconds, player, successMessage, COOLDOWN_PRESENT_MESSAGE);
     }
-
-    public static boolean addUid(@NotNull ItemStack itemStack) {
-        return storeStringData(UUID.randomUUID().toString(), Item.ITEM_UID_STORAGE, itemStack);
-    }
-
-    @Nullable
-    public static UUID getUid(@NotNull ItemStack itemStack) {
-        final String itemUid = getStringData(Item.ITEM_UID_STORAGE, itemStack);
-
-        return (itemUid == null) ? null : UUID.fromString(itemUid);
-    }
-
-    public static void addRelatedItem(@NotNull PersistentDataHolder persistentDataHolder, @NotNull ItemStack holderRelatedItemStack) {
-        final UUID itemUid = getUid(holderRelatedItemStack);
-
-        if (itemUid == null)
-            return;
-
-        persistentDataHolder.getPersistentDataContainer().set(RELATED_ITEMSTACK_UID_STORAGE, PersistentDataType.STRING, itemUid.toString());
-    }
-
-    @Nullable
-    public static UUID getRelatedItemUid(@NotNull PersistentDataHolder persistentDataHolder) {
-        final String uidInStorage = persistentDataHolder.getPersistentDataContainer().get(RELATED_ITEMSTACK_UID_STORAGE, PersistentDataType.STRING);
-
-        return (uidInStorage == null) ? null : UUID.fromString(uidInStorage);
-    }
-
 }

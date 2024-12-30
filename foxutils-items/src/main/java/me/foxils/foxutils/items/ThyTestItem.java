@@ -27,14 +27,14 @@ public class ThyTestItem extends Item implements CraftItemAction, KillActions, P
 
     private final NamespacedKey TRIDENT_TEST_COOLDOWN;
 
-    public ThyTestItem(@NotNull Material material, int customModelData, @NotNull String name, @NotNull Plugin plugin, @Nullable List<ItemAbility> abilityList) {
-        super(material, customModelData, name, plugin, abilityList);
+    public ThyTestItem(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean isRecipeShaped) {
+        super(plugin, itemMaterial, name, customModelData, abilityList, itemsForRecipe, isRecipeShaped);
 
-        TRIDENT_TEST_COOLDOWN = new NamespacedKey(plugin, "trident_test_cooldown");
+        this.TRIDENT_TEST_COOLDOWN = new NamespacedKey(plugin, "trident_test_cooldown");
     }
 
     @Override
-    public ItemStack createItem(int amount) {
+    public @NotNull ItemStack createItem(int amount) {
         final ItemStack newItem = super.createItem(amount);
         final ItemMeta itemMeta = newItem.getItemMeta();
         assert itemMeta != null;

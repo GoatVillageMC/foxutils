@@ -58,12 +58,7 @@ public final class ItemRegistry {
         if (itemStack == null)
             return null;
 
-        final String itemKeyString = ItemUtils.getStringData(Item.ITEM_TYPE_STORAGE, itemStack);
-
-        if (itemKeyString == null)
-            return null;
-
-        final NamespacedKey itemKey = NamespacedKey.fromString(itemKeyString);
+        final NamespacedKey itemKey = ItemUtils.getFoxItemKey(itemStack);
 
         if (itemKey == null)
             return null;

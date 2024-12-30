@@ -13,11 +13,18 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 import java.util.UUID;
 
 public final class ProjectileHitActionListener implements Listener {
+
+    private final Plugin plugin;
+
+    public ProjectileHitActionListener(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent projectileLaunchEvent) {
@@ -43,7 +50,8 @@ public final class ProjectileHitActionListener implements Listener {
             if (itemStack == null || !(ItemRegistry.getItemFromItemStack(itemStack) instanceof ProjectileHitAction))
                 continue;
 
-            ItemUtils.addRelatedItem(projectileLaunched, itemStack);
+            if (!ItemUtils.addRelatedItemStackUid(projectileLaunched, itemStack))
+                plugin.getLogger().severe("Could not tag Projectile (" + projectileLaunched + ") launched by ItemStack (" + itemStack + ")");
         }
     }
 
