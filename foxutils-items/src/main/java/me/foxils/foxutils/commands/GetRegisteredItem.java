@@ -18,6 +18,8 @@ import java.util.List;
 
 public class GetRegisteredItem implements CommandExecutor {
 
+    // TODO: Needs a rewrite + extensive testing
+
     private final Plugin plugin;
 
     public GetRegisteredItem(Plugin plugin) {
@@ -53,14 +55,13 @@ public class GetRegisteredItem implements CommandExecutor {
             itemKeyString = args[1];
         }
 
-        if (args.length == 2 && itemKeyString.equals(args[0])) {
+        if (args.length == 2 && itemKeyString.equals(args[0]))
             amountToGiveString = args[1];
-        } else if (args.length >= 3) {
+        else if (args.length >= 3)
             amountToGiveString = args[2];
-        } else {
-            // I hate this
+        else
             amountToGiveString = "1";
-        }
+        // I hate this ^^^^
 
         try {
             amountToGive = Integer.parseInt(amountToGiveString);
