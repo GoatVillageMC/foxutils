@@ -8,18 +8,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class TakeDamageActionListener implements Listener {
+@SuppressWarnings("UnstableApiUsage")
+public final class TakeDamageActionListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getEntity() instanceof Player damagedPlayer))
             return;
 
-        for (ItemStack item : player.getInventory().getContents()) {
-            if (item == null || !(ItemRegistry.getItemFromItemStack(item) instanceof TakeDamageAction damageActionItem))
+        for (ItemStack itemStack : damagedPlayer.getInventory().getContents()) {
+            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof TakeDamageAction damageActionItem))
                 continue;
 
-            damageActionItem.onTakeDamage(event, item);
+            damageActionItem.onTakeDamage(event, itemStack, damagedPlayer, event.getDamageSource());
         }
     }
 }

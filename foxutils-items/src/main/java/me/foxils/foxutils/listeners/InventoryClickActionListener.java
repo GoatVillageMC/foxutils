@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryClickActionListener implements Listener {
+public final class InventoryClickActionListener implements Listener {
 
     private static final int OFFHAND_ITEM_SLOT_INDEX = 40;
 
@@ -27,16 +27,15 @@ public class InventoryClickActionListener implements Listener {
             /* We cannot use PlayerInventory#getItem() because it searches only in the regular inventory, like the actual storage part (the 4x9 grid.)
              Instead, we use PlayerInventory#getContents()[] because getContents returns all the items inside the full inventory (the armor, crafting grid, offhand, etc.) */
             clickedItem = player.getInventory().getContents()[clickedItemIndex];
-        } else {
+        } else
             clickedItem = inventoryClickEvent.getCurrentItem();
-        }
 
         final ItemStack cursorItem = inventoryClickEvent.getCursor();
 
-        if (clickedItem != null && ItemRegistry.getItemFromItemStack(clickedItem) instanceof InventoryClickActions inventoryClickActionItem)
-            inventoryClickActionItem.onInvetoryClick(inventoryClickEvent, clickedItem, cursorItem);
+        if (ItemRegistry.getItemFromItemStack(clickedItem) instanceof InventoryClickActions inventoryClickActionItem)
+            inventoryClickActionItem.onInventoryClick(inventoryClickEvent, clickedItem, cursorItem);
 
-        if (cursorItem != null && ItemRegistry.getItemFromItemStack(cursorItem) instanceof  InventoryClickActions inventoryClickActionItem)
-            inventoryClickActionItem.onInvetoryInteract(inventoryClickEvent, cursorItem, clickedItem);
+        if (ItemRegistry.getItemFromItemStack(cursorItem) instanceof  InventoryClickActions inventoryClickActionItem)
+            inventoryClickActionItem.onInventoryInteract(inventoryClickEvent, cursorItem, clickedItem);
     }
 }

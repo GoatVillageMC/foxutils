@@ -8,27 +8,25 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class CraftItemActionListener implements Listener {
+public final class CraftItemActionListener implements Listener {
 
     @EventHandler
     public void onCraft(CraftItemEvent craftItemEvent) {
         final ItemStack craftedItem = craftItemEvent.getCurrentItem();
 
-        final Player crafterPlayer = (Player) craftItemEvent.getWhoClicked();
+        if (!(craftItemEvent.getWhoClicked() instanceof Player playerWhoCrafted))
+            return;
 
-        for (ItemStack itemStack : crafterPlayer.getInventory().getContents()) {
-            if (itemStack == null || itemStack.equals(craftedItem))
-                continue;
-
+        for (ItemStack itemStack : playerWhoCrafted.getInventory().getContents()) {
             if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof CraftItemAction craftItemActionItem))
                 continue;
 
-            craftItemActionItem.onCraftOtherItem(craftItemEvent, craftedItem, itemStack, crafterPlayer);
+            craftItemActionItem.onCraftOtherItem(craftItemEvent, itemStack, craftedItem, playerWhoCrafted);
         }
 
-        if (craftedItem == null || !(ItemRegistry.getItemFromItemStack(craftedItem) instanceof CraftItemAction craftItemActionItem))
+        if (!(ItemRegistry.getItemFromItemStack(craftedItem) instanceof CraftItemAction craftItemActionItem))
             return;
 
-        craftItemActionItem.onCraftThisItem(craftItemEvent, craftedItem, crafterPlayer);
+        craftItemActionItem.onCraftThisItem(craftItemEvent, craftedItem, playerWhoCrafted);
     }
 }

@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface HoldingItemAction extends ActionInterface {
 
+    /* TODO: I want to change this to "ActiveItemAction" where if you have the item active meaning when, you have the item worn, in your hands, and some other cases, the method is called. This will be deprecating and replacing this action-interface */
+
     int holdActionInterval = 5;
 
     static void holdActionCall() {
@@ -22,14 +24,14 @@ public interface HoldingItemAction extends ActionInterface {
                     inventory.getItemInOffHand());
 
             for (ItemStack item : itemsHeld) {
-                if (item == null || !(ItemRegistry.getItemFromItemStack(item) instanceof HoldingItemAction itemWithHoldAction))
+                if (!(ItemRegistry.getItemFromItemStack(item) instanceof HoldingItemAction itemWithHoldAction))
                     continue;
 
-                itemWithHoldAction.holdAction(player, item);
+                itemWithHoldAction.onHoldAction(player, item);
             }
 
         }
     }
 
-    void holdAction(Player player, ItemStack itemStack);
+    void onHoldAction(Player player, ItemStack itemStack);
 }

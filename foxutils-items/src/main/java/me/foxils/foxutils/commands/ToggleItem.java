@@ -10,7 +10,7 @@ public class ToggleItem implements CommandExecutor {
     // TODO: Finish this stuff
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         return false;
     }
 }

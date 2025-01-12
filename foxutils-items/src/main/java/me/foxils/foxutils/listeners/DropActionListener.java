@@ -1,7 +1,7 @@
 package me.foxils.foxutils.listeners;
 
 import me.foxils.foxutils.registry.ItemRegistry;
-import me.foxils.foxutils.itemactions.DropAction;
+import me.foxils.foxutils.itemactions.DropItemAction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,29 +10,30 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-public class DropActionListener implements Listener {
+public final class DropActionListener implements Listener {
 
     //https://hub.spigotmc.org/jira/browse/SPIGOT-5632
-    public static final HashMap<Player, Long> dropInteractCooldown = new HashMap<>();
+    public static final HashMap<Player, Long> DROP_INTERACT_COOLDOWN = new HashMap<>();
 
     @EventHandler
-    public void onItemDrop(PlayerDropItemEvent event) {
-        dropInteractCooldown.put(event.getPlayer(), System.currentTimeMillis() + 15);
+    public void onItemDrop(PlayerDropItemEvent playerDropItemEvent) {
+        final Player player = playerDropItemEvent.getPlayer();
+        DROP_INTERACT_COOLDOWN.put(player, System.currentTimeMillis() + 15);
 
-        final ItemStack droppedItem = event.getItemDrop().getItemStack();
+        final ItemStack droppedItem = playerDropItemEvent.getItemDrop().getItemStack();
 
-        if (ItemRegistry.getItemFromItemStack(droppedItem) == null)
-            return;
+        for (ItemStack itemStack : player.getInventory().getContents()) {
+            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof DropItemAction dropItemActionItem))
+                continue;
 
-        // Stops item from being dropped by default because why would you want that if your using it for an ability
-        event.setCancelled(true);
+            if (droppedItem.equals(itemStack)) {
+                dropItemActionItem.onDropThisItem(playerDropItemEvent, itemStack);
 
-        // Makes sure that the item dropped is actually an item that should fire the drop ability
-        if (!(ItemRegistry.getItemFromItemStack(droppedItem) instanceof DropAction ItemUsed))
-            return;
-
-        // Fires the method that allows the item to detect the ability
-        ItemUsed.dropItemAction(event, droppedItem);
+                // Stops item from being dropped by default because why would you want that if your using it for an ability
+                playerDropItemEvent.setCancelled(true);
+            } else
+                dropItemActionItem.onDropOtherItem(playerDropItemEvent, itemStack, droppedItem);
+        }
     }
 
 }

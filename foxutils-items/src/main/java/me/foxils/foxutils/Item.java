@@ -100,31 +100,31 @@ public abstract class Item {
         return lore;
     }
 
-    public final @Nullable FoxCraftingRecipe getRecipe() {
+    public @Nullable FoxCraftingRecipe getRecipe() {
         return recipe;
     }
 
-    public final @NotNull List<ItemAbility> getAbilityList() {
+    public @NotNull List<ItemAbility> getAbilityList() {
         return abilityList;
     }
 
-    public final @NotNull NamespacedKey getKey() {
+    public @NotNull NamespacedKey getKey() {
         return ITEM_KEY;
     }
 
-    public final @NotNull String getRawName() {
+    public @NotNull String getRawName() {
         return getKey().getKey();
     }
 
-    public final @NotNull String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
-    public final @NotNull Material getItemMaterial() {
+    public @NotNull Material getItemMaterial() {
         return itemMaterial;
     }
 
-    public final @NotNull Plugin getPlugin() {
+    public @NotNull Plugin getPlugin() {
         return plugin;
     }
 }

@@ -20,7 +20,7 @@ public final class ItemRegistry {
         throw new IllegalStateException("1D brain: instantiate ItemRegistry");
     }
 
-    public static void registerItem(Item item) {
+    public static void registerItem(@NotNull Item item) {
         final NamespacedKey itemKey = item.getKey();
 
         REGISTERED_ITEMS.put(itemKey, item);
@@ -28,18 +28,18 @@ public final class ItemRegistry {
         Bukkit.getLogger().info("Registered: " + itemKey.getKey());
     }
 
-    public static void unregisterItem(NamespacedKey itemKey) {
+    public static void unregisterItem(@NotNull NamespacedKey itemKey) {
         REGISTERED_ITEMS.remove(itemKey);
         Bukkit.removeRecipe(itemKey);
 
         Bukkit.getLogger().info("Unregistered: " + itemKey.getKey());
     }
 
-    public static void unregisterItem(Item item) {
+    public static void unregisterItem(@NotNull Item item) {
         unregisterItem(item.getKey());
     }
 
-    public static void unregisterPluginItems(Plugin plugin) {
+    public static void unregisterPluginItems(@NotNull Plugin plugin) {
         final String pluginNamespace = plugin.getName().toLowerCase(Locale.ROOT);
 
         for (NamespacedKey itemKey : new HashSet<>(REGISTERED_ITEMS.keySet())) {
@@ -50,11 +50,11 @@ public final class ItemRegistry {
         }
     }
 
-    public static @Nullable Item getItemFromKey(NamespacedKey key) {
+    public static @Nullable Item getItemFromKey(@Nullable NamespacedKey key) {
         return REGISTERED_ITEMS.get(key);
     }
 
-    public static @Nullable Item getItemFromItemStack(ItemStack itemStack) {
+    public static @Nullable Item getItemFromItemStack(@Nullable ItemStack itemStack) {
         if (itemStack == null)
             return null;
 

@@ -1,9 +1,7 @@
 package me.foxils.foxutils.items;
 
 import me.foxils.foxutils.Item;
-import me.foxils.foxutils.itemactions.CraftItemAction;
-import me.foxils.foxutils.itemactions.KillActions;
-import me.foxils.foxutils.itemactions.ProjectileHitAction;
+import me.foxils.foxutils.itemactions.*;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
 import org.bukkit.Material;
@@ -14,6 +12,9 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
@@ -22,8 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings("all")
-public class ThyTestItem extends Item implements CraftItemAction, KillActions, ProjectileHitAction {
+public class ThyTestItem extends Item implements CraftItemAction, InventoryClickActions, KillActions, ProjectileHitAction, ProjectileLaunchAction, SelectItemActions, SwapItemHandActions {
 
     private final NamespacedKey TRIDENT_TEST_COOLDOWN;
 
@@ -56,6 +56,16 @@ public class ThyTestItem extends Item implements CraftItemAction, KillActions, P
     }
 
     @Override
+    public void onInventoryClick(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackInCursor) {
+        inventoryClickEvent.getWhoClicked().sendMessage("You clicked the test-trident with: " + itemStackInCursor + " in your cursor");
+    }
+
+    @Override
+    public void onInventoryInteract(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackClickedOn) {
+        inventoryClickEvent.getWhoClicked().sendMessage("You clicked: " + itemStackClickedOn + " with the test-trident in your cursor");
+    }
+
+    @Override
     public void onKillWithThisItem(PlayerDeathEvent playerDeathEvent, ItemStack thisItemStack, Player killedPlayer, Player killerPlayer) {
         killerPlayer.sendMessage("You killed with the test item.");
     }
@@ -66,14 +76,63 @@ public class ThyTestItem extends Item implements CraftItemAction, KillActions, P
     }
 
     @Override
-    public void onProjectileHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack, Projectile hitterProjectile) {
+    public void onProjectileFromThisItemHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack, Projectile hitterProjectile) {
         tridentCooldownTest(thisItemStack, hitterProjectile);
     }
 
     private void tridentCooldownTest(ItemStack thisItemStack, Projectile hitterProjectile) {
+        assert hitterProjectile.getShooter() != null;
+
         if (ItemUtils.getCooldown(TRIDENT_TEST_COOLDOWN, thisItemStack, 10L))
             ((Player) hitterProjectile.getShooter()).sendMessage("The trident has a cooldown bum");
         else
             ((Player) hitterProjectile.getShooter()).sendMessage("The trident did not have a cooldown at this time");
+    }
+
+    @Override
+    public void onProjectileFromOtherItemHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack, ItemStack shootingItemStack, Projectile hitterProjectile) {
+        assert hitterProjectile.getShooter() != null;
+
+        ((Player) hitterProjectile.getShooter()).sendMessage("A projectile shot from another item in your inventory has been detected by Thy Test Item™");
+    }
+
+    @Override
+    public void onSelectThisItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackUnselected) {
+        playerItemHeldEvent.getPlayer().sendMessage("You selected the test-trident");
+    }
+
+    @Override
+    public void onUnselectThisItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackSelected) {
+        playerItemHeldEvent.getPlayer().sendMessage("You unselected the test-trident");
+    }
+
+    @Override
+    public void onSelectOtherItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackSelected, @Nullable ItemStack itemStackUnselected) {
+        playerItemHeldEvent.getPlayer().sendMessage("You selected: " + itemStackSelected + " and the test-trident detected it.");
+    }
+
+    @Override
+    public void onUnselectOtherItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackUnselected, @Nullable ItemStack itemStackSelected) {
+        playerItemHeldEvent.getPlayer().sendMessage("You unselected: " + itemStackUnselected + " and the test-trident detected it.");
+    }
+
+    @Override
+    public void onSwapOtherItemToMainHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemStack, ItemStack itemStackSwappedToMainHand, ItemStack itemStackSwappedToOffHand) {
+        playerSwapHandItemsEvent.getPlayer().sendMessage(itemStackSwappedToMainHand + " was swapped to the main hand and the test item detected it");
+    }
+
+    @Override
+    public void onSwapOtherItemToOffHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemSTack, ItemStack itemStackSwappedToOffHand, ItemStack itemStackSwappedToMainHand) {
+        playerSwapHandItemsEvent.getPlayer().sendMessage(itemStackSwappedToOffHand + " was swapped to the off hand and the test item detected it");
+    }
+
+    @Override
+    public void onSwapThisItemToMainHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemStack, ItemStack itemStackSwappedToOffHand) {
+        playerSwapHandItemsEvent.getPlayer().sendMessage("The test item was swapped to the main hand");
+    }
+
+    @Override
+    public void onSwapThisItemToOffHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemStack, ItemStack itemStackSwappedToMainHand) {
+        playerSwapHandItemsEvent.getPlayer().sendMessage("The test item was swapped to the off hand");
     }
 }

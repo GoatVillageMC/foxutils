@@ -11,9 +11,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.util.Arrays;
 import java.util.UUID;
 
-public class KillActionListener implements Listener {
+@SuppressWarnings("UnstableApiUsage")
+public final class KillActionListener implements Listener {
 
     @EventHandler
     public void onPlayerKill(PlayerDeathEvent playerDeathEvent) {
@@ -25,49 +27,39 @@ public class KillActionListener implements Listener {
         final PlayerInventory killerInventory = killerPlayer.getInventory();
         final ItemStack[] killerInventoryContents = killerInventory.getContents();
 
-        ItemStack killCausingItem = null;
         final DamageSource damageSource = playerDeathEvent.getDamageSource();
+        final ItemStack killCausingItem;
 
         if (damageSource.isIndirect()) {
-            final Entity causingEntity = damageSource.getCausingEntity();
+            final Entity damageSourceDirectEntity = damageSource.getDirectEntity();
 
-            if (causingEntity == null)
+            if (damageSourceDirectEntity == null)
                 return;
 
-            final UUID relatedItemUid = ItemUtils.getRelatedItemUid(causingEntity);
+            final UUID relatedItemUid = ItemUtils.getRelatedItemUid(damageSourceDirectEntity);
 
             if (relatedItemUid == null)
                 return;
 
-            for (ItemStack itemStack : killerInventoryContents) {
-                if (itemStack == null)
-                    continue;
-
-                if (!relatedItemUid.equals(ItemUtils.getUid(itemStack)))
-                    continue;
-
-                killCausingItem = itemStack;
-                break;
-            }
-        } else {
+            killCausingItem = Arrays.stream(killerInventoryContents)
+                    .filter(itemStack -> ItemRegistry.getItemFromItemStack(itemStack) instanceof KillActions)
+                    .filter(itemStack -> relatedItemUid.equals(ItemUtils.getUid(itemStack)))
+                    .findFirst()
+                    .orElse(null);
+        } else
             killCausingItem = killerInventory.getItemInMainHand();
-        }
 
-        // This... this is bad.
         if (killCausingItem == null)
             return;
 
         for (ItemStack itemStack : killerInventoryContents) {
-            if (itemStack == null || !(ItemRegistry.getItemFromItemStack(itemStack) instanceof KillActions killActionItem))
+            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof KillActions killActionItem))
                 continue;
 
-            if (itemStack.isSimilar(killCausingItem)) {
+            if (killCausingItem.equals(itemStack))
                 killActionItem.onKillWithThisItem(playerDeathEvent, killCausingItem, killedPlayer, killerPlayer);
-            } else {
+            else
                 killActionItem.onKillWithOtherItem(playerDeathEvent, itemStack, killCausingItem, killedPlayer, killerPlayer);
-            }
-
-            break;
         }
     }
 }
