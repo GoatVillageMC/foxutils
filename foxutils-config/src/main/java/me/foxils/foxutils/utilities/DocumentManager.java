@@ -4,41 +4,50 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
-import me.foxils.foxutils.annotations.YamlDocumentName;
+import me.foxils.foxutils.annotations.YamlDocumentPath;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public abstract class DocumentManager {
 
-    protected final Plugin plugin;
-    protected final Logger pluginLogger;
-
     protected final YamlDocument document;
 
-    public DocumentManager(Plugin plugin) {
-        this.plugin = plugin;
-        this.pluginLogger = plugin.getLogger();
-
+    public DocumentManager() {
         this.document = getDocument();
     }
 
     private YamlDocument getDocument() {
-        Class<? extends DocumentManager> clazz = getClass();
+        final Class<? extends DocumentManager> clazz = getClass();
 
-        if (!clazz.isAnnotationPresent(YamlDocumentName.class)) {
-            this.pluginLogger.severe(clazz.getName() + " class does not specify document name with @DocumentName annotation");
+        if (!clazz.isAnnotationPresent(YamlDocumentPath.class)) {
+            Bukkit.getLogger().severe(clazz.getName() + " class does not specify a @YamlDocumentPath annotation");
             return null;
         }
 
-        String documentName = clazz.getAnnotation(YamlDocumentName.class).documentName();
+        final String documentPath = clazz.getAnnotation(YamlDocumentPath.class).documentPath();
 
-        File documentFile = new File(this.plugin.getDataFolder(), documentName);
+        if (documentPath == null) {
+            Bukkit.getLogger().severe(clazz.getName() + " class does not specify a path for its document inside its @YamlDocumentPath annotation");
+            return null;
+        }
+
+        final File documentFile = new File(documentPath);
 
         if (!documentFile.exists()) {
-            this.plugin.saveResource(documentName, false);
+            try {
+                if (!documentFile.createNewFile()) {
+                    Bukkit.getLogger().severe("Failed to create file at path \"" + documentPath + "\" for DocumentManager: " + clazz.getName());
+                    return null;
+                }
+            } catch (IOException ioE) {
+                Bukkit.getLogger().severe("Failed to create file at path \"" + documentPath + "\" for DocumentManager: " + clazz.getName());
+
+                for (StackTraceElement stackTraceElement : ioE.getStackTrace())
+                    Bukkit.getLogger().severe(stackTraceElement.toString());
+            }
         }
 
         try {
@@ -48,8 +57,8 @@ public abstract class DocumentManager {
                             .build(),
                     LoaderSettings.DEFAULT,
                     DumperSettings.DEFAULT);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ioE) {
+            throw new RuntimeException(ioE);
         }
     }
 }

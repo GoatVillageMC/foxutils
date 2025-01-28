@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="foxutils-items" />
-        <module name="foxutils-data" />
         <module name="me.foxils.foxutils" />
-        <module name="foxutils-hud" />
         <module name="foxutils-config" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="foxutils-data" target="21" />
+      <module name="foxutils-hud" target="21" />
+      <module name="foxutils-items" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
