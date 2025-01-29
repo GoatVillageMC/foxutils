@@ -1,27 +1,14 @@
 package me.foxils.foxutils.utilities;
 
 import dev.dejvokep.boostedyaml.block.implementation.Section;
-import org.bukkit.NamespacedKey;
-import org.bukkit.plugin.Plugin;
 
-import java.util.logging.Logger;
-
+@SuppressWarnings("unused")
 public abstract class SectionManager {
 
     protected final Section section;
 
-    protected final Plugin plugin;
-    protected final Logger pluginLogger;
-
-    protected final NamespacedKey identifierKey;
-
-    public SectionManager(Section sectionToManage, Plugin plugin) {
+    public SectionManager(Section sectionToManage) {
         this.section = sectionToManage;
-
-        this.plugin = plugin;
-        this.pluginLogger = plugin.getLogger();
-
-        this.identifierKey = new NamespacedKey(plugin, this.getName());
     }
 
     public Section getSection() {
@@ -31,9 +18,4 @@ public abstract class SectionManager {
     public String getName() {
         return getSection().getNameAsString();
     }
-
-    public NamespacedKey getKey() {
-        return this.identifierKey;
-    }
-
 }

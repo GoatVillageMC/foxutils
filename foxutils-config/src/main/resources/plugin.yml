@@ -1,5 +1,0 @@
-name: foxutils-config
-version: '${project.version}'
-main: me.foxils.foxutils.FoxutilsConfig
-api-version: '1.21'
-authors: [Foxils @foxils. on Discord]

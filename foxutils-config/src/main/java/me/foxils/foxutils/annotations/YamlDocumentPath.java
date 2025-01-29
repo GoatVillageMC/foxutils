@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
-public @interface YamlDocumentName {
-    String documentName() default "";
+@SuppressWarnings("unused")
+public @interface YamlDocumentPath {
+    String documentPath() default "";
 }
