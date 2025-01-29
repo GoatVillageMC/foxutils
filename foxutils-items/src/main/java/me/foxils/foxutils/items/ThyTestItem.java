@@ -7,7 +7,6 @@ import me.foxils.foxutils.itemactions.KillActions;
 import me.foxils.foxutils.itemactions.ProjectileHitAction;
 import me.foxils.foxutils.itemactions.ProjectileLaunchAction;
 import me.foxils.foxutils.itemactions.SelectItemActions;
-import me.foxils.foxutils.itemactions.SwapItemHandActions;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
 import net.goatvillage.willow.NamespacedKey;
@@ -28,11 +27,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ThyTestItem extends Item implements CraftItemAction, InventoryClickActions, KillActions, ProjectileHitAction, ProjectileLaunchAction, SelectItemActions, SwapItemHandActions {
+public class ThyTestItem extends Item implements CraftItemAction, InventoryClickActions, KillActions,
+        ProjectileHitAction, ProjectileLaunchAction, SelectItemActions {
 
     private final NamespacedKey TRIDENT_TEST_COOLDOWN;
 
-    public ThyTestItem(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean isRecipeShaped) {
+    public ThyTestItem(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name,
+            int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe,
+            boolean isRecipeShaped) {
         super(plugin, itemMaterial, name, customModelData, abilityList, itemsForRecipe, isRecipeShaped);
 
         this.TRIDENT_TEST_COOLDOWN = new NamespacedKey(plugin, "trident_test_cooldown");
@@ -56,32 +58,40 @@ public class ThyTestItem extends Item implements CraftItemAction, InventoryClick
     }
 
     @Override
-    public void onCraftOtherItem(CraftItemEvent craftItemEvent, ItemStack craftedItemStack, ItemStack thisItemStack, Player crafterPlayer) {
+    public void onCraftOtherItem(CraftItemEvent craftItemEvent, ItemStack craftedItemStack, ItemStack thisItemStack,
+            Player crafterPlayer) {
         crafterPlayer.sendMessage("You have crafted another item and the test item detected it");
     }
 
     @Override
-    public void onInventoryClick(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackInCursor) {
-        inventoryClickEvent.getWhoClicked().sendMessage("You clicked the test-trident with: " + itemStackInCursor + " in your cursor");
+    public void onInventoryClick(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack,
+            @Nullable ItemStack itemStackInCursor) {
+        inventoryClickEvent.getWhoClicked()
+                .sendMessage("You clicked the test-trident with: " + itemStackInCursor + " in your cursor");
     }
 
     @Override
-    public void onInventoryInteract(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackClickedOn) {
-        inventoryClickEvent.getWhoClicked().sendMessage("You clicked: " + itemStackClickedOn + " with the test-trident in your cursor");
+    public void onInventoryInteract(InventoryClickEvent inventoryClickEvent, ItemStack thisItemStack,
+            @Nullable ItemStack itemStackClickedOn) {
+        inventoryClickEvent.getWhoClicked()
+                .sendMessage("You clicked: " + itemStackClickedOn + " with the test-trident in your cursor");
     }
 
     @Override
-    public void onKillWithThisItem(PlayerDeathEvent playerDeathEvent, ItemStack thisItemStack, Player killedPlayer, Player killerPlayer) {
+    public void onKillWithThisItem(PlayerDeathEvent playerDeathEvent, ItemStack thisItemStack, Player killedPlayer,
+            Player killerPlayer) {
         killerPlayer.sendMessage("You killed with the test item.");
     }
 
     @Override
-    public void onKillWithOtherItem(PlayerDeathEvent playerDeathEvent, ItemStack thisItemStack, ItemStack itemStackUsedToKill, Player killedPlayer, Player killerPlayer) {
+    public void onKillWithOtherItem(PlayerDeathEvent playerDeathEvent, ItemStack thisItemStack,
+            ItemStack itemStackUsedToKill, Player killedPlayer, Player killerPlayer) {
         killerPlayer.sendMessage("You killed with an item and the test item detected it");
     }
 
     @Override
-    public void onProjectileFromThisItemHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack, Projectile hitterProjectile) {
+    public void onProjectileFromThisItemHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack,
+            Projectile hitterProjectile) {
         tridentCooldownTest(thisItemStack, hitterProjectile);
     }
 
@@ -95,30 +105,38 @@ public class ThyTestItem extends Item implements CraftItemAction, InventoryClick
     }
 
     @Override
-    public void onProjectileFromOtherItemHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack, ItemStack shootingItemStack, Projectile hitterProjectile) {
+    public void onProjectileFromOtherItemHit(ProjectileHitEvent projectileHitEvent, ItemStack thisItemStack,
+            ItemStack shootingItemStack, Projectile hitterProjectile) {
         assert hitterProjectile.getShooter() != null;
 
-        ((Player) hitterProjectile.getShooter()).sendMessage("A projectile shot from another item in your inventory has been detected by Thy Test Item™");
+        ((Player) hitterProjectile.getShooter()).sendMessage(
+                "A projectile shot from another item in your inventory has been detected by Thy Test Item™");
     }
 
     @Override
-    public void onSelectThisItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackUnselected) {
+    public void onSelectThisItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack,
+            @Nullable ItemStack itemStackUnselected) {
         playerItemHeldEvent.getPlayer().sendMessage("You selected the test-trident");
     }
 
     @Override
-    public void onUnselectThisItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackSelected) {
+    public void onUnselectThisItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack,
+            @Nullable ItemStack itemStackSelected) {
         playerItemHeldEvent.getPlayer().sendMessage("You unselected the test-trident");
     }
 
     @Override
-    public void onSelectOtherItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackSelected, @Nullable ItemStack itemStackUnselected) {
-        playerItemHeldEvent.getPlayer().sendMessage("You selected: " + itemStackSelected + " and the test-trident detected it.");
+    public void onSelectOtherItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack,
+            @Nullable ItemStack itemStackSelected, @Nullable ItemStack itemStackUnselected) {
+        playerItemHeldEvent.getPlayer()
+                .sendMessage("You selected: " + itemStackSelected + " and the test-trident detected it.");
     }
 
     @Override
-    public void onUnselectOtherItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack, @Nullable ItemStack itemStackUnselected, @Nullable ItemStack itemStackSelected) {
-        playerItemHeldEvent.getPlayer().sendMessage("You unselected: " + itemStackUnselected + " and the test-trident detected it.");
+    public void onUnselectOtherItem(PlayerItemHeldEvent playerItemHeldEvent, ItemStack thisItemStack,
+            @Nullable ItemStack itemStackUnselected, @Nullable ItemStack itemStackSelected) {
+        playerItemHeldEvent.getPlayer()
+                .sendMessage("You unselected: " + itemStackUnselected + " and the test-trident detected it.");
     }
 
 }
