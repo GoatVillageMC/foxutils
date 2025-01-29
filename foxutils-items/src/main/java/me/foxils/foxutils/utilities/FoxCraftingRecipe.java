@@ -1,11 +1,9 @@
 package me.foxils.foxutils.utilities;
 
+import net.goatvillage.willow.NamespacedKey;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
@@ -15,7 +13,7 @@ import java.util.List;
 public class FoxCraftingRecipe {
 
     // Actual recipe as registered in bukkit
-    private final CraftingRecipe convertedRecipe;
+    private final Recipe convertedRecipe;
     private final NamespacedKey recipeKey;
 
     public FoxCraftingRecipe(List<ItemStack> items, NamespacedKey key, ItemStack item, boolean shapedRecipe) {
@@ -27,12 +25,14 @@ public class FoxCraftingRecipe {
         }
 
         if (shapedRecipe) {
-            this.convertedRecipe = new ShapedRecipe(key, item);
+            // See ItemRegistry#unregisterItem()
+            this.convertedRecipe = null; // new ShapedRecipe(key, item);
             setShapedRecipe(items);
             return;
         }
 
-        this.convertedRecipe = new ShapelessRecipe(key, item);
+        // See ItemRegistry#unregisterItem()
+        this.convertedRecipe = null; // new ShapelessRecipe(key, item);
         setShapelessRecipe(items);
     }
 
@@ -44,7 +44,8 @@ public class FoxCraftingRecipe {
             if (item == null || item.getType() == Material.AIR)
                 continue;
 
-            recipe.addIngredient(new RecipeChoice.MaterialChoice(item.getType()));
+            /* See ItemRegistry#unregisterItem()
+            recipe.addIngredient(new RecipeChoice.MaterialChoice(item.getType())); */
         }
     }
 
@@ -61,8 +62,8 @@ public class FoxCraftingRecipe {
 
             if (item == null || item.getType() == Material.AIR)
                 continue;
-
-            recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.ExactChoice(item));
+            /* See ItemRegistry#unregisterItem()
+            recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.ExactChoice(item)); */
         }
     }
 

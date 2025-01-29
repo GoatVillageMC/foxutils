@@ -1,32 +1,31 @@
 package me.foxils.foxutils.utilities;
 
+import net.goatvillage.willow.NamespacedKey;
+import net.goatvillage.willow.persistence.PersistentDataContainer;
+import net.goatvillage.willow.persistence.PersistentDataHolder;
+import net.goatvillage.willow.persistence.PersistentDataType;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataHolder;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
 
-@SuppressWarnings({"unused", "UnstableApiUsage"})
+@SuppressWarnings("unused")
 public final class ItemUtils {
 
     private static final BaseComponent COOLDOWN_PRESENT_MESSAGE =
-            new ComponentBuilder()
+            new ComponentBuilder("")
                 .append("Wait For Cooldown").bold(true).color(ChatColor.RED)
-                .build();
+                .create()[0];
 
     private static final NamespacedKey ITEMSTACK_ITEMKEY_STORAGE = new NamespacedKey("foxutils", "fox_item");
     private static final NamespacedKey ITEMSTACK_UID_STORAGE = new NamespacedKey("foxutils", "item_uid_storage");
@@ -41,7 +40,7 @@ public final class ItemUtils {
         if (itemMeta == null)
             return;
 
-        itemMeta.setItemName(ChatColor.translateAlternateColorCodes('&', org.bukkit.ChatColor.BOLD + name));
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', org.bukkit.ChatColor.BOLD + name));
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -51,7 +50,8 @@ public final class ItemUtils {
         if (itemMeta == null)
             return;
 
-        itemMeta.setEnchantmentGlintOverride(true);
+        /* TODO: Create "Enchantment.GLOW" with a Willow patch
+        itemMeta.addEnchant(Enchantment.GLOW, 0, true); */
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -61,7 +61,8 @@ public final class ItemUtils {
         if (itemMeta == null)
             return;
 
-        itemMeta.setCustomModelData(customModelData);
+        /* TODO: Create method inside ItemMeta to add a unique NBT tag with a Willow patch
+        itemMeta.setCustomModelData(customModelData); */
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -203,16 +204,17 @@ public final class ItemUtils {
     }
 
     public static boolean getCooldown(@NotNull NamespacedKey key, @NotNull ItemStack itemStack, @NotNull Long cooldownInSeconds, @NotNull Player player, @NotNull BaseComponent successMessage, @NotNull BaseComponent unsuccessfulMessage) {
+        // TODO: Reimplement Action-Bar messages
         final boolean cooldownActive = getCooldown(key, itemStack, cooldownInSeconds);
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.75F);
+        player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1F, 0.75F);
 
         if (cooldownActive) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, unsuccessfulMessage);
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 0.5F);
+            // player.spigot().sendMessage(ChatMessageType.ACTION_BAR, unsuccessfulMessage);
+            player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1F, 0.5F);
         } else {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1F, 1F);
+            // player.spigot().sendMessage(ChatMessageType.ACTION_BAR, successMessage);
+            player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1F, 1F);
         }
 
         return cooldownActive;

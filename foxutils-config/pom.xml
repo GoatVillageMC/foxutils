@@ -16,8 +16,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <groupId>net.goatvillage.willow</groupId>
+            <artifactId>willow-api</artifactId>
         </dependency>
 
         <dependency>

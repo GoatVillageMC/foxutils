@@ -22,7 +22,7 @@ public final class ProjectileLaunchActionListener implements Listener {
         if (!(projectileLaunched.getShooter() instanceof Player playerShooter))
             return;
 
-        final UUID projectileRelatedItemUid = ItemUtils.getRelatedItemUid(projectileLaunched);
+        final UUID projectileRelatedItemUid = null; // ItemUtils.getRelatedItemUid(projectileLaunched);
 
         if (projectileRelatedItemUid == null)
             return;

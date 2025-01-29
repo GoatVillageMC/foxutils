@@ -16,7 +16,6 @@ import me.foxils.foxutils.listeners.KillActionListener;
 import me.foxils.foxutils.listeners.MineBlockActionListener;
 import me.foxils.foxutils.listeners.ProjectileHitActionListener;
 import me.foxils.foxutils.listeners.ProjectileLaunchActionListener;
-import me.foxils.foxutils.listeners.SwapOffHandActionListener;
 import me.foxils.foxutils.listeners.TakeDamageActionListener;
 import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.utilities.ActionType;
@@ -42,7 +41,7 @@ public final class FoxutilsItems extends JavaPlugin {
         registerEvents();
         registerCommands();
 
-        ItemRegistry.registerItem(new ThyTestItem(this, Material.TRIDENT, "Thy Test Item", 43290423,
+        ItemRegistry.registerItem(new ThyTestItem(this, Material.STICK, "Thy Test Item", 43290423,
                 List.of(
                         new ItemAbility("Test Shit",
                                 List.of("They see me testin'",
@@ -86,7 +85,6 @@ public final class FoxutilsItems extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MineBlockActionListener(), this);
         getServer().getPluginManager().registerEvents(new ProjectileHitActionListener(), this);
         getServer().getPluginManager().registerEvents(new ProjectileLaunchActionListener(), this);
-        getServer().getPluginManager().registerEvents(new SwapOffHandActionListener(), this);
         getServer().getPluginManager().registerEvents(new TakeDamageActionListener(), this);
     }
 

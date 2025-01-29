@@ -9,7 +9,12 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 public final class ItemRegistry {
@@ -30,7 +35,9 @@ public final class ItemRegistry {
 
     public static void unregisterItem(@NotNull NamespacedKey itemKey) {
         REGISTERED_ITEMS.remove(itemKey);
-        Bukkit.removeRecipe(itemKey);
+        /* TODO: Create method inside Server and CraftServer "removeRecipe()"
+           NOTE: Requires additional modification to Recipe-classes to include an identifier (Use NamespacedKey)
+        Bukkit.removeRecipe(itemKey); */
 
         Bukkit.getLogger().info("Unregistered: " + itemKey.getKey());
     }

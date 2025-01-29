@@ -4,9 +4,6 @@ import me.foxils.foxutils.registry.ItemRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-
-import java.util.List;
 
 public interface HoldingItemAction extends ActionInterface {
 
@@ -17,19 +14,12 @@ public interface HoldingItemAction extends ActionInterface {
     static void holdActionCall() {
         for (Player player : Bukkit.getOnlinePlayers()) {
 
-            PlayerInventory inventory = player.getInventory();
+            final ItemStack heldItemStack = player.getItemInHand();
 
-            List<ItemStack> itemsHeld = List.of(
-                    inventory.getItemInMainHand(),
-                    inventory.getItemInOffHand());
+            if (!(ItemRegistry.getItemFromItemStack(heldItemStack) instanceof HoldingItemAction itemWithHoldAction))
+                continue;
 
-            for (ItemStack item : itemsHeld) {
-                if (!(ItemRegistry.getItemFromItemStack(item) instanceof HoldingItemAction itemWithHoldAction))
-                    continue;
-
-                itemWithHoldAction.onHoldAction(player, item);
-            }
-
+            itemWithHoldAction.onHoldAction(player, heldItemStack);
         }
     }
 

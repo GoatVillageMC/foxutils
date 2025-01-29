@@ -17,7 +17,7 @@ public class MineBlockActionListener implements Listener {
 
         final PlayerInventory playerInventory = player.getInventory();
 
-        final ItemStack itemStackUsedToMine = playerInventory.getItemInMainHand();
+        final ItemStack itemStackUsedToMine = playerInventory.getItemInHand();
 
         for (ItemStack itemStack : playerInventory.getContents()) {
             if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof MineAction mineActionItem))

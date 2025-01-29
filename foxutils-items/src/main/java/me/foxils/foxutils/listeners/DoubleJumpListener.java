@@ -1,6 +1,5 @@
 package me.foxils.foxutils.listeners;
 
-import de.unpixelt.armorchange.ArmorPlugin;
 import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.itemactions.DoubleJumpAction;
 import org.bukkit.GameMode;
@@ -19,7 +18,7 @@ public final class DoubleJumpListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent playerJoinEvent) {
         Player playerWhoJoined = playerJoinEvent.getPlayer();
 
-        ArmorPlugin.reequipPlayer(playerWhoJoined);
+        // ArmorPlugin.reequipPlayer(playerWhoJoined);
     }
 
     @EventHandler

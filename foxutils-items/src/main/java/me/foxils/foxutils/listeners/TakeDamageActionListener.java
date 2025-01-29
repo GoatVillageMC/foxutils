@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings("UnstableApiUsage")
 public final class TakeDamageActionListener implements Listener {
 
     @EventHandler
@@ -20,7 +19,7 @@ public final class TakeDamageActionListener implements Listener {
             if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof TakeDamageAction damageActionItem))
                 continue;
 
-            damageActionItem.onTakeDamage(event, itemStack, damagedPlayer, event.getDamageSource());
+            damageActionItem.onTakeDamage(event, itemStack, damagedPlayer, event.getCause());
         }
     }
 }

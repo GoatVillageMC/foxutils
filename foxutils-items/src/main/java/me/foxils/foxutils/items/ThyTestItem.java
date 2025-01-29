@@ -1,11 +1,17 @@
 package me.foxils.foxutils.items;
 
 import me.foxils.foxutils.Item;
-import me.foxils.foxutils.itemactions.*;
+import me.foxils.foxutils.itemactions.CraftItemAction;
+import me.foxils.foxutils.itemactions.InventoryClickActions;
+import me.foxils.foxutils.itemactions.KillActions;
+import me.foxils.foxutils.itemactions.ProjectileHitAction;
+import me.foxils.foxutils.itemactions.ProjectileLaunchAction;
+import me.foxils.foxutils.itemactions.SelectItemActions;
+import me.foxils.foxutils.itemactions.SwapItemHandActions;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
+import net.goatvillage.willow.NamespacedKey;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -14,7 +20,6 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
@@ -39,7 +44,7 @@ public class ThyTestItem extends Item implements CraftItemAction, InventoryClick
         final ItemMeta itemMeta = newItem.getItemMeta();
         assert itemMeta != null;
 
-        itemMeta.addEnchant(Enchantment.LOYALTY, 3, false);
+        itemMeta.addEnchant(Enchantment.DURABILITY, 3, false);
 
         newItem.setItemMeta(itemMeta);
         return newItem;
@@ -116,23 +121,4 @@ public class ThyTestItem extends Item implements CraftItemAction, InventoryClick
         playerItemHeldEvent.getPlayer().sendMessage("You unselected: " + itemStackUnselected + " and the test-trident detected it.");
     }
 
-    @Override
-    public void onSwapOtherItemToMainHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemStack, ItemStack itemStackSwappedToMainHand, ItemStack itemStackSwappedToOffHand) {
-        playerSwapHandItemsEvent.getPlayer().sendMessage(itemStackSwappedToMainHand + " was swapped to the main hand and the test item detected it");
-    }
-
-    @Override
-    public void onSwapOtherItemToOffHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemSTack, ItemStack itemStackSwappedToOffHand, ItemStack itemStackSwappedToMainHand) {
-        playerSwapHandItemsEvent.getPlayer().sendMessage(itemStackSwappedToOffHand + " was swapped to the off hand and the test item detected it");
-    }
-
-    @Override
-    public void onSwapThisItemToMainHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemStack, ItemStack itemStackSwappedToOffHand) {
-        playerSwapHandItemsEvent.getPlayer().sendMessage("The test item was swapped to the main hand");
-    }
-
-    @Override
-    public void onSwapThisItemToOffHand(PlayerSwapHandItemsEvent playerSwapHandItemsEvent, ItemStack thisItemStack, ItemStack itemStackSwappedToMainHand) {
-        playerSwapHandItemsEvent.getPlayer().sendMessage("The test item was swapped to the off hand");
-    }
 }

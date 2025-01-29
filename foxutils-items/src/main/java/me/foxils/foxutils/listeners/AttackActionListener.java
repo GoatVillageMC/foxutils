@@ -17,7 +17,7 @@ public final class AttackActionListener implements Listener {
         if (!(entityDamageByEntityEvent.getDamager() instanceof Player attacker))
             return;
 
-        final ItemStack itemStackUsedToAttack = attacker.getItemInUse();
+        final ItemStack itemStackUsedToAttack = attacker.getItemInHand();
 
         if (itemStackUsedToAttack == null)
             return;
