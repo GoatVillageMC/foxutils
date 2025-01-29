@@ -1,11 +1,8 @@
 package me.foxils.foxutils.utilities;
 
 import dev.dejvokep.boostedyaml.block.implementation.Section;
-import net.goatvillage.willow.NamespacedKey;
-import org.bukkit.plugin.Plugin;
 
-import java.util.logging.Logger;
-
+@SuppressWarnings("unused")
 public abstract class SectionManager {
 
     protected final Section section;

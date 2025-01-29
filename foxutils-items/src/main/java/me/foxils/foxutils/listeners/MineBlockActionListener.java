@@ -12,17 +12,21 @@ import org.bukkit.inventory.PlayerInventory;
 public class MineBlockActionListener implements Listener {
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
-        final Player player = event.getPlayer();
+    public void onBlockBreak(BlockBreakEvent blockBreakEvent) {
+        final Player player = blockBreakEvent.getPlayer();
 
-        final PlayerInventory inventory = player.getInventory();
+        final PlayerInventory playerInventory = player.getInventory();
 
-        for (ItemStack item : inventory.getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(item) instanceof MineAction ItemInInventory)) {
+        final ItemStack itemStackUsedToMine = playerInventory.getItemInMainHand();
+
+        for (ItemStack itemStack : playerInventory.getContents()) {
+            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof MineAction mineActionItem))
                 continue;
-            }
 
-            ItemInInventory.blockMineAction(event, player.getItemInHand(), item);
+            if (itemStackUsedToMine.equals(itemStack))
+                mineActionItem.onMineWithThisItem(blockBreakEvent, itemStackUsedToMine);
+            else
+                mineActionItem.onMineWithOtherItem(blockBreakEvent, itemStack, itemStackUsedToMine);
         }
     }
 }

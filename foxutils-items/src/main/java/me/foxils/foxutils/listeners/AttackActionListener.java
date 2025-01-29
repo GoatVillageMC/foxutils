@@ -8,18 +8,31 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AttackActionListener implements Listener {
+public final class AttackActionListener implements Listener {
+
+    // TODO: This needs a rewrite to be in-line with the new stuff in KillActionListener (using the tagging stuff for indirect)
 
     @EventHandler
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player attacker)) return;
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent entityDamageByEntityEvent) {
+        if (!(entityDamageByEntityEvent.getDamager() instanceof Player attacker))
+            return;
 
-        final ItemStack itemUsedToAttack = attacker.getItemInHand();
+        final ItemStack itemStackUsedToAttack = attacker.getItemInUse();
 
-        for (ItemStack itemStackInPlayerInventory : attacker.getInventory().getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(itemStackInPlayerInventory) instanceof AttackAction attackActionItem)) continue;
+        if (itemStackUsedToAttack == null)
+            return;
 
-            attackActionItem.attackAction(event, itemUsedToAttack, itemStackInPlayerInventory);
+        if (ItemRegistry.getItemFromItemStack(itemStackUsedToAttack) instanceof AttackAction attackActionItem)
+            attackActionItem.onAttackWithThisItem(entityDamageByEntityEvent, itemStackUsedToAttack);
+
+        for (ItemStack itemStack : attacker.getInventory().getContents()) {
+            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof AttackAction attackActionItem))
+                continue;
+
+            if (itemStackUsedToAttack.equals(itemStack))
+                return;
+
+            attackActionItem.onAttackWithOtherItem(entityDamageByEntityEvent, itemStack, itemStackUsedToAttack);
         }
     }
 }

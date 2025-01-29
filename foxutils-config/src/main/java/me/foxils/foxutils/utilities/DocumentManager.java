@@ -6,12 +6,14 @@ import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import me.foxils.foxutils.annotations.YamlDocumentPath;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 public abstract class DocumentManager {
+
+    // TODO: Replace logging with a more general system
 
     protected final YamlDocument document;
 

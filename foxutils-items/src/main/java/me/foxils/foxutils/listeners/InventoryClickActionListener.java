@@ -1,58 +1,41 @@
 package me.foxils.foxutils.listeners;
 
+import me.foxils.foxutils.itemactions.InventoryClickActions;
 import me.foxils.foxutils.registry.ItemRegistry;
-import me.foxils.foxutils.itemactions.InventoryClickAction;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
-import java.util.Objects;
+public final class InventoryClickActionListener implements Listener {
 
-public class InventoryClickActionListener implements Listener {
-
-    private final Plugin plugin;
-
-    public InventoryClickActionListener(Plugin plugin) {
-        this.plugin = plugin;
-    }
+    private static final int OFFHAND_ITEM_SLOT_INDEX = 40;
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
-        final HumanEntity whoClicked = event.getWhoClicked();
+    public void onInventoryClick(InventoryClickEvent inventoryClickEvent) {
+        if (!(inventoryClickEvent.getWhoClicked() instanceof Player player))
+            return;
 
-        if (Objects.requireNonNull(event.getClick()) == ClickType.NUMBER_KEY) {
-            final int hotbarItemSlot = event.getHotbarButton();
-            final int itemStackSlot = event.getSlot();
-            final Inventory inventorySentTo = event.getClickedInventory();
-            final Inventory playerInventory = whoClicked.getInventory();
+        final ItemStack clickedItem;
 
-            if (inventorySentTo == playerInventory) return;
+        if (inventoryClickEvent.getAction() == InventoryAction.HOTBAR_SWAP) {
+            final int eventHotbarButton = inventoryClickEvent.getHotbarButton();
+            final int clickedItemIndex = (eventHotbarButton == -1) ? OFFHAND_ITEM_SLOT_INDEX : eventHotbarButton;
 
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                ItemStack itemStackClickedOn = inventorySentTo.getItem(itemStackSlot);
-                ItemStack itemStackSwappedWith = playerInventory.getItem(hotbarItemSlot);
+            /* We cannot use PlayerInventory#getItem() because it searches only in the regular inventory, like the actual storage part (the 4x9 grid.)
+             Instead, we use PlayerInventory#getContents()[] because getContents returns all the items inside the full inventory (the armor, crafting grid, offhand, etc.) */
+            clickedItem = player.getInventory().getContents()[clickedItemIndex];
+        } else
+            clickedItem = inventoryClickEvent.getCurrentItem();
 
-                if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem))
-                    return;
+        final ItemStack cursorItem = inventoryClickEvent.getCursor();
 
-                playerInventory.setItem(hotbarItemSlot, itemStackClickedOn);
-                inventorySentTo.setItem(itemStackSlot, itemStackSwappedWith);
+        if (ItemRegistry.getItemFromItemStack(clickedItem) instanceof InventoryClickActions inventoryClickActionItem)
+            inventoryClickActionItem.onInventoryClick(inventoryClickEvent, clickedItem, cursorItem);
 
-                inventoryClickActionItem.onInvetoryPull(event, itemStackClickedOn);
-            }, 1L);
-        } else {
-            ItemStack itemStackClickedOn = event.getCurrentItem();
-
-            if (!(ItemRegistry.getItemFromItemStack(itemStackClickedOn) instanceof InventoryClickAction inventoryClickActionItem))
-                return;
-
-            inventoryClickActionItem.onInvetoryPull(event, itemStackClickedOn);
-        }
+        if (ItemRegistry.getItemFromItemStack(cursorItem) instanceof  InventoryClickActions inventoryClickActionItem)
+            inventoryClickActionItem.onInventoryInteract(inventoryClickEvent, cursorItem, clickedItem);
     }
 }

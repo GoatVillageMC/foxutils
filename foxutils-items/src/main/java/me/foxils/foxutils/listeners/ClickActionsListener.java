@@ -10,48 +10,54 @@ import org.bukkit.inventory.ItemStack;
 
 public final class ClickActionsListener implements Listener {
 
+    // TODO: Re-evaluate the switch, seems kinda long-winded imo
+
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
 
-        if (DropActionListener.dropInteractCooldown.containsKey(player) && System.currentTimeMillis() < DropActionListener.dropInteractCooldown.get(player)) return;
+        if (DropActionListener.DROP_INTERACT_COOLDOWN.containsKey(player) && System.currentTimeMillis() < DropActionListener.DROP_INTERACT_COOLDOWN.get(player))
+            return;
 
         final ItemStack itemInteracted = event.getItem();
 
-        if (itemInteracted == null) return;
-
-        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickableItem)) return;
+        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof ClickActions clickActionItem))
+            return;
 
         final boolean shifting = player.isSneaking();
 
         switch (event.getAction()) {
             case LEFT_CLICK_AIR -> {
                 if (shifting) {
-                    clickableItem.shiftLeftClickAir(event, itemInteracted);
+                    clickActionItem.onShiftLeftClickAir(event, itemInteracted);
                     break;
                 }
-                clickableItem.leftClickAir(event, itemInteracted);
+
+                clickActionItem.onLeftClickAir(event, itemInteracted);
             }
             case LEFT_CLICK_BLOCK -> {
                 if (shifting) {
-                    clickableItem.shiftLeftClickBlock(event, itemInteracted);
+                    clickActionItem.onShiftLeftClickBlock(event, itemInteracted);
                     break;
                 }
-                clickableItem.leftClickBlock(event, itemInteracted);
+
+                clickActionItem.onLeftClickBlock(event, itemInteracted);
             }
             case RIGHT_CLICK_AIR -> {
                 if (shifting) {
-                    clickableItem.shiftRightClickAir(event, itemInteracted);
+                    clickActionItem.onShiftRightClickAir(event, itemInteracted);
                     break;
                 }
-                clickableItem.rightClickAir(event, itemInteracted);
+
+                clickActionItem.onRightClickAir(event, itemInteracted);
             }
             case RIGHT_CLICK_BLOCK -> {
                 if (shifting) {
-                    clickableItem.shiftRightClickBlock(event, itemInteracted);
+                    clickActionItem.onShiftRightClickBlock(event, itemInteracted);
                     break;
                 }
-                clickableItem.rightClickBlock(event, itemInteracted);
+
+                clickActionItem.onRightClickBlock(event, itemInteracted);
             }
         }
     }

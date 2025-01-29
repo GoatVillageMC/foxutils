@@ -1,14 +1,16 @@
 package me.foxils.foxutils;
 
+import me.foxils.foxutils.utilities.FoxCraftingRecipe;
 import me.foxils.foxutils.utilities.ItemAbility;
 import me.foxils.foxutils.utilities.ItemUtils;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-
-import net.goatvillage.willow.NamespacedKey;
 
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -18,124 +20,111 @@ import java.util.List;
 @SuppressWarnings("unused")
 public abstract class Item {
 
-    protected final Plugin plugin;
+    private final NamespacedKey ITEM_KEY;
 
-    private final ItemStack item;
+    private final Plugin plugin;
+
+    private final Material itemMaterial;
     private final String name;
     private final int customModelData;
 
-    private final List<String> actualLore = new ArrayList<>();
+    private final List<ItemAbility> abilityList;
+    private final List<String> lore;
 
-    private final List<ItemAbility> abilityList = new ArrayList<>();
-    //private FoxCraftingRecipe recipe;
+    private FoxCraftingRecipe recipe;
 
-    private final NamespacedKey itemKey;
+    public Item(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean isRecipeShaped) {
+        this.ITEM_KEY = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").replace("'", "").toLowerCase());
 
-    @SuppressWarnings("all")
-    public static final NamespacedKey itemConfirmationKey = new NamespacedKey("foxutils", "fox_item");
-
-    public Item(@NotNull Material material, int customModelData, @NotNull String name, @NotNull Plugin plugin, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
         this.plugin = plugin;
 
-        this.item = new ItemStack(material);
+        this.itemMaterial = itemMaterial;
         this.name = name;
         this.customModelData = customModelData;
 
-        this.itemKey = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").toLowerCase());
+        this.abilityList = new ArrayList<>();
+        this.lore = new ArrayList<>();
 
-        if (abilityList != null) {
+        if (abilityList != null && !abilityList.isEmpty()) {
             this.abilityList.addAll(abilityList);
+
+            final ItemAbility lastAbility = abilityList.getLast();
+
+            lore.add(" ");
+
+            for (ItemAbility itemAbility : abilityList) {
+                lore.addAll(itemAbility.toLore());
+
+                if (!lastAbility.equals(itemAbility))
+                    lore.add(" ");
+            }
         }
 
-        /* TODO: Implement our own recipe system inside willow
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-            this.recipe = new FoxCraftingRecipe(itemsForRecipe, itemKey, createItem(1), shapedRecipe);
+        // TODO: Needs to be done differently asap.
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            this.recipe = new FoxCraftingRecipe(itemsForRecipe, ITEM_KEY, createItem(1), isRecipeShaped);
 
-            //TODO: Move to the FoxCraftingRecipe Class somehow
             final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
 
-            if (bukkitRecipe == null) return;
+            if (bukkitRecipe == null)
+                return;
 
             Bukkit.addRecipe(bukkitRecipe);
-        }, 1L);*/
-    }
-
-    public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList, List<ItemStack> itemsForRecipe, boolean shapedRecipe) {
-        this(material, 0, name, plugin, abilityList, itemsForRecipe, shapedRecipe);
-    }
-
-    public Item(Material material, int customModelData, String name, Plugin plugin, List<ItemAbility> abilityList) {
-        this(material, customModelData, name, plugin, abilityList, null, false);
-    }
-
-    public Item(Material material, String name, Plugin plugin, List<ItemAbility> abilityList) {
-        this(material, 0, name, plugin, abilityList);
+        }, 1L);
     }
 
     @OverridingMethodsMustInvokeSuper
-    public ItemStack createItem(int amount) {
-        final ItemStack newItem = item.clone();
+    public @NotNull ItemStack createItem(int amount) {
+        final ItemStack newItem = new ItemStack(itemMaterial);
 
-        ItemUtils.nameItem(newItem, name);
-        ItemUtils.addItemLore(newItem, createLore());
-        ItemUtils.setCustomModelData(newItem, customModelData);
+        ItemUtils.addCustomName(newItem, name);
+        ItemUtils.addItemLore(newItem, getLore());
+        ItemUtils.addCustomModelData(newItem, customModelData);
 
-        // Stores the item class's itemKey (identifier key), at the foxutils:fox_item location in NBT
-        if (!ItemUtils.storeStringData(itemKey.toString(), itemConfirmationKey, newItem)) {
-            plugin.getLogger().severe("Could not add itemKey to item");
-        }
+        if (!ItemUtils.addUid(newItem))
+            plugin.getLogger().severe(ChatColor.RED + "Unable to add UID to ItemStack (" + newItem + ") of Item-Class: " + getClass());
+
+        // Stores the item class's itemKey (The key that identifies the created ItemStack as an ItemStack of this Item-class) at the foxutils:fox_item location in NBT
+        if (!ItemUtils.addItemKey(ITEM_KEY, newItem))
+            plugin.getLogger().severe(ChatColor.RED + "Unable to add itemKey to ItemStack (" + newItem + ")");
 
         newItem.setAmount(amount);
-
         return newItem;
-    }
-
-    public List<String> createLore() {
-        if (!this.actualLore.isEmpty()) return this.actualLore;
-
-        final List<String> lore = new ArrayList<>();
-
-        lore.add(" ");
-
-        this.abilityList.forEach(itemAbility -> {
-            lore.addAll(itemAbility.toLore());
-
-            if (!this.abilityList.getLast().equals(itemAbility)) {
-                lore.add(" ");
-            }
-        });
-
-        this.actualLore.addAll(lore);
-
-        return lore;
-    }
-
-    public final Material getItemMaterial() {
-        return item.getType();
-    }
-
-    public final ItemStack getRawItem() {
-        return item;
-    }
-
-    public final String getName() {
-        return name;
-    }
-
-    public final NamespacedKey getKey() {
-        return itemKey;
-    }
-
-    public final String getRawName() {
-        return getKey().getKey();
-    }
-
-    /* TODO: Read main constructor
-    public final FoxCraftingRecipe getRecipe() {
-        return recipe;
     }
 
     public final void setRecipe(FoxCraftingRecipe recipe) {
         this.recipe = recipe;
-    }*/
+    }
+
+    public @NotNull List<String> getLore() {
+        return lore;
+    }
+
+    public @Nullable FoxCraftingRecipe getRecipe() {
+        return recipe;
+    }
+
+    public @NotNull List<ItemAbility> getAbilityList() {
+        return abilityList;
+    }
+
+    public @NotNull NamespacedKey getKey() {
+        return ITEM_KEY;
+    }
+
+    public @NotNull String getRawName() {
+        return getKey().getKey();
+    }
+
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public @NotNull Material getItemMaterial() {
+        return itemMaterial;
+    }
+
+    public @NotNull Plugin getPlugin() {
+        return plugin;
+    }
 }
