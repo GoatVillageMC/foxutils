@@ -4,8 +4,8 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
-import me.foxils.foxutils.annotations.YamlDocumentPath;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,35 +17,21 @@ public abstract class DocumentManager {
 
     protected final YamlDocument document;
 
-    public DocumentManager() {
-        this.document = getDocument();
+    public DocumentManager(@NotNull File documentToManage) {
+        this.document = getYamlDocument(documentToManage);
     }
 
-    private YamlDocument getDocument() {
-        final Class<? extends DocumentManager> clazz = getClass();
-
-        if (!clazz.isAnnotationPresent(YamlDocumentPath.class)) {
-            Bukkit.getLogger().severe(clazz.getName() + " class does not specify a @YamlDocumentPath annotation");
-            return null;
-        }
-
-        final String documentPath = clazz.getAnnotation(YamlDocumentPath.class).documentPath();
-
-        if (documentPath == null) {
-            Bukkit.getLogger().severe(clazz.getName() + " class does not specify a path for its document inside its @YamlDocumentPath annotation");
-            return null;
-        }
-
-        final File documentFile = new File(documentPath);
-
+    private YamlDocument getYamlDocument(@NotNull File documentFile) {
         if (!documentFile.exists()) {
             try {
                 if (!documentFile.createNewFile()) {
-                    Bukkit.getLogger().severe("Failed to create file at path \"" + documentPath + "\" for DocumentManager: " + clazz.getName());
+                    Bukkit.getLogger().severe("Failed to create file at path \"" + documentFile.getPath()
+                            + "\" for DocumentManager: " + this.getClass().getName());
                     return null;
                 }
             } catch (IOException ioE) {
-                Bukkit.getLogger().severe("Failed to create file at path \"" + documentPath + "\" for DocumentManager: " + clazz.getName());
+                Bukkit.getLogger().severe("Failed to create file at path \"" + documentFile.getPath()
+                        + "\" for DocumentManager: " + this.getClass().getName());
 
                 for (StackTraceElement stackTraceElement : ioE.getStackTrace())
                     Bukkit.getLogger().severe(stackTraceElement.toString());
