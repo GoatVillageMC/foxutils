@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ThyTestItem extends Item implements CraftItemAction, InventoryClickActions, KillActions, ProjectileHitAction, ProjectileLaunchAction, SelectItemActions, SwapItemHandActions {
+public class ThyTestItem extends Item implements ClickActions, CraftItemAction, InventoryClickActions, KillActions, ProjectileHitAction, ProjectileLaunchAction, SelectItemActions, SwapItemHandActions {
 
     private final NamespacedKey TRIDENT_TEST_COOLDOWN;
 

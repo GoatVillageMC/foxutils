@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public final class AttackActionListener implements Listener {
 
@@ -17,15 +18,14 @@ public final class AttackActionListener implements Listener {
         if (!(entityDamageByEntityEvent.getDamager() instanceof Player attacker))
             return;
 
-        final ItemStack itemStackUsedToAttack = attacker.getItemInUse();
+        final PlayerInventory attackerInventory = attacker.getInventory();
 
-        if (itemStackUsedToAttack == null)
-            return;
+        final ItemStack itemStackUsedToAttack = attackerInventory.getItemInMainHand();
 
         if (ItemRegistry.getItemFromItemStack(itemStackUsedToAttack) instanceof AttackAction attackActionItem)
             attackActionItem.onAttackWithThisItem(entityDamageByEntityEvent, itemStackUsedToAttack);
 
-        for (ItemStack itemStack : attacker.getInventory().getContents()) {
+        for (ItemStack itemStack : attackerInventory.getContents()) {
             if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof AttackAction attackActionItem))
                 continue;
 

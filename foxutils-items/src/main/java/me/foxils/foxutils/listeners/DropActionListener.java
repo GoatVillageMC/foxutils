@@ -26,14 +26,16 @@ public final class DropActionListener implements Listener {
             if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof DropItemAction dropItemActionItem))
                 continue;
 
-            if (droppedItem.equals(itemStack)) {
-                dropItemActionItem.onDropThisItem(playerDropItemEvent, itemStack);
-
-                // Stops item from being dropped by default because why would you want that if your using it for an ability
-                playerDropItemEvent.setCancelled(true);
-            } else
-                dropItemActionItem.onDropOtherItem(playerDropItemEvent, itemStack, droppedItem);
+            dropItemActionItem.onDropOtherItem(playerDropItemEvent, itemStack, droppedItem);
         }
+
+        if (!(ItemRegistry.getItemFromItemStack(droppedItem) instanceof DropItemAction dropItemActionItem))
+            return;
+
+        dropItemActionItem.onDropThisItem(playerDropItemEvent, droppedItem);
+
+        // Stops item from being dropped by default because why would you want that if your using it for an ability
+        playerDropItemEvent.setCancelled(true);
     }
 
 }

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,6 +15,8 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public final class ProjectileLaunchActionListener implements Listener {
+
+    // TODO: Finish me :(
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent projectileLaunchEvent) {
@@ -49,5 +52,9 @@ public final class ProjectileLaunchActionListener implements Listener {
             else
                 projectileLaunchActionItem.onShootProjectileWithOtherItem(projectileLaunchEvent, itemStack, projectileLaunchingItemStack, projectileLaunched);
         }
+    }
+
+    @EventHandler
+    public void onBowShoot(EntityShootBowEvent entityShootBowEvent) {
     }
 }
