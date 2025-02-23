@@ -33,7 +33,7 @@ public abstract class Item {
 
     private FoxCraftingRecipe recipe;
 
-    public Item(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean isRecipeShaped) {
+    public Item(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean areRecipeItemsExact, boolean isRecipeShaped) {
         this.ITEM_KEY = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").replace("'", "").toLowerCase());
 
         this.plugin = plugin;
@@ -62,7 +62,7 @@ public abstract class Item {
 
         // TODO: Needs to be done differently asap.
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            this.recipe = new FoxCraftingRecipe(itemsForRecipe, ITEM_KEY, createItem(1), isRecipeShaped);
+            this.recipe = new FoxCraftingRecipe(itemsForRecipe, ITEM_KEY, createItem(1), areRecipeItemsExact, isRecipeShaped);
 
             final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
 

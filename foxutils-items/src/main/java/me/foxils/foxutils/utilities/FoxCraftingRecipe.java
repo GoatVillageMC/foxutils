@@ -18,7 +18,7 @@ public class FoxCraftingRecipe {
     private final CraftingRecipe convertedRecipe;
     private final NamespacedKey recipeKey;
 
-    public FoxCraftingRecipe(List<ItemStack> items, NamespacedKey key, ItemStack item, boolean shapedRecipe) {
+    public FoxCraftingRecipe(List<ItemStack> items, NamespacedKey key, ItemStack item, boolean areRecipeItemsExact, boolean shapedRecipe) {
         this.recipeKey = key;
 
         if (items == null || items.isEmpty()) {
@@ -28,28 +28,31 @@ public class FoxCraftingRecipe {
 
         if (shapedRecipe) {
             this.convertedRecipe = new ShapedRecipe(key, item);
-            setShapedRecipe(items);
+            setShapedRecipe(items, areRecipeItemsExact);
             return;
         }
 
         this.convertedRecipe = new ShapelessRecipe(key, item);
-        setShapelessRecipe(items);
+        setShapelessRecipe(items, areRecipeItemsExact);
     }
 
     // Add all the ingredients in the list to a shapeless recipe
-    private void setShapelessRecipe(List<ItemStack> items) {
+    private void setShapelessRecipe(List<ItemStack> items, boolean areRecipeItemsExact) {
         ShapelessRecipe recipe = (ShapelessRecipe) convertedRecipe;
 
         for (ItemStack item : items) {
             if (item == null || item.getType() == Material.AIR)
                 continue;
 
-            recipe.addIngredient(new RecipeChoice.MaterialChoice(item.getType()));
+            if (!areRecipeItemsExact)
+                recipe.addIngredient(new RecipeChoice.MaterialChoice(item.getType()));
+            else
+                recipe.addIngredient(new RecipeChoice.ExactChoice(item));
         }
     }
 
     // Add all the ingredients in the list to a recipe in number order
-    private void setShapedRecipe(List<ItemStack> items) {
+    private void setShapedRecipe(List<ItemStack> items, boolean areRecipeItemsExact) {
         ShapedRecipe recipe = (ShapedRecipe) convertedRecipe;
 
         recipe.shape("123"
@@ -62,7 +65,10 @@ public class FoxCraftingRecipe {
             if (item == null || item.getType() == Material.AIR)
                 continue;
 
-            recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.ExactChoice(item));
+            if (!areRecipeItemsExact)
+                recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.MaterialChoice(item.getType()));
+            else
+                recipe.setIngredient(Character.forDigit(i, 10), new RecipeChoice.ExactChoice(item));
         }
     }
 
