@@ -27,8 +27,8 @@ public class ThyTestItem extends Item implements ClickActions, CraftItemAction, 
 
     private final NamespacedKey TRIDENT_TEST_COOLDOWN;
 
-    public ThyTestItem(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean isRecipeShaped) {
-        super(plugin, itemMaterial, name, customModelData, abilityList, itemsForRecipe, isRecipeShaped);
+    public ThyTestItem(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean areRecipeItemsExact, boolean isRecipeShaped) {
+        super(plugin, itemMaterial, name, customModelData, abilityList, itemsForRecipe, areRecipeItemsExact, isRecipeShaped);
 
         this.TRIDENT_TEST_COOLDOWN = new NamespacedKey(plugin, "trident_test_cooldown");
     }

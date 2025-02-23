@@ -53,7 +53,7 @@ public final class FoxutilsItems extends JavaPlugin {
                         new ItemStack(Material.BARRIER), new ItemStack(Material.BARRIER), new ItemStack(Material.BARRIER),
                         new ItemStack(Material.BARRIER), new ItemStack(Material.BARRIER), new ItemStack(Material.BARRIER),
                         new ItemStack(Material.BARRIER), new ItemStack(Material.BARRIER), new ItemStack(Material.BARRIER)
-                ), false));
+                ), false, false));
 
         this.getLogger().info("foxutils-items Started and initialized");
     }
