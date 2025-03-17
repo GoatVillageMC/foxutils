@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>foxutils-config</artifactId>
-    <version>1.1.0-GV</version>
+    <version>1.1.1-GV</version>
 
     <dependencies>
         <dependency>
@@ -31,7 +31,6 @@
             <version>1.3.7</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>dev.dejvokep</groupId>
             <artifactId>boosted-yaml-spigot</artifactId>
@@ -69,18 +68,6 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.6.0</version>
 
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>dev.dejvokep.boostedyaml</pattern>
-                            <shadedPattern>me.foxils.foxutils.library</shadedPattern>
-                            <includes>
-                                <include>dev.dejvokep.boostedyaml.*</include>
-                            </includes>
-                        </relocation>
-                    </relocations>
-                </configuration>
-
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -89,6 +76,15 @@
                         </goals>
                     </execution>
                 </executions>
+
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>dev.dejvokep.boostedyaml</pattern>
+                            <shadedPattern>me.foxils.foxutils.library.boostedyaml</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
             </plugin>
         </plugins>
     </build>
