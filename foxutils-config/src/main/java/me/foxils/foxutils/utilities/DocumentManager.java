@@ -4,6 +4,7 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
+import dev.dejvokep.boostedyaml.spigot.SpigotSerializer;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +28,7 @@ public abstract class DocumentManager {
                 if (!documentFile.createNewFile()) {
                     Bukkit.getLogger().severe("Failed to create file at path \"" + documentFile.getPath()
                             + "\" for DocumentManager: " + this.getClass().getName());
+
                     return null;
                 }
             } catch (IOException ioE) {
@@ -41,7 +43,7 @@ public abstract class DocumentManager {
         try {
             return YamlDocument.create(documentFile,
                     GeneralSettings.builder()
-                            .setKeyFormat(GeneralSettings.KeyFormat.STRING)
+                            .setSerializer(SpigotSerializer.getInstance())
                             .build(),
                     LoaderSettings.DEFAULT,
                     DumperSettings.DEFAULT);
