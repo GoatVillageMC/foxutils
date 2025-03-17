@@ -78,12 +78,12 @@
                 </executions>
 
                 <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>dev.dejvokep.boostedyaml</pattern>
-                            <shadedPattern>me.foxils.foxutils.library.boostedyaml</shadedPattern>
-                        </relocation>
-                    </relocations>
+                    <artifactSet>
+                        <includes>
+                            <inlcude>dev.dejvokep:boosted-yaml</inlcude>
+                            <inlcude>dev.dejvokep:boosted-yaml-spigot</inlcude>
+                        </includes>
+                    </artifactSet>
                 </configuration>
             </plugin>
         </plugins>
