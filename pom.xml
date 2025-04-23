@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.foxils.foxutils</groupId>
@@ -13,8 +13,12 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!--I HIGHLY suggest following this, its extremely useful and save you a ton of time when doing rapid-fire experimentation-->
-        <test-server-plugins-directory>${user.home}/Servers/foxutils/plugins</test-server-plugins-directory>
+        <!--I
+        HIGHLY suggest following this, its extremely useful and save you a ton of time when doing
+        rapid-fire experimentation-->
+        <test-server-directory>${user.home}/Servers/foxutils</test-server-directory>
+        <test-server-jar>${user.home}/Servers/ServerJars/spigot-1.21.4.jar</test-server-jar>
+        <test-server-launch-params>--nogui</test-server-launch-params>
     </properties>
 
     <modules>
@@ -65,7 +69,7 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.4.2</version>
                     <configuration>
-                        <outputDirectory>${test-server-plugins-directory}</outputDirectory>
+                        <outputDirectory>${test-server-directory}/plugins</outputDirectory>
                     </configuration>
                 </plugin>
 
@@ -84,7 +88,8 @@
                 </plugin>
 
                 <!--
-                Whenever you run the clean maven-task it removes all the files inside the defined test-server-plugins-directory.
+                Whenever you run the clean maven-task it removes all the files inside the defined
+                test-server-plugins-directory.
                 The files removed are only ones that match the artifactId of any sub-module of this project.
                 -->
                 <plugin>
@@ -100,7 +105,7 @@
                             <configuration>
                                 <filesets>
                                     <fileset>
-                                        <directory>${test-server-plugins-directory}</directory>
+                                        <directory>${test-server-directory}/plugins</directory>
                                         <includes>
                                             <include>${project.artifactId}-*.jar</include>
                                         </includes>

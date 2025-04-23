@@ -1,9 +1,10 @@
 package me.foxils.foxutils;
 
-import me.foxils.foxutils.utilities.FoxCraftingRecipe;
-import me.foxils.foxutils.utilities.ItemAbility;
-import me.foxils.foxutils.utilities.ItemUtils;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -11,16 +12,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.util.ArrayList;
-import java.util.List;
+import me.foxils.foxutils.utility.FoxCraftingRecipe;
+import me.foxils.foxutils.utility.ItemAbility;
+import me.foxils.foxutils.utility.ItemUtils;
+import net.md_5.bungee.api.ChatColor;
 
-@SuppressWarnings("unused")
 public abstract class Item {
 
-    private final NamespacedKey ITEM_KEY;
+    private final NamespacedKey key;
 
     private final Plugin plugin;
 
@@ -33,8 +34,8 @@ public abstract class Item {
 
     private FoxCraftingRecipe recipe;
 
-    public Item(@NotNull Plugin plugin, @NotNull Material itemMaterial, @NotNull String name, int customModelData, @Nullable List<ItemAbility> abilityList, @Nullable List<ItemStack> itemsForRecipe, boolean areRecipeItemsExact, boolean isRecipeShaped) {
-        this.ITEM_KEY = new NamespacedKey(plugin, ChatColor.stripColor(name).replace("[", "").replace("]", "").replace(" ", "_").replace("'", "").toLowerCase());
+    public Item(final @NotNull NamespacedKey key, final @NotNull Plugin plugin, final @NotNull Material itemMaterial, final @NotNull String name, final int customModelData, final @Nullable List<ItemAbility> abilityList, final @Nullable List<ItemStack> itemsForRecipe, final boolean areRecipeItemsExact, final boolean isRecipeShaped) {
+        this.key = key;
 
         this.plugin = plugin;
 
@@ -52,7 +53,7 @@ public abstract class Item {
 
             lore.add(" ");
 
-            for (ItemAbility itemAbility : abilityList) {
+            for (final ItemAbility itemAbility : abilityList) {
                 lore.addAll(itemAbility.toLore());
 
                 if (!lastAbility.equals(itemAbility))
@@ -62,7 +63,7 @@ public abstract class Item {
 
         // TODO: Needs to be done differently asap.
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            this.recipe = new FoxCraftingRecipe(itemsForRecipe, ITEM_KEY, createItem(1), areRecipeItemsExact, isRecipeShaped);
+            this.recipe = new FoxCraftingRecipe(itemsForRecipe, key, createItem(1), areRecipeItemsExact, isRecipeShaped);
 
             final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
 
@@ -74,7 +75,7 @@ public abstract class Item {
     }
 
     @OverridingMethodsMustInvokeSuper
-    public @NotNull ItemStack createItem(int amount) {
+    public @NotNull ItemStack createItem(final int amount) {
         final ItemStack newItem = new ItemStack(itemMaterial);
 
         ItemUtils.addCustomName(newItem, name);
@@ -82,17 +83,17 @@ public abstract class Item {
         ItemUtils.addCustomModelData(newItem, customModelData);
 
         if (!ItemUtils.addUid(newItem))
-            plugin.getLogger().severe(ChatColor.RED + "Unable to add UID to ItemStack (" + newItem + ") of Item-Class: " + getClass());
+            plugin.getLogger().severe(ChatColor.RED + "Unable to add UID to ItemStack '" + newItem + "'");
 
         // Stores the item class's itemKey (The key that identifies the created ItemStack as an ItemStack of this Item-class) at the foxutils:fox_item location in NBT
-        if (!ItemUtils.addItemKey(ITEM_KEY, newItem))
-            plugin.getLogger().severe(ChatColor.RED + "Unable to add itemKey to ItemStack (" + newItem + ")");
+        if (!ItemUtils.addItemKey(key, newItem))
+            plugin.getLogger().severe(ChatColor.RED + "Unable to add item-key to ItemStack '" + newItem + "'");
 
         newItem.setAmount(amount);
         return newItem;
     }
 
-    public final void setRecipe(FoxCraftingRecipe recipe) {
+    public final void setRecipe(final FoxCraftingRecipe recipe) {
         this.recipe = recipe;
     }
 
@@ -109,7 +110,7 @@ public abstract class Item {
     }
 
     public @NotNull NamespacedKey getKey() {
-        return ITEM_KEY;
+        return key;
     }
 
     public @NotNull String getRawName() {
@@ -124,7 +125,7 @@ public abstract class Item {
         return itemMaterial;
     }
 
-    public @NotNull Plugin getPlugin() {
+    protected @NotNull Plugin getPlugin() {
         return plugin;
     }
 }
