@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import me.foxils.foxutils.Item;
@@ -17,15 +16,18 @@ import net.md_5.bungee.api.ChatColor;
 public class GetRegisteredItem implements CommandExecutor {
 
     // TODO: Needs a rewrite + extensive testing
+    //
+    private final ItemRegistry itemRegistry;
 
-    private final Plugin plugin;
-
-    public GetRegisteredItem(final Plugin plugin) {
-        this.plugin = plugin;
+    public GetRegisteredItem(final @NotNull ItemRegistry itemRegistry) {
+        this.itemRegistry = itemRegistry;
     }
 
     @Override
-    public boolean onCommand(final @NotNull CommandSender commandSender, final @NotNull Command command, final @NotNull String commandName, final String[] args) {
+    public boolean onCommand(final @NotNull CommandSender commandSender,
+                             final @NotNull Command command,
+                             final @NotNull String commandName,
+                             final String[] args) {
         if (args.length == 0) {
             commandSender.sendMessage(ChatColor.DARK_RED + "No command arguments provided.");
             return true;
@@ -38,11 +40,12 @@ public class GetRegisteredItem implements CommandExecutor {
         if (args.length == 1) {
             final ArrayList<NamespacedKey> registeredItemKeys = new ArrayList<>();
 
-            for (final Item item : ItemRegistry.getRegisteredItems())
+            for (final Item item : itemRegistry.getRegisteredItems())
                 registeredItemKeys.add(item.getKey());
 
             if (registeredItemKeys.isEmpty()) {
-                commandSender.sendMessage(ChatColor.DARK_RED + "There are currently NO plugins that successfully register items using foxutils-items. Double check if your plugins have properly initialized and registered items in the console.");
+                commandSender.sendMessage(
+                        ChatColor.DARK_RED + "There are currently NO plugins that successfully register items using foxutils-items. Double check if your plugins have properly initialized and registered items in the console.");
                 return true;
             }
 
@@ -55,23 +58,23 @@ public class GetRegisteredItem implements CommandExecutor {
                 if (similarItemKeys > 1)
                     continue;
 
-                itemToGive = ItemRegistry.getItemFromKey(itemKey);
+                itemToGive = itemRegistry.getItemFromKey(itemKey);
             }
 
             if (similarItemKeys > 1) {
-                commandSender.sendMessage(ChatColor.RED + "There are currently " + similarItemKeys + " different Items that have a similar Item-key to '" + args[0] + ".'");
+                commandSender.sendMessage(
+                        ChatColor.RED + "There are currently " + similarItemKeys + " different Items that have a similar Item-key to '" + args[0] + ".'");
                 commandSender.sendMessage(ChatColor.RED + "Specify a specific Item-key refrencing /listitems.");
                 return true;
-            }
-
-            if (similarItemKeys == 0) {
+            } else if (similarItemKeys == 0) {
                 commandSender.sendMessage(ChatColor.RED + "No Item-key matching '" + args[0] + "' was found.");
                 commandSender.sendMessage(ChatColor.RED + "Specify an Item-key refrencing /listitems.");
                 return true;
             }
 
             if (!(commandSender instanceof Player)) {
-                commandSender.sendMessage(ChatColor.RED + "No player was specified to give the '" + itemToGive.getName() + "' to.");
+                commandSender.sendMessage(
+                        ChatColor.RED + "No player was specified to give the '" + itemToGive.getName() + "' to.");
                 return true;
             }
 
@@ -93,7 +96,8 @@ public class GetRegisteredItem implements CommandExecutor {
             return true;
 
         if (!playerToGiveTo.getInventory().addItem(itemToGive.createItem(amountToGive)).isEmpty()) {
-            commandSender.sendMessage(ChatColor.YELLOW + "Could not give '" + playerToGiveTo.getName() + "' all of the neccessary Items.");
+            commandSender.sendMessage(
+                    ChatColor.YELLOW + "Could not give '" + playerToGiveTo.getName() + "' all of the neccessary Items.");
             return true;
         }
 

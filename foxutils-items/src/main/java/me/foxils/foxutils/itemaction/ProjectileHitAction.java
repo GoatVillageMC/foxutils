@@ -1,6 +1,7 @@
 package me.foxils.foxutils.itemaction;
 
 import org.bukkit.entity.AbstractArrow;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -21,20 +22,29 @@ public interface ProjectileHitAction extends ActionInterface {
 
     /**
      *
-     * @param projectileHitEvent The event that was used to call this method.
-     * @param thisItemStack The ItemStack derived from the implementing Item-class that was used to fire this method.
-     * @param hittingProjectile The projectile launched and tagged using ({@link ItemUtils#addRelatedItemStackUid})
+     * @param projectileHitEvent The ({@link ProjectileHitEvent}) that was used to call this method.
+     * @param thisItemStack The ({@link ItemStack}) derived from the implementing ({@link Item}) that was used to fire this method.
+     * @param hittingProjectile The ({@link Projectile}) that hit and was tagged using ({@link ItemUtils#addRelatedItemStackUid})
+     * @param shooterPlayer The who had launched the hittingProjectile
      */
-    default void onProjectileFromThisItemHit(final @NotNull ProjectileHitEvent projectileHitEvent, final @NotNull ItemStack thisItemStack, final @NotNull Projectile hittingProjectile) {
+    default void onProjectileFromThisItemHit(final @NotNull ProjectileHitEvent projectileHitEvent,
+                                             final @NotNull ItemStack thisItemStack,
+                                             final @NotNull Projectile hittingProjectile,
+                                             final @NotNull Player shooterPlayer) {
     }
 
     /**
      *
-     * @param projectileHitEvent The event that was used to call this method.
-     * @param thisItemStack The ItemStack derived from the implementing Item-class that was used to fire this method.
-     * @param itemStackUsedToLaunch The ItemStack derived from ({@link ProjectileHitAction}) that was used to shoot the projectile.
-     * @param hittingProjectile The projectile launched and tagged using ({@link ItemUtils#addRelatedItemStackUid})
+     * @param projectileHitEvent The ({@link ProjectileHitEvent}) that was used to call this method.
+     * @param thisItemStack The ({@link ItemStack}) derived from the implementing ({@link Item}) that was used to fire this method.
+     * @param itemStackUsedToLaunch The ({@link ItemStack}) derived that was used to launch the hittingProjectile.
+     * @param hittingProjectile The ({@link Projectile}) that hit and was tagged using ({@link ItemUtils#addRelatedItemStackUid})
+     * @param shooterPlayer The who had launched the hittingProjectile
      */
-    default void onProjectileFromOtherItemHit(final @NotNull ProjectileHitEvent projectileHitEvent, final @NotNull ItemStack thisItemStack, final @NotNull ItemStack itemStackUsedToLaunch, final @NotNull Projectile hittingProjectile) {
+    default void onProjectileFromOtherItemHit(final @NotNull ProjectileHitEvent projectileHitEvent,
+                                              final @NotNull ItemStack thisItemStack,
+                                              final @NotNull ItemStack itemStackUsedToLaunch,
+                                              final @NotNull Projectile hittingProjectile,
+                                              final @NotNull Player shooterPlayer) {
     }
 }

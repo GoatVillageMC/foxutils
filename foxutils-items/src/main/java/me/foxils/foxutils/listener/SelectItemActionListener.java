@@ -5,11 +5,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.jetbrains.annotations.NotNull;
 
 import me.foxils.foxutils.itemaction.SelectItemAction;
 import me.foxils.foxutils.registry.ItemRegistry;
 
 public final class SelectItemActionListener implements Listener {
+
+    private final ItemRegistry itemRegistry;
+
+    public SelectItemActionListener(final @NotNull ItemRegistry itemRegistry) {
+        this.itemRegistry = itemRegistry;
+    }
 
     @EventHandler
     public void onPlayerHoldItem(final PlayerItemHeldEvent playerItemHeldEvent) {
@@ -18,7 +25,7 @@ public final class SelectItemActionListener implements Listener {
         final ItemStack itemStackSelected = playerInventory.getItem(playerItemHeldEvent.getNewSlot());
         final ItemStack itemStackUnselected = playerInventory.getItem(playerItemHeldEvent.getPreviousSlot());
         for (final ItemStack itemStack : playerInventory.getContents()) {
-            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof final SelectItemAction selectItemActionItem))
+            if (!(itemRegistry.getItemFromItemStack(itemStack) instanceof final SelectItemAction selectItemActionItem))
                 continue;
 
             if (itemStackSelected != null && itemStackSelected.equals(itemStack)) {

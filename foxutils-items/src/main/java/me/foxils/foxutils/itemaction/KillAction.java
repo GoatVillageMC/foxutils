@@ -9,9 +9,16 @@ import org.jetbrains.annotations.Nullable;
 
 public interface KillAction extends ActionInterface {
 
-    default void onKillWithThisItem(final @NotNull EntityDeathEvent playerDeathEvent, final @NotNull ItemStack thisItemStack, final @NotNull LivingEntity killedEntity, final @NotNull Player killerPlayer) {
+    default void onKillWithThisItem(final @NotNull EntityDeathEvent playerDeathEvent,
+                                    final @NotNull ItemStack thisItemStack,
+                                    final @NotNull LivingEntity killedEntity,
+                                    final @NotNull Player killerPlayer) {
     }
 
-    default void onKillWithOtherItem(final @NotNull EntityDeathEvent playerDeathEvent, final @NotNull ItemStack thisItemStack, final @Nullable ItemStack itemStackUsedToKill, final @NotNull LivingEntity killedEntity, final @NotNull Player killerPlayer) {
+    default void onKillWithOtherItem(final @NotNull EntityDeathEvent playerDeathEvent,
+                                     final @NotNull ItemStack thisItemStack,
+                                     final @Nullable ItemStack itemStackUsedToKill,
+                                     final @NotNull LivingEntity killedEntity,
+                                     final @NotNull Player killerPlayer) {
     }
 }

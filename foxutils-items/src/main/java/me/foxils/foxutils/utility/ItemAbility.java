@@ -4,36 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("unused")
-public class ItemAbility {
-
-    // Move this to a properties file
-    // Basically a file that I specify that will never be changed and can hold constants
-    // instead of constructing a potentially infinite amount of these ItemAbility objects
-
-    private final String name;
-    private final List<String> description;
-
-    private final ActionType actionType;
-
-    private int cooldownTime;
-
-    public ItemAbility(final String name, final List<String> description, final ActionType actionType) {
-        this.name = name;
-        this.description = description;
-
-        this.actionType = actionType;
-    }
-
-    public ItemAbility(final String name, final List<String> description, final ActionType actionType, final int cooldownTime) {
-        this.name = name;
-        this.description = description;
-
-        this.actionType = actionType;
-
-        this.cooldownTime = cooldownTime;
-    }
+public record ItemAbility(@NotNull String name,
+                          @NotNull List<String> description,
+                          @NotNull ActionType actionType,
+                          @Nullable Integer cooldownTime) {
 
     public List<String> toLore() {
         final List<String> lore = new ArrayList<>();
@@ -41,31 +18,47 @@ public class ItemAbility {
         if (actionType == ActionType.PASSIVE) {
             lore.add(ChatColor.DARK_AQUA + actionType.getText());
         } else {
-            lore.add(ChatColor.GOLD + "Ability: " + name + ChatColor.RED + ChatColor.BOLD + " [" + ChatColor.YELLOW + ChatColor.BOLD + actionType.getText() + ChatColor.RED + ChatColor.BOLD + "]");
+            lore.add(
+                    ChatColor.GOLD + "Ability: " + name + ChatColor.RED + ChatColor.BOLD + " [" + ChatColor.YELLOW + ChatColor.BOLD + actionType.getText() + ChatColor.RED + ChatColor.BOLD + "]");
         }
 
         description.forEach(line -> lore.add(ChatColor.GRAY + " " + line));
 
-        if (cooldownTime > 0)
+        if (cooldownTime != null && cooldownTime > 0)
             lore.add(" " + ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + cooldownTime + "s.");
 
         return lore;
     }
 
-    public String getName() {
-        return name;
-    }
+    public enum ActionType {
+        LEFT_CLICK("Left-Click"),
+        SHIFT_LEFT_CLICK("Sneaking + Left-Click"),
+        RIGHT_CLICK("Right-Click"),
+        SHIFT_RIGHT_CLICK("Sneaking + Right-Click"),
+        MIDDLE_CLICK("Middle-Click"),
+        FULL_SET_BONUS("Full Set Bonus"),
+        KILL("On-Kill"),
+        ATTACK("On-Attack"),
+        SHOT("On-Shoot"),
+        LAUNCH("On-Launch"),
+        MINE("On-Mine"),
+        DROP("On-Drop"),
+        SWAP_HANDS("Swap Off-Hand"),
+        CRAFT("On-Craft"),
+        SHIFT_DROP("Sneaking + On-Drop"),
+        DOUBLE_JUMP("Double Jump"),
+        SHIFT_DOUBLE_JUMP("Sneaking + Double Jump"),
+        PASSIVE("Passive Ability:"),
+        NONE("");
 
-    public List<String> getDescription() {
-        return description;
-    }
+        private final String text;
 
-    public ActionType getType() {
-        return actionType;
-    }
+        ActionType(final String text) {
+            this.text = text;
+        }
 
-    public int getCooldown() {
-        return cooldownTime;
+        public String getText() {
+            return text;
+        }
     }
-
 }

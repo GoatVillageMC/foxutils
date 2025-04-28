@@ -2,6 +2,7 @@ package me.foxils.foxutils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
@@ -10,31 +11,43 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import me.foxils.foxutils.FoxutilsItems.PDCLocationKey;
 import me.foxils.foxutils.utility.FoxCraftingRecipe;
 import me.foxils.foxutils.utility.ItemAbility;
-import me.foxils.foxutils.utility.ItemUtils;
-import net.md_5.bungee.api.ChatColor;
 
 public abstract class Item {
 
     private final NamespacedKey key;
 
     private final Plugin plugin;
-
     private final Material itemMaterial;
+
     private final String name;
-    private final int customModelData;
+
+    private final Integer customModelData;
 
     private final List<ItemAbility> abilityList;
+
     private final List<String> lore;
 
     private FoxCraftingRecipe recipe;
 
-    public Item(final @NotNull NamespacedKey key, final @NotNull Plugin plugin, final @NotNull Material itemMaterial, final @NotNull String name, final int customModelData, final @Nullable List<ItemAbility> abilityList, final @Nullable List<ItemStack> itemsForRecipe, final boolean areRecipeItemsExact, final boolean isRecipeShaped) {
+    public Item(final @NotNull NamespacedKey key,
+                final @NotNull Plugin plugin,
+                final @NotNull Material itemMaterial,
+                final @NotNull String name,
+                final @Nullable Integer customModelData,
+                final @Nullable List<ItemAbility> abilityList,
+                final @Nullable List<ItemStack> itemsForRecipe, // This and below params are for recipe object
+                final boolean areRecipeItemsExact,
+                final boolean isRecipeShaped) {
         this.key = key;
 
         this.plugin = plugin;
@@ -76,20 +89,22 @@ public abstract class Item {
 
     @OverridingMethodsMustInvokeSuper
     public @NotNull ItemStack createItem(final int amount) {
-        final ItemStack newItem = new ItemStack(itemMaterial);
+        final ItemStack newItem = new ItemStack(itemMaterial, amount);
+        final ItemMeta itemMeta = newItem.getItemMeta();
 
-        ItemUtils.addCustomName(newItem, name);
-        ItemUtils.addItemLore(newItem, getLore());
-        ItemUtils.addCustomModelData(newItem, customModelData);
+        itemMeta.setDisplayName(name);
+        itemMeta.setCustomModelData(customModelData);
+        itemMeta.setLore(getLore());
 
-        if (!ItemUtils.addUid(newItem))
-            plugin.getLogger().severe(ChatColor.RED + "Unable to add UID to ItemStack '" + newItem + "'");
+        {
+            final PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
+            // Stores the item class's itemKey (The key that identifies the created
+            // ItemStack as an ItemStack of whatever Item-class (template)) at the foxutils-items:fox_item location
+            persistentDataContainer.set(PDCLocationKey.ITEMSTACK_ITEMKEY_STORAGE, PersistentDataType.STRING, key.toString());
+            persistentDataContainer.set(PDCLocationKey.ITEMSTACK_UID_STORAGE, PersistentDataType.STRING, UUID.randomUUID().toString());
+        }
 
-        // Stores the item class's itemKey (The key that identifies the created ItemStack as an ItemStack of this Item-class) at the foxutils:fox_item location in NBT
-        if (!ItemUtils.addItemKey(key, newItem))
-            plugin.getLogger().severe(ChatColor.RED + "Unable to add item-key to ItemStack '" + newItem + "'");
-
-        newItem.setAmount(amount);
+        newItem.setItemMeta(itemMeta);
         return newItem;
     }
 
@@ -97,8 +112,8 @@ public abstract class Item {
         this.recipe = recipe;
     }
 
-    public @NotNull List<String> getLore() {
-        return lore;
+    public @Nullable List<String> getLore() {
+        return new ArrayList<>(lore);
     }
 
     public @Nullable FoxCraftingRecipe getRecipe() {
@@ -106,15 +121,11 @@ public abstract class Item {
     }
 
     public @NotNull List<ItemAbility> getAbilityList() {
-        return abilityList;
+        return new ArrayList<>(abilityList);
     }
 
     public @NotNull NamespacedKey getKey() {
         return key;
-    }
-
-    public @NotNull String getRawName() {
-        return getKey().getKey();
     }
 
     public @NotNull String getName() {

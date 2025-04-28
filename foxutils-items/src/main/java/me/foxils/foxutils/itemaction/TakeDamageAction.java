@@ -7,5 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface TakeDamageAction extends ActionInterface {
 
-    void onTakeDamage(final @NotNull EntityDamageEvent entityDamageEvent, final @NotNull ItemStack thisItemStack, final @NotNull Player damagedPlayer);
+    public void onTakeDamage(final @NotNull EntityDamageEvent entityDamageEvent,
+                             final @NotNull ItemStack thisItemStack,
+                             final @NotNull Player damagedPlayer);
 }

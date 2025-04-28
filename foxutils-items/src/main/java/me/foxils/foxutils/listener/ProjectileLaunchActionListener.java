@@ -9,13 +9,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
-import me.foxils.foxutils.itemaction.ProjectileHitAction;
 import me.foxils.foxutils.itemaction.ProjectileLaunchAction;
 import me.foxils.foxutils.registry.ItemRegistry;
 import me.foxils.foxutils.utility.ItemUtils;
 
 public final class ProjectileLaunchActionListener implements Listener {
+
+    private final ItemRegistry itemRegistry;
+
+    public ProjectileLaunchActionListener(final @NotNull ItemRegistry itemRegistry) {
+        this.itemRegistry = itemRegistry;
+    }
 
     @SuppressWarnings("UnstableApiUsage")
     @EventHandler
@@ -35,10 +42,12 @@ public final class ProjectileLaunchActionListener implements Listener {
                 projectileLaunchingItemStack = abstractArrow.getItem();
             else {
                 for (final ItemStack itemStack : playerInventoryContents) {
-                    if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof ProjectileHitAction))
+                    final ItemMeta itemMeta = itemStack.getItemMeta();
+
+                    if (!(itemRegistry.getItemFromItemMeta(itemMeta) instanceof ProjectileLaunchAction))
                         continue;
 
-                    if (!projectileRelatedItemUid.equals(ItemUtils.getUid(itemStack)))
+                    if (!projectileRelatedItemUid.equals(ItemUtils.getUidFromItemMeta(itemMeta)))
                         continue;
 
                     projectileLaunchingItemStack = itemStack;
@@ -51,7 +60,7 @@ public final class ProjectileLaunchActionListener implements Listener {
             return;
 
         for (final ItemStack itemStack : playerInventoryContents) {
-            if (!(ItemRegistry.getItemFromItemStack(itemStack) instanceof final ProjectileLaunchAction projectileLaunchActionItem))
+            if (!(itemRegistry.getItemFromItemStack(itemStack) instanceof final ProjectileLaunchAction projectileLaunchActionItem))
                 continue;
 
             if (projectileLaunchingItemStack.equals(itemStack))

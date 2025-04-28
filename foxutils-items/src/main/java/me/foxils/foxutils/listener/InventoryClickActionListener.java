@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import me.foxils.foxutils.itemaction.InventoryClickActions;
 import me.foxils.foxutils.registry.ItemRegistry;
@@ -13,6 +14,12 @@ import me.foxils.foxutils.registry.ItemRegistry;
 public final class InventoryClickActionListener implements Listener {
 
     private static final int OFFHAND_ITEM_SLOT_INDEX = 40;
+
+    private final ItemRegistry itemRegistry;
+
+    public InventoryClickActionListener(final @NotNull ItemRegistry itemRegistry) {
+        this.itemRegistry = itemRegistry;
+    }
 
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent inventoryClickEvent) {
@@ -29,10 +36,13 @@ public final class InventoryClickActionListener implements Listener {
         } else
             clickedItem = inventoryClickEvent.getCurrentItem();
 
+
         final ItemStack cursorItem = inventoryClickEvent.getCursor();
-        if (ItemRegistry.getItemFromItemStack(clickedItem) instanceof final InventoryClickActions inventoryClickActionItem)
+
+        if (itemRegistry.getItemFromItemStack(clickedItem) instanceof final InventoryClickActions inventoryClickActionItem)
             inventoryClickActionItem.onInventoryClick(inventoryClickEvent, clickedItem, cursorItem);
-        if (ItemRegistry.getItemFromItemStack(cursorItem) instanceof final InventoryClickActions inventoryClickActionItem)
+
+        if (itemRegistry.getItemFromItemStack(cursorItem) instanceof final InventoryClickActions inventoryClickActionItem)
             inventoryClickActionItem.onInventoryInteract(inventoryClickEvent, cursorItem, clickedItem);
     }
 }

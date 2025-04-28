@@ -7,9 +7,12 @@ import org.jetbrains.annotations.Nullable;
 
 public interface MineAction extends ActionInterface {
 
-    default void onMineWithThisItem(final @NotNull BlockBreakEvent blockBreakEvent, final @NotNull ItemStack thisItemStack) {
+    default void onMineWithThisItem(final @NotNull BlockBreakEvent blockBreakEvent,
+                                    final @NotNull ItemStack thisItemStack) {
     }
 
-    default void onMineWithOtherItem(final @NotNull BlockBreakEvent blockBreakEvent, final @NotNull ItemStack thisItemStack, final @Nullable ItemStack itemStackUsedToMine) {
+    default void onMineWithOtherItem(final @NotNull BlockBreakEvent blockBreakEvent,
+                                     final @NotNull ItemStack thisItemStack,
+                                     final @Nullable ItemStack itemStackUsedToMine) {
     }
 }

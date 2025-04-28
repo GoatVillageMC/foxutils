@@ -5,13 +5,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import me.foxils.foxutils.itemaction.ClickActions;
 import me.foxils.foxutils.registry.ItemRegistry;
 
 public final class ClickActionsListener implements Listener {
 
-    // TODO: Re-evaluate the switch, seems kinda long-winded imo
+    private final ItemRegistry itemRegistry;
+
+    public ClickActionsListener(final @NotNull ItemRegistry itemRegistry) {
+        this.itemRegistry = itemRegistry;
+    }
 
     @EventHandler
     public void onInteract(final PlayerInteractEvent event) {
@@ -20,8 +25,7 @@ public final class ClickActionsListener implements Listener {
             return;
 
         final ItemStack itemInteracted = event.getItem();
-
-        if (!(ItemRegistry.getItemFromItemStack(itemInteracted) instanceof final ClickActions clickActionItem))
+        if (!(itemRegistry.getItemFromItemStack(itemInteracted) instanceof final ClickActions clickActionItem))
             return;
 
         final boolean shifting = event.getPlayer().isSneaking();
