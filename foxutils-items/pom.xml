@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>foxutils-items</artifactId>
-    <version>1.24.1-SNAPSHOT</version>
+    <version>1.24.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>

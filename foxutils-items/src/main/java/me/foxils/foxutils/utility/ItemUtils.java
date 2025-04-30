@@ -175,8 +175,8 @@ public final class ItemUtils {
 
         // (timestampOfNowInNanoseconds - timestampOfLastCooldownInNanoseconds) > (cooldownInSeconds * 1000000000)
         // timeSinceLastCooldownInNanoseconds > cooldownInNanoseconds
-        if ((timestampOfNowInNanoseconds - Objects.requireNonNullElse(itemMeta.getPersistentDataContainer().get(key, PersistentDataType.LONG), 0L)) > (cooldownInSeconds * 1000000000)) {
-            itemMeta.getPersistentDataContainer().set(key, PersistentDataType.LONG, timestampOfNowInNanoseconds);
+        if ((timestampOfNowInNanoseconds - Objects.requireNonNullElse(getDataOfType(PersistentDataType.LONG, key, itemMeta), 0L)) > (cooldownInSeconds * 1000000000)) {
+            storeDataOfType(PersistentDataType.LONG, timestampOfNowInNanoseconds, key, itemMeta);
             return false;
         }
 

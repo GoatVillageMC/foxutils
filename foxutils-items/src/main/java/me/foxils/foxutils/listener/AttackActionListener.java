@@ -59,7 +59,7 @@ public final class AttackActionListener implements Listener {
                     return;
 
                 for (final ItemStack itemStack : attackerInventoryContents) {
-                    if (!(relatedItemUid.equals(ItemUtils.getUidFromItemStack(itemStack))))
+                    if (!(relatedItemUid.equals(ItemUtils.getUid(itemStack))))
                         continue;
 
                     itemStackUsedToAttack = itemStack;

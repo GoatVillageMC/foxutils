@@ -47,7 +47,7 @@ public final class ProjectileLaunchActionListener implements Listener {
                     if (!(itemRegistry.getItemFromItemMeta(itemMeta) instanceof ProjectileLaunchAction))
                         continue;
 
-                    if (!projectileRelatedItemUid.equals(ItemUtils.getUidFromItemMeta(itemMeta)))
+                    if (!projectileRelatedItemUid.equals(ItemUtils.getUid(itemMeta)))
                         continue;
 
                     projectileLaunchingItemStack = itemStack;

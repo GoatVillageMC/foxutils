@@ -46,7 +46,7 @@ public final class ProjectileHitActionListener implements Listener {
                     if (!(itemRegistry.getItemFromItemMeta(itemMeta) instanceof ProjectileHitAction))
                         continue;
 
-                    if (!projectileRelatedItemUid.equals(ItemUtils.getUidFromItemMeta(itemMeta)))
+                    if (!projectileRelatedItemUid.equals(ItemUtils.getUid(itemMeta)))
                         continue;
 
                     projectileLaunchingItemStack = itemStack;
@@ -63,11 +63,9 @@ public final class ProjectileHitActionListener implements Listener {
                 continue;
 
             if (projectileLaunchingItemStack.equals(itemStack))
-                projectileHitActionItem.onProjectileFromThisItemHit(projectileHitEvent, projectileLaunchingItemStack, hitterProjectile,
-                        shooterPlayer);
+                projectileHitActionItem.onProjectileFromThisItemHit(projectileHitEvent, projectileLaunchingItemStack, hitterProjectile, shooterPlayer);
             else
-                projectileHitActionItem.onProjectileFromOtherItemHit(projectileHitEvent, itemStack, projectileLaunchingItemStack, hitterProjectile,
-                        shooterPlayer);
+                projectileHitActionItem.onProjectileFromOtherItemHit(projectileHitEvent, itemStack, projectileLaunchingItemStack, hitterProjectile, shooterPlayer);
         }
     }
 }
