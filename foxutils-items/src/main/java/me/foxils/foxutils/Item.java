@@ -12,8 +12,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import me.foxils.foxutils.FoxutilsItems.PDCLocationKey;
 import me.foxils.foxutils.utility.FoxCraftingRecipe;
 import me.foxils.foxutils.utility.ItemAbility;
+import me.foxils.foxutils.utility.ItemUtils;
 
 public abstract class Item {
 
@@ -76,7 +75,8 @@ public abstract class Item {
 
         // TODO: Needs to be done differently asap.
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            this.recipe = new FoxCraftingRecipe(itemsForRecipe, key, createItem(1), areRecipeItemsExact, isRecipeShaped);
+            this.recipe = new FoxCraftingRecipe(itemsForRecipe, key, createItem(1), areRecipeItemsExact,
+                    isRecipeShaped);
 
             final Recipe bukkitRecipe = this.recipe.getConvertedRecipe();
 
@@ -96,13 +96,10 @@ public abstract class Item {
         itemMeta.setCustomModelData(customModelData);
         itemMeta.setLore(getLore());
 
-        {
-            final PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
-            // Stores the item class's itemKey (The key that identifies the created
-            // ItemStack as an ItemStack of whatever Item-class (template)) at the foxutils-items:fox_item location
-            persistentDataContainer.set(PDCLocationKey.ITEMSTACK_ITEMKEY_STORAGE, PersistentDataType.STRING, key.toString());
-            persistentDataContainer.set(PDCLocationKey.ITEMSTACK_UID_STORAGE, PersistentDataType.STRING, UUID.randomUUID().toString());
-        }
+        // Stores the item class's itemKey (The key that identifies the created
+        // ItemStack as an ItemStack of whatever Item-class (template)) at the foxutils-items:fox_item location
+        ItemUtils.storeStringData(key.toString(), PDCLocationKey.ITEMSTACK_ITEMKEY_STORAGE, itemMeta);
+        ItemUtils.storeStringData(UUID.randomUUID().toString(), PDCLocationKey.ITEMSTACK_UID_STORAGE, itemMeta);
 
         newItem.setItemMeta(itemMeta);
         return newItem;
