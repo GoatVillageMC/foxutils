@@ -12,52 +12,140 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import me.foxils.foxutils.FoxutilsItems.PDCLocationKey;
+import net.minecraft.world.entity.animal.EntityFox.i;
 
-@SuppressWarnings("UnstableApiUsage")
 public final class ItemUtils {
 
+    public static <Primitive, Complex> boolean storeDataOfType(@NotNull PersistentDataType<Primitive, Complex> type,
+                                                               @NotNull Complex data,
+                                                               @NotNull NamespacedKey key,
+                                                               @NotNull ItemMeta itemMeta) {
+        itemMeta.getPersistentDataContainer().set(key, type, data);
+        return true;
+    }
 
-    public static @Nullable NamespacedKey getFoxItemKey(final @Nullable ItemMeta itemMeta) {
-        if (itemMeta == null)
+    public static boolean storeBooleanData(@NotNull Boolean booleanData,
+                                           @NotNull NamespacedKey key,
+                                           @NotNull ItemMeta itemMeta) {
+        return storeDataOfType(PersistentDataType.BOOLEAN, booleanData, key, itemMeta);
+    }
+
+    public static boolean storeIntegerData(@NotNull Integer integerData,
+                                           @NotNull NamespacedKey key,
+                                           @NotNull ItemMeta itemMeta) {
+        return storeDataOfType(PersistentDataType.INTEGER, integerData, key, itemMeta);
+    }
+
+    public static boolean storeStringData(@NotNull String stringData,
+                                          @NotNull NamespacedKey key,
+                                          @NotNull ItemMeta itemMeta) {
+        return storeDataOfType(PersistentDataType.STRING, stringData, key, itemMeta);
+    }
+
+    public static <Primitive, Complex> boolean storeDataOfType(@NotNull PersistentDataType<Primitive, Complex> type,
+                                                               @NotNull Complex data,
+                                                               @NotNull NamespacedKey key,
+                                                               @NotNull ItemStack itemStack) {
+        if (!itemStack.hasItemMeta())
+            return false;
+
+        return storeDataOfType(type, data, key, itemStack.getItemMeta());
+    }
+
+    public static boolean storeBooleanData(@NotNull Boolean booleanData,
+                                           @NotNull NamespacedKey key,
+                                           @NotNull ItemStack itemStack) {
+        return storeDataOfType(PersistentDataType.BOOLEAN, booleanData, key, itemStack);
+    }
+
+    public static boolean storeIntegerData(@NotNull Integer integerData,
+                                           @NotNull NamespacedKey key,
+                                           @NotNull ItemStack itemStack) {
+        return storeDataOfType(PersistentDataType.INTEGER, integerData, key, itemStack);
+    }
+
+    public static boolean storeStringData(@NotNull String stringData,
+                                          @NotNull NamespacedKey key,
+                                          @NotNull ItemStack itemStack) {
+        return storeDataOfType(PersistentDataType.STRING, stringData, key, itemStack);
+    }
+
+    public static <Primitive, Complex> @Nullable Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type,
+                                                                       @NotNull NamespacedKey key,
+                                                                       @NotNull ItemMeta itemMeta) {
+        return itemMeta.getPersistentDataContainer().get(key, type);
+    }
+
+    public static @Nullable Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemMeta itemMeta) {
+        return getDataOfType(PersistentDataType.BOOLEAN, key, itemMeta);
+    }
+
+    public static @Nullable Integer getIntegerData(@NotNull NamespacedKey key, @NotNull ItemMeta itemMeta) {
+        return getDataOfType(PersistentDataType.INTEGER, key, itemMeta);
+    }
+
+    public static @Nullable String getStringData(@NotNull NamespacedKey key, @NotNull ItemMeta itemMeta) {
+        return getDataOfType(PersistentDataType.STRING, key, itemMeta);
+    }
+
+    public static <Primitive, Complex> @Nullable Complex getDataOfType(@NotNull PersistentDataType<Primitive, Complex> type,
+                                                                       @NotNull NamespacedKey key,
+                                                                       @NotNull ItemStack itemStack) {
+        if (!itemStack.hasItemMeta())
             return null;
 
+        return itemStack.getItemMeta().getPersistentDataContainer().get(key, type);
+    }
+
+    public static @Nullable Boolean getBooleanData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+        return getDataOfType(PersistentDataType.BOOLEAN, key, itemStack);
+    }
+
+    public static @Nullable Integer getIntegerData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+        return getDataOfType(PersistentDataType.INTEGER, key, itemStack);
+    }
+
+    public static @Nullable String getStringData(@NotNull NamespacedKey key, @NotNull ItemStack itemStack) {
+        return getDataOfType(PersistentDataType.STRING, key, itemStack);
+    }
+
+    public static @Nullable NamespacedKey getFoxItemKey(final @NotNull ItemMeta itemMeta) {
         final String itemKeyString = itemMeta.getPersistentDataContainer().get(PDCLocationKey.ITEMSTACK_ITEMKEY_STORAGE, PersistentDataType.STRING);
 
         return (itemKeyString == null) ? null : NamespacedKey.fromString(itemKeyString);
     }
 
-    public static @Nullable UUID getUidFromItemMeta(final @NotNull ItemMeta itemMeta) {
-        final String itemUid = itemMeta.getPersistentDataContainer().get(PDCLocationKey.ITEMSTACK_UID_STORAGE, PersistentDataType.STRING);
+    public static @Nullable NamespacedKey getFoxItemKey(final @NotNull ItemStack itemStack) {
+        return (itemStack.hasItemMeta()) ? getFoxItemKey(itemStack.getItemMeta()) : null;
+    }
+
+    public static @Nullable UUID getUid(final @NotNull ItemMeta itemMeta) {
+        final String itemUid = getStringData(PDCLocationKey.ITEMSTACK_UID_STORAGE, itemMeta);
 
         return (itemUid == null) ? null : UUID.fromString(itemUid);
     }
 
-    public static @Nullable UUID getUidFromItemStack(final @NotNull ItemStack itemStack) {
-        return getUidFromItemMeta(itemStack.getItemMeta());
+    public static @Nullable UUID getUid(final @NotNull ItemStack itemStack) {
+        return (itemStack.hasItemMeta()) ? getUid(itemStack.getItemMeta()) : null;
     }
 
     public static @Nullable boolean setRelatedItemUid(final @NotNull Projectile projectile,
                                                       final @NotNull ItemMeta itemMeta) {
-        final UUID itemUid = getUidFromItemMeta(itemMeta);
+        final UUID itemUid = getUid(itemMeta);
         if (itemUid == null)
             return false;
 
-        projectile.getPersistentDataContainer().set(PDCLocationKey.DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE, PersistentDataType.STRING,
-                itemUid.toString());
+        storeStringData(itemUid.toString(), PDCLocationKey.DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE, itemMeta);
         return true;
     }
 
     public static @Nullable boolean setRelatedItemUid(final @NotNull Projectile projectile,
                                                       final @NotNull ItemStack itemStack) {
-        if (!itemStack.hasItemMeta())
-            return false;
-
         return (itemStack.hasItemMeta()) ? setRelatedItemUid(projectile, itemStack.getItemMeta()) : false;
     }
 
     public static @Nullable UUID getRelatedItemUid(final @NotNull Projectile projectile) {
-        final String uidInStorage = projectile.getPersistentDataContainer().get(PDCLocationKey.DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE,
-                PersistentDataType.STRING);
+        final String uidInStorage = projectile.getPersistentDataContainer().get(PDCLocationKey.DATAHOLDER_RELATED_ITEMSTACK_UID_STORAGE, PersistentDataType.STRING);
 
         return (uidInStorage == null) ? null : UUID.fromString(uidInStorage);
     }
@@ -71,10 +159,7 @@ public final class ItemUtils {
     public static boolean getCooldown(final @NotNull NamespacedKey key,
                                       final @NotNull ItemStack itemStack,
                                       final double cooldownInSeconds) {
-        if (!itemStack.hasItemMeta())
-            return false;
-
-        return getCooldown(key, itemStack.getItemMeta(), cooldownInSeconds);
+        return (itemStack.hasItemMeta()) ? getCooldown(key, itemStack.getItemMeta(), cooldownInSeconds) : false;
     }
 
     /**
@@ -90,8 +175,7 @@ public final class ItemUtils {
 
         // (timestampOfNowInNanoseconds - timestampOfLastCooldownInNanoseconds) > (cooldownInSeconds * 1000000000)
         // timeSinceLastCooldownInNanoseconds > cooldownInNanoseconds
-        if ((timestampOfNowInNanoseconds - Objects.requireNonNullElse(itemMeta.getPersistentDataContainer().get(key, PersistentDataType.LONG),
-                0L)) > (cooldownInSeconds * 1000000000)) {
+        if ((timestampOfNowInNanoseconds - Objects.requireNonNullElse(itemMeta.getPersistentDataContainer().get(key, PersistentDataType.LONG), 0L)) > (cooldownInSeconds * 1000000000)) {
             itemMeta.getPersistentDataContainer().set(key, PersistentDataType.LONG, timestampOfNowInNanoseconds);
             return false;
         }
