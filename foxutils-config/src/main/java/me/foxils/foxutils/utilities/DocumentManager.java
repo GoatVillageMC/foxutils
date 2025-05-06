@@ -9,42 +9,35 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
 public abstract class DocumentManager {
 
-    // TODO: Replace logging with a more general system
-
     protected final YamlDocument document;
 
-    public DocumentManager(@NotNull File documentToManage) {
+    private final Logger logger;
+
+    public DocumentManager(final @NotNull File documentToManage, final @NotNull Logger logger) {
         this.document = getYamlDocument(documentToManage);
+        this.logger = logger;
     }
 
-    private YamlDocument getYamlDocument(@NotNull File documentFile) {
+    private YamlDocument getYamlDocument(final @NotNull File documentFile) {
         if (!documentFile.exists()) {
             try {
                 if (!documentFile.createNewFile()) {
-                    Bukkit.getLogger().severe("Failed to create file at path \"" + documentFile.getPath()
-                            + "\" for DocumentManager: " + this.getClass().getName());
+                    logger.severe("Failed to create file at path \"" + documentFile.getPath() + "\" for DocumentManager: " + this.getClass().getName());
                     return null;
                 }
             } catch (IOException ioE) {
-                Bukkit.getLogger().severe("Failed to create file at path \"" + documentFile.getPath()
-                        + "\" for DocumentManager: " + this.getClass().getName());
-
-                for (StackTraceElement stackTraceElement : ioE.getStackTrace())
-                    Bukkit.getLogger().severe(stackTraceElement.toString());
+                logger.log(Level.SEVERE, "Failed to create file at path \"" + documentFile.getPath() + "\" for DocumentManager: " + this.getClass().getName(), ioE.getStackTrace());
             }
         }
 
         try {
-            return YamlDocument.create(documentFile,
-                    GeneralSettings.builder()
-                            .setKeyFormat(GeneralSettings.KeyFormat.STRING)
-                            .build(),
-                    LoaderSettings.DEFAULT,
-                    DumperSettings.DEFAULT);
+            return YamlDocument.create(documentFile, GeneralSettings.builder().setKeyFormat(GeneralSettings.KeyFormat.STRING).build(), LoaderSettings.DEFAULT, DumperSettings.DEFAULT);
         } catch (IOException ioE) {
             throw new RuntimeException(ioE);
         }
