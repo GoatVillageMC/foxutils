@@ -1,13 +1,14 @@
 package me.foxils.foxutils.utilities;
 
+import org.jetbrains.annotations.NotNull;
+
 import dev.dejvokep.boostedyaml.block.implementation.Section;
 
-@SuppressWarnings("unused")
 public abstract class SectionManager {
 
     protected final Section section;
 
-    public SectionManager(Section sectionToManage) {
+    public SectionManager(final @NotNull Section sectionToManage) {
         this.section = sectionToManage;
     }
 

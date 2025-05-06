@@ -1,18 +1,17 @@
 package me.foxils.foxutils.utilities;
 
-import dev.dejvokep.boostedyaml.YamlDocument;
-import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
-import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
-import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
-import org.bukkit.Bukkit;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@SuppressWarnings("unused")
+import org.jetbrains.annotations.NotNull;
+
+import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
+import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
+import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
+
 public abstract class DocumentManager {
 
     protected final YamlDocument document;
@@ -31,14 +30,14 @@ public abstract class DocumentManager {
                     logger.severe("Failed to create file at path \"" + documentFile.getPath() + "\" for DocumentManager: " + this.getClass().getName());
                     return null;
                 }
-            } catch (IOException ioE) {
+            } catch (final IOException ioE) {
                 logger.log(Level.SEVERE, "Failed to create file at path \"" + documentFile.getPath() + "\" for DocumentManager: " + this.getClass().getName(), ioE.getStackTrace());
             }
         }
 
         try {
             return YamlDocument.create(documentFile, GeneralSettings.builder().setKeyFormat(GeneralSettings.KeyFormat.STRING).build(), LoaderSettings.DEFAULT, DumperSettings.DEFAULT);
-        } catch (IOException ioE) {
+        } catch (final IOException ioE) {
             throw new RuntimeException(ioE);
         }
     }
