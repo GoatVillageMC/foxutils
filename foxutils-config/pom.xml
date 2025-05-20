@@ -61,7 +61,7 @@
                     <relocations>
                         <relocation>
                             <pattern>dev.dejvokep.boostedyaml</pattern>
-                            <shadedPattern>me.foxils.foxutils.utilities</shadedPattern>
+                            <shadedPattern>me.foxils.foxutils.libraries</shadedPattern>
                         </relocation>
                     </relocations>
 
