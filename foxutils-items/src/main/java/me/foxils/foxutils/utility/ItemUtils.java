@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import me.foxils.foxutils.FoxutilsItems.PDCLocationKey;
-import net.minecraft.world.entity.animal.EntityFox.i;
 
 public final class ItemUtils {
 
