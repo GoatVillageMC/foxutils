@@ -60,7 +60,7 @@ public final class FoxutilsHud extends JavaPlugin {
         }
 
         private void sendPlayerHuds() {
-            final var playersOnline = plugin.getServer().getOnlinePlayers();
+            final List<Player> playersOnline = plugin.getServer().getOnlinePlayers();
 
             for (Player player : playersOnline) {
                 Player.Spigot spigotPlayer = player.spigot();
